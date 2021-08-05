@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  userApi: 'https://sgsew-backend.herokuapp.com',
-  journalApi: 'https://sgsew-backend.herokuapp.com',
-  authApi: 'https://sgsew-backend.herokuapp.com',
-  productApi: 'https://sgsew-backend.herokuapp.com'
+  userApi: '//sgsew-backend.herokuapp.com',
+  journalApi: '//sgsew-backend.herokuapp.com',
+  authApi: '//sgsew-backend.herokuapp.com',
+  productApi: '//sgsew-backend.herokuapp.com'
 };
