@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, of, throwError } from 'rxjs';
-import { catchError, shareReplay, tap } from 'rxjs/operators';
+import { catchError, filter, shareReplay, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IApiResponse, ILogin, IUser, Profile, RegisterUser } from '../types/user';
 
@@ -10,8 +10,21 @@ import { IApiResponse, ILogin, IUser, Profile, RegisterUser } from '../types/use
 })
 export class AuthService {
   getCsrfToken() {
-    return this.http.get(`${this.apiUrl}/auth/crsftoken`);
+    return this.http.get<any>(`${this.apiUrl}/auth/crsftoken`)
+      .pipe(
+        catchError(error => this.handleError(error)),
+        tap(value => this.csrfToken = value.token as string)
+      );
   }
+  private _csrfToken = '';
+
+  get csrfToken() {
+    return this._csrfToken;
+  }
+  set csrfToken(value) {
+    this._csrfToken = value;
+  }
+
   logOut() {
     return this.http.get(`${this.apiUrl}/auth/logout`)
       .pipe(

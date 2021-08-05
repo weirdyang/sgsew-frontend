@@ -7,16 +7,18 @@ import {
   HttpHeaders
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     console.log('intercepting')
     req = req.clone({
-      withCredentials: true
+      withCredentials: true,
+      setHeaders: { "X-MY-TOKEN": this.authService.csrfToken }
     });
 
     return next.handle(req);
