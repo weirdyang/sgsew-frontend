@@ -18,7 +18,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     console.log('intercepting')
     req = req.clone({
       withCredentials: true,
-      setHeaders: { "X-MY-TOKEN": this.authService.csrfToken }
+      setHeaders: { "x-csrf-token": this.authService.csrfToken }
     });
 
     return next.handle(req);
