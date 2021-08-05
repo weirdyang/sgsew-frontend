@@ -18,7 +18,7 @@ import { IErrorMessage } from 'src/app/types/http-error';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnDestroy {
   form!: FormGroup
   get password() {
     return this.form.get('password');
@@ -78,8 +78,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.isDarkSubscription.unsubscribe();
   }
 
-  ngOnInit(): void {
-  }
+
   save() {
     console.log(this.form.value as RegisterUser);
     this.authService.registerUser(this.form.value as RegisterUser)

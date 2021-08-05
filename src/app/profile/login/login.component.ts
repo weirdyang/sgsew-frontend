@@ -14,7 +14,7 @@ import { IErrorMessage } from 'src/app/types/http-error';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   user?: ILogin;
   form!: FormGroup;
   get password() {
@@ -53,8 +53,7 @@ export class LoginComponent implements OnInit {
   dismiss() {
     this.dialogRef.close();
   }
-  ngOnInit(): void {
-  }
+
   submit() {
     this.authService.loginUser(this.form.value as ILogin)
       .subscribe({

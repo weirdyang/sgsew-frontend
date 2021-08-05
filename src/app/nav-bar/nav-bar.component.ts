@@ -21,7 +21,7 @@ interface MenuItem {
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent implements OnDestroy, OnInit {
+export class NavBarComponent implements OnDestroy {
   menuItems: Array<MenuItem> = [{
     name: 'leaf', path: 'profile/posts', icon: 'leaf'
   }]
@@ -44,8 +44,6 @@ export class NavBarComponent implements OnDestroy, OnInit {
     private router: Router) { }
 
   crsfToken$ = this.authService.getCsrfToken();
-  ngOnInit(): void {
-  }
 
   @Output()
   toggleDarkEvent = new EventEmitter<boolean>();

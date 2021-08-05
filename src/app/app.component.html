@@ -1,4 +1,4 @@
-<app-nav-bar [ngClass]="{'light' : !(darkMode$ | async)}"
+<app-nav-bar [ngClass]="{'light' : (darkMode$ | async) === false}"
   [darkMode]="( darkMode$ | async)"
   (toggleDarkEvent)="toggleDarkMode($event)">
 </app-nav-bar>
