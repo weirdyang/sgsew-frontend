@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { avatars } from './config';
+import { ThemingService } from './services/core/theming.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'collab';
+  title = 'dark-mode';
+
+  darkMode$ = this.themeService.darkMode$;
+
+  constructor(private themeService: ThemingService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+    iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl('assets/svg/avatars.svg'))
+    avatars.forEach(name =>
+      iconRegistry.
+        addSvgIcon(name, sanitizer.bypassSecurityTrustResourceUrl(`assets/svg/${name}.svg`)))
+  }
+
+  toggleDarkMode(setting: boolean) {
+    this.themeService.setDarkPreference(setting);
+  }
 }

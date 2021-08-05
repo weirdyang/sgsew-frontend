@@ -1,0 +1,131 @@
+<form [formGroup]="form"
+    #createForm="ngForm"
+    (ngSubmit)="submitForm()"
+    [ngClass]="{'bd-overlay-dark': isSubmitting}"
+    novalidate>
+
+    <section class="header">
+        <div *ngIf="isSubmitting; else elseBlock">
+            <h2>Submitting</h2>
+        </div>
+        <ng-template #elseBlock>
+            <h2>Add New Product</h2>
+        </ng-template>
+    </section>
+    <section class="bm-button-row">
+        <button mat-raised-button
+            [disabled]="!form.valid || isSubmitting"
+            color="primary">Submit</button>
+        <span class="spacer">
+        </span>
+        <button mat-mini-fab
+            type="reset"
+            [disabled]="isSubmitting"
+            matTooltip="Reset the form"
+            color="accent">
+            <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-mini-fab
+            type="button"
+            color="warn"
+            matTooltip="Cancel and go back to the main page"
+            [disabled]="isSubmitting"
+            (click)="cancel()">
+            <mat-icon>cancel</mat-icon>
+        </button>
+    </section>
+    <mat-error *ngIf="errorMessage">
+        {{ errorMessage | titlecase}}
+    </mat-error>
+    <mat-error *ngIf="errorObject.name">
+        {{ errorObject.name | titlecase}}
+    </mat-error>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Product Name</mat-label>
+        <input matInput
+            placeholder="Eg. Super Special Fishcake"
+            formControlName="name">
+        <mat-error *ngIf="form.get('name')?.invalid && !form.get('name')?.hasError('required')">
+            Product name must be at least 8 characters
+        </mat-error>
+        <mat-error *ngIf="form.get('name')?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Product type</mat-label>
+        <input matInput
+            placeholder="Eg. Cooked food"
+            formControlName="productType">
+        <mat-error *ngIf="(form.get('productType')?.invalid && !form.get('productType')?.hasError('required'))">
+            {{ errorObject.productType || "Product type must be at least 8 characters"}}
+        </mat-error>
+        <mat-error *ngIf="form.get('productType')?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Product Description</mat-label>
+        <textarea matInput
+            [rows]="8"
+            formControlName="description"
+            placeholder="Eg. Super Special Fishcake is 100% made from wild caught salmon"></textarea>
+        <mat-error *ngIf="form.get('description')?.invalid && !form.get('description')?.hasError('required')">
+            Product description must be at least 8 characters
+        </mat-error>
+        <mat-error *ngIf="form.get('description')?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Product Image</mat-label>
+        <input matInput
+            [readonly]="true"
+            formControlName="fileName"
+            (click)="fileUpload.click()"
+            placeholder="
+            No file selected">
+        <button mat-mini-fab
+            matSuffix
+            color="primary"
+            class="upload-btn"
+            type="button"
+            (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+        <mat-error>
+            {{ formFile?.errors?.invalidFileSize ? "Max file size is 10mb." : '' }}
+            {{ formFile?.errors?.invalidType ? "Only images in png and jpg format are allowed." : '' }}
+            {{ formFile?.errors?.required ? " This is required.": '' }}
+        </mat-error>
+    </mat-form-field>
+
+    <section class="form-item">
+        <article class="file-input">
+            <input type="file"
+                class="file-input"
+                (change)="onFileSelected($event)"
+                [accept]="accepted"
+                #fileUpload>
+
+            <div class="file-upload">
+                <div class="preview-image"
+                    *ngIf="imageSrc !== ''
+                && imageSrc && form.get('file')?.valid">
+
+                    <img [src]="imageSrc"
+                        [alt]="fileName">
+                </div>
+                <div>
+                </div>
+            </div>
+        </article>
+        <mat-error *ngIf="errorObject.file">
+            {{ errorObject.file }}
+        </mat-error>
+    </section>
+</form>
