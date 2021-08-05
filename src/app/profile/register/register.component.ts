@@ -95,6 +95,9 @@ export class RegisterComponent implements OnDestroy {
               errorMessage += `${element.error}. `;
             });
           }
+          if (!errorMessage) {
+            errorMessage = error.message;
+          }
           this.snackBar.open(`${errorMessage}`, 'OK')
         }
       })
