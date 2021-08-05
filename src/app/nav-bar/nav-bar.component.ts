@@ -14,6 +14,7 @@ interface MenuItem {
   name: string;
   path: string;
   icon: string;
+  auth: boolean;
 }
 
 @Component({
@@ -22,9 +23,14 @@ interface MenuItem {
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnDestroy {
-  menuItems: Array<MenuItem> = [{
-    name: 'leaf', path: 'profile/posts', icon: 'leaf'
-  }]
+  menuItems: Array<MenuItem> = [
+    {
+      name: 'public', path: 'products/create', icon: 'orange', auth: true
+    },
+    {
+      name: 'private', path: 'products/create', icon: 'leaf', auth: false
+    }
+  ]
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
