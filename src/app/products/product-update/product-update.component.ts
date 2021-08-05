@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, Subject, BehaviorSubject } from 'rxjs';
@@ -19,7 +19,7 @@ import { ProductBaseComponent } from '../product-base/product-base.component';
   templateUrl: './product-update.component.html',
   styleUrls: ['./product-update.component.scss']
 })
-export class ProductUpdateComponent extends ProductBaseComponent implements OnInit {
+export class ProductUpdateComponent extends ProductBaseComponent implements OnInit, OnDestroy {
 
 
 
