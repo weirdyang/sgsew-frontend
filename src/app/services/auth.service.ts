@@ -93,7 +93,7 @@ export class AuthService {
   }
 
   checkKey(key: string) {
-    return this.http.get<IApiResponse>(`${this.apiUrl}/auth/key/${key}`)
+    return this.http.post<IApiResponse>(`${this.apiUrl}/auth/key`, { key })
       .pipe(
         catchError(error => this.handleError(error)),
       );
