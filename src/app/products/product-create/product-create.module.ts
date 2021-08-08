@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ProductCreateComponent } from './product-create.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,7 +30,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatSnackBarModule,
     ProductCreateRoutingModule,
-    MatTooltipModule
+    MatTooltipModule,
+  ],
+  providers: [
+    CurrencyPipe
   ],
   exports: [
     ProductCreateComponent,
