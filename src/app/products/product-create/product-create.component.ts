@@ -33,13 +33,17 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnDe
     super(router);
     this.form = this.fb.group({
       name: [null,
-        [Validators.required, Validators.minLength(8)]],
+        [Validators.required, Validators.minLength(6)]],
       description:
-        [null, [Validators.required, Validators.minLength(8)]],
+        [null, [Validators.required, Validators.minLength(6)]],
       file: [null,
         [Validators.required, fileTypeValidator, fileSizeValidator]],
       productType: [null,
-        [Validators.required, Validators.minLength(8)]],
+        [Validators.required, Validators.minLength(6)]],
+      brand: [null,
+        [Validators.required, Validators.minLength(3)]],
+      price: [0,
+        [Validators.required]],
       fileName: [null,
         [Validators.required, checkFileValidator]]
     })
