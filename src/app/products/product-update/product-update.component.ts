@@ -55,12 +55,19 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   private constructFormGroup(product: IProduct) {
     this.form = this.fb.group({
       name: [product.name,
-      [Validators.required, Validators.minLength(8)]],
-      description: [product.description, [Validators.required, Validators.minLength(8)]],
+      [Validators.required, Validators.minLength(6)]],
+      description: [product.description, [Validators.required, Validators.minLength(6)]],
       file: ['',
         [this.conditionalFileCheck]],
       productType: [product.productType,
-      [Validators.required, Validators.minLength(8)]],
+      [Validators.required, Validators.minLength(6)]],
+      brand: [
+        product.brand,
+        [Validators.required, Validators.minLength(6)]],
+      price: [
+        product.price,
+        [Validators.required],
+      ],
       fileName: ['',
         [checkFileValidator]]
     });
@@ -78,20 +85,12 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     ).subscribe(
       ({ product }) => {
         this.product = product;
-        console.log(this.product.user, this.user.id);
-        if (this.product.user !== this.user.id && this.user.role !== 'admin') {
-          this.router.navigateByUrl('/')
-        }
         console.log(product);
         this.constructFormGroup(product as IProduct);
         this.imageSrc = this.imageUrl;
       })
   }
 
-  nameError = '';
-  descriptionError = '';
-  fileError = '';
-  productTypeError = '';
   get formFile() {
     return this.form.get('file');
   }
@@ -128,12 +127,12 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   undoChanges() {
     this.form = this.fb.group({
       name: [this.product.name,
-      [Validators.required, Validators.minLength(8)]],
-      description: [this.product.description, [Validators.required, Validators.minLength(8)]],
+      [Validators.required, Validators.minLength(6)]],
+      description: [this.product.description, [Validators.required, Validators.minLength(6)]],
       file: ['',
         [this.conditionalFileCheck]],
       productType: [this.product.productType,
-      [Validators.required, Validators.minLength(8)]],
+      [Validators.required, Validators.minLength(6)]],
       fileName: ['',
         [checkFileValidator]]
     });
@@ -164,8 +163,11 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   private resetForm(res: any) {
     this.isSubmitting = false
     this.errorMessage = '';
-    this.nameError = '';
-    console.table(res);
+    for (const key in this.errorObject) {
+      if (Object.prototype.hasOwnProperty.call(this.errorObject, key)) {
+        this.errorObject[key] = '';
+      }
+    }
     this.snackBar.open(res.message, 'OK');
   }
   private formSubscription = this.formSubmit$

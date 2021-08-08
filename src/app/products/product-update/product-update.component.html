@@ -40,8 +40,8 @@
     <mat-error *ngIf="errorMessage">
         {{ errorMessage | titlecase}}
     </mat-error>
-    <mat-error *ngIf="errorMessage">
-        {{ nameError | titlecase}}
+    <mat-error *ngIf="errorObject.name">
+        {{ errorObject.name | titlecase}}
     </mat-error>
     <mat-form-field appearance="fill"
         class="form-item">
@@ -53,6 +53,30 @@
             {{ "Product name must be at least 8 characters"}}
         </mat-error>
         <mat-error *ngIf="form.get('name')?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Product brand</mat-label>
+        <input matInput
+            placeholder="Eg. Amazing Cakes"
+            formControlName="brand">
+        <mat-error *ngIf="form.get('brand')?.invalid && !form.get('brand')?.hasError('required')">
+            Product brand must be at least 3 characters
+        </mat-error>
+        <mat-error *ngIf="form.get('brand')?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Product price</mat-label>
+        <input matInput
+            placeholder="Eg. 200"
+            type="number"
+            formControlName="price">
+        <mat-error *ngIf="form.get('price')?.hasError('required')">
             This is required.
         </mat-error>
     </mat-form-field>
