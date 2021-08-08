@@ -70,8 +70,7 @@
         class="form-item">
         <mat-label>Product price</mat-label>
         <input matInput
-            placeholder="Eg. 200"
-            type="number"
+            placeholder="Eg. $200.50"
             formControlName="price">
         <mat-error *ngIf="form.get('price')?.hasError('required')">
             This is required.

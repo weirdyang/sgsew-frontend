@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { BehaviorSubject, EMPTY, Subject } from 'rxjs';
 import { catchError, debounceTime, filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
 import { constructFormData } from '../helpers/product.processor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductBaseComponent } from '../product-base/product-base.component';
+import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
   styleUrls: ['./product-create.component.scss']
 })
-export class ProductCreateComponent extends ProductBaseComponent implements OnDestroy {
+export class ProductCreateComponent extends ProductBaseComponent implements OnInit, OnDestroy {
 
   accepted = validTypes.join();
 
@@ -26,11 +27,15 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnDe
   myForm!: NgForm;
 
   constructor(
+    private currencyPipe: CurrencyPipe,
     private productService: ProductsService,
     public router: Router,
     private snackbar: MatSnackBar,
     private fb: FormBuilder) {
     super(router);
+
+  }
+  ngOnInit(): void {
     this.form = this.fb.group({
       name: [null,
         [Validators.required, Validators.minLength(6)]],
@@ -42,11 +47,25 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnDe
         [Validators.required, Validators.minLength(6)]],
       brand: [null,
         [Validators.required, Validators.minLength(3)]],
-      price: [0,
-        [Validators.required]],
+      price: [this.currencyPipe.transform(0, 'USD', 'symbol'),
+      [Validators.required]],
       fileName: [null,
         [Validators.required, checkFileValidator]]
     })
+
+    this.form.valueChanges.pipe
+      (
+        takeUntil(this.destroy$),
+      )
+      .subscribe(form => {
+        console.log(form.price);
+        if (form.price) {
+          console.log(form.price);
+          this.form.patchValue({
+            price: this.currencyPipe.transform(form.price.replace(/[^\d.-]/g, ''), 'USD', 'symbol')
+          }, { emitEvent: false })
+        }
+      })
   }
 
   onFileSelected(event: Event) {
@@ -82,7 +101,6 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnDe
       map(value => value as FormData),
       filter(value => value !== null),
       debounceTime(500),
-      tap(_ => this.isSubmitting = true),
       takeUntil(this.destroy$)
     )
   private resetForm(res: any) {
@@ -107,6 +125,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnDe
 
 
   private postFormData(formData: FormData) {
+    this.isSubmitting = true;
     return this.productService.createProduct(formData)
       .pipe(
         catchError(err => this.processError(err.error))
@@ -115,6 +134,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnDe
 
   submitForm() {
     const formData: FormData = constructFormData(this.form);
+    console.log(formData);
     this.submitSubject.next(formData);
   }
   ngOnDestroy() {
