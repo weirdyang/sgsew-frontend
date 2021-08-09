@@ -38,8 +38,8 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     public router: Router,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private currencyPipe: CurrencyPipe) {
-    super(router);
+    public currencyPipe: CurrencyPipe) {
+    super(router, currencyPipe);
     this.user = this.authService.getUser() as IUser;
 
   }
@@ -57,15 +57,15 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   private constructFormGroup(product: IProduct) {
     this.form = this.fb.group({
       name: [product.name,
-      [Validators.required, Validators.minLength(6)]],
-      description: [product.description, [Validators.required, Validators.minLength(6)]],
+      this.nameValidators],
+      description: [product.description, this.descriptionValidators],
       file: ['',
         [this.conditionalFileCheck]],
       productType: [product.productType,
-      [Validators.required, Validators.minLength(6)]],
+      this.productTypeValidators],
       brand: [
         product.brand,
-        [Validators.required, Validators.minLength(6)]],
+        this.brandValidator],
       price: [
         this.currencyPipe.transform(product.price, 'USD', 'symbol'),
         [Validators.required],
@@ -77,6 +77,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     this.form.updateValueAndValidity();
 
   }
+
   cancel() {
     this.router.navigateByUrl('/');
   }
@@ -91,21 +92,15 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
         this.constructFormGroup(product as IProduct);
         this.imageSrc = this.imageUrl;
       })
-
     this.form.valueChanges.pipe
       (
         takeUntil(this.destroy$),
       )
       .subscribe(form => {
-        console.log(form.price);
-        if (form.price) {
-          console.log(form.price);
-          this.form.patchValue({
-            price: this.currencyPipe.transform(form.price.replace(/[^\d.-]/g, ''), 'USD', 'symbol')
-          }, { emitEvent: false })
-        }
+        this.convertToCurrency(form);
       })
   }
+
 
   get formFile() {
     return this.form.get('file');
@@ -143,12 +138,14 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   undoChanges() {
     this.form = this.fb.group({
       name: [this.product.name,
-      [Validators.required, Validators.minLength(6)]],
-      description: [this.product.description, [Validators.required, Validators.minLength(6)]],
+      this.nameValidators],
+      brand: [this.product.brand,
+      this.brandValidator],
+      description: [this.product.description, this.descriptionValidators],
       file: ['',
         [this.conditionalFileCheck]],
       productType: [this.product.productType,
-      [Validators.required, Validators.minLength(6)]],
+      this.productTypeValidators],
       fileName: ['',
         [checkFileValidator]]
     });

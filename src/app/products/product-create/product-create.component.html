@@ -102,7 +102,7 @@
         <mat-error *ngIf="form.get('description')?.invalid && !form.get('description')?.hasError('required')">
             Product description must be at least 6 characters and max 140 characters.
             <ng-container *ngIf="form.get('description')?.errors?.maxlength">
-                Current character count: {{ form.get('description')?.errors?.maxlength.requiredLength }}
+                Current character count: {{ form.get('description')?.errors?.maxlength.actualLength }}
             </ng-container>
         </mat-error>
         <mat-error *ngIf="form.get('description')?.hasError('required')">
