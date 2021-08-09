@@ -67,7 +67,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
         product.brand,
         this.brandValidator],
       price: [
-        this.currencyPipe.transform(product.price, 'USD', 'symbol'),
+        processCurrency(product.price.toString()),
         [Validators.required],
       ],
       fileName: ['',
@@ -158,7 +158,6 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       map(value => value as FormData),
       filter(value => value !== null),
       debounceTime(500),
-      tap(_ => this.isSubmitting = true),
       share(),
       takeUntil(this.destroy$)
     )

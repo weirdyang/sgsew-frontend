@@ -17,6 +17,10 @@ export const constructFormData = function (form: FormGroup): FormData {
     return formData;
 }
 
-export const processCurrency = function (value: String): string {
-    return value.replace(/[^\d.-]/g, '')
+export const processCurrency = function (value: string): string {
+    const result = Number(value.replace(/[^\d.-]/g, ''));
+    if (isNaN(result)) {
+        return value
+    }
+    return result.toFixed(2);
 }
