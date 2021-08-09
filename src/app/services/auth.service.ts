@@ -28,6 +28,7 @@ export class AuthService {
   logOut() {
     return this.http.get(`${this.apiUrl}/auth/logout`)
       .pipe(
+        catchError(error => this.handleError(error)),
         tap(_ => this.deleteUser())
       )
   }
@@ -80,8 +81,7 @@ export class AuthService {
     console.log(user);
     return this.http.post<IUser>(`${this.apiUrl}/auth/login`, user)
       .pipe(
-        catchError(error => this.handleError(error)),
-        tap(user => this.setUser(user))
+        catchError(error => this.handleError(error))
       );
   }
 

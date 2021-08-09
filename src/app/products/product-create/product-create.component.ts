@@ -38,17 +38,16 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
   ngOnInit(): void {
     this.form = this.fb.group({
       name: [null,
-        [Validators.required, Validators.minLength(6)]],
+        this.nameValidators],
       description:
-        [null, [Validators.required, Validators.minLength(6)]],
+        [null, this.descriptionValidators],
       file: [null,
         [Validators.required, fileTypeValidator, fileSizeValidator]],
       productType: [null,
-        [Validators.required, Validators.minLength(6)]],
+        this.productTypeValidators],
       brand: [null,
-        [Validators.required, Validators.minLength(3)]],
-      price: [this.currencyPipe.transform(0, 'USD', 'symbol'),
-      [Validators.required]],
+        this.brandValidator],
+      price: [this.currencyPipe.transform(0, 'USD', 'symbol'), this.priceValidators],
       fileName: [null,
         [Validators.required, checkFileValidator]]
     })

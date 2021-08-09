@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
@@ -10,7 +10,12 @@ import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
 })
 export class ProductBaseComponent {
   imageSrc: string | ArrayBuffer = '';
-
+  nameValidators = [Validators.required, Validators.minLength(6)];
+  descriptionValidators = [Validators.required, Validators.minLength(6), Validators.maxLength(140)];
+  productTypes = ['hardware', 'services'];
+  productTypeValidators = [Validators.required];
+  priceValidators = [Validators.required];
+  brandValidator = [Validators.required, Validators.minLength(3)]
   _isSubmitting = false;
 
   get isSubmitting() {

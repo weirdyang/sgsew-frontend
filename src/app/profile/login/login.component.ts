@@ -58,6 +58,7 @@ export class LoginComponent {
     this.authService.loginUser(this.form.value as ILogin)
       .subscribe({
         next: response => {
+          this.authService.setUser(response);
           this.dialogRef.close();
         },
         error: err => {
