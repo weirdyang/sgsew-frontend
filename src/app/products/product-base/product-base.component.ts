@@ -2,8 +2,10 @@ import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EMPTY } from 'rxjs';
+import { EMPTY, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
+import { createPriceValidator } from '../helpers/price.validator';
 import { processCurrency } from '../helpers/product.processor';
 
 @Component({
@@ -16,7 +18,7 @@ export class ProductBaseComponent {
   descriptionValidators = [Validators.required, Validators.minLength(6), Validators.maxLength(140)];
   productTypes = ['hardware', 'services'];
   productTypeValidators = [Validators.required];
-  priceValidators = [Validators.required];
+  priceValidators = [Validators.required, createPriceValidator(this.currencyPipe)];
   brandValidator = [Validators.required, Validators.minLength(3)]
   _isSubmitting = false;
 
@@ -78,12 +80,19 @@ export class ProductBaseComponent {
 
 
   convertToCurrency(form: any) {
-    console.log(form.price);
     if (form.price) {
-      console.log(form.price);
-      this.form.patchValue({
-        price: this.currencyPipe.transform(processCurrency(form.price), 'USD', 'symbol')
-      }, { emitEvent: false });
+      try {
+        this.form.patchValue({
+          price: processCurrency(form.price)
+        }, { emitEvent: false });
+        return EMPTY;
+      }
+      catch (error) {
+        this.form.patchValue({
+          price: form.price
+        }, { emitEvent: false });
+      }
     }
+    return EMPTY;
   }
-}
+};

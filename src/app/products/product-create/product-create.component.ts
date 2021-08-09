@@ -47,7 +47,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
         this.productTypeValidators],
       brand: [null,
         this.brandValidator],
-      price: [this.currencyPipe.transform(0, 'USD', 'symbol'), this.priceValidators],
+      price: [0, this.priceValidators],
       fileName: [null,
         [Validators.required, checkFileValidator]]
     })
@@ -55,10 +55,15 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
     this.form.valueChanges.pipe
       (
         takeUntil(this.destroy$),
-      )
-      .subscribe(form => {
-        this.convertToCurrency(form);
-      })
+        map(form => this.convertToCurrency(form)),
+        catchError(err => {
+          console.log(err);
+          this.form.patchValue({
+            price: this.currencyPipe.transform(0, 'USD', 'symbol')
+          });
+          return EMPTY;
+        })
+      ).subscribe();
   }
 
 
