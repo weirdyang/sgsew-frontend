@@ -7,7 +7,7 @@ import { isValidImageExtension } from '../helpers/image-helper';
 import { ProductsService } from 'src/app/services/products.service';
 import { validTypes, fileSizeValidator, fileTypeValidator, checkFileValidator } from '../helpers/file.validator';
 import { Router } from '@angular/router';
-import { constructFormData } from '../helpers/product.processor';
+import { constructFormData, processCurrency } from '../helpers/product.processor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductBaseComponent } from '../product-base/product-base.component';
 import { CurrencyPipe } from '@angular/common';
@@ -27,12 +27,12 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
   myForm!: NgForm;
 
   constructor(
-    private currencyPipe: CurrencyPipe,
+    public currencyPipe: CurrencyPipe,
     private productService: ProductsService,
     public router: Router,
     private snackbar: MatSnackBar,
     private fb: FormBuilder) {
-    super(router);
+    super(router, currencyPipe);
 
   }
   ngOnInit(): void {
@@ -57,15 +57,10 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
         takeUntil(this.destroy$),
       )
       .subscribe(form => {
-        console.log(form.price);
-        if (form.price) {
-          console.log(form.price);
-          this.form.patchValue({
-            price: this.currencyPipe.transform(form.price.replace(/[^\d.-]/g, ''), 'USD', 'symbol')
-          }, { emitEvent: false })
-        }
+        this.convertToCurrency(form);
       })
   }
+
 
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
