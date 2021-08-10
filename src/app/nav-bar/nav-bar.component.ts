@@ -47,7 +47,11 @@ export class NavBarComponent implements OnDestroy {
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router) {
+
+    this.authService.getCsrfToken()
+      .subscribe(value => this.authService.csrfToken = value);
+  }
 
   crsfToken$ = this.authService.getCsrfToken();
 

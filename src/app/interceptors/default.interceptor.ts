@@ -16,7 +16,12 @@ import { Router } from '@angular/router';
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService, private router: Router, private snackBar: MatSnackBar) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar) {
+    console.log('in constructor')
+  }
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     //handle your auth error or rethrow
     if (err.status === 401) {
@@ -34,7 +39,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     return throwError(err);
   }
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log('intercepting')
+
     req = req.clone({
       withCredentials: true,
       setHeaders: { "x-csrf-token": this.authService.csrfToken }
