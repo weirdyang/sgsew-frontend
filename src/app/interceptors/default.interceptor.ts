@@ -27,7 +27,8 @@ export class DefaultInterceptor implements HttpInterceptor {
       return EMPTY; // or EMPTY may be appropriate here
     }
     if (err.status === 403) {
-      this.snackBar.open('You do not have the necessary perimissions.', 'OK');
+      const message = err.error?.message ?? 'You do not have the necessary perimissions.'
+      this.snackBar.open(message, 'OK');
       return EMPTY; // or EMPTY may be appropriate here
     }
     return throwError(err);
