@@ -73,7 +73,10 @@ export class LoginComponent {
               errorMessage += `\n${element.error}`;
             });
           }
-          this.snackBar.open(`${errorMessage}`, 'OK')
+          if (errorMessage.trim().length === 0) {
+            errorMessage = 'This is unexpected, please contact support'
+          }
+          this.snackBar.open(errorMessage, 'OK')
         }
       })
   }
