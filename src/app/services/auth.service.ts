@@ -10,7 +10,7 @@ import { IApiResponse, ILogin, IUser, Profile, RegisterUser } from '../types/use
 })
 export class AuthService {
   getCsrfToken() {
-    return this.http.get<any>(`${this.apiUrl}/auth/crsftoken`)
+    return this.http.get<any>(`${this.apiUrl}/auth/csrftoken`)
       .pipe(
         catchError(error => this.handleError(error)),
         map(value => value.token as string),
