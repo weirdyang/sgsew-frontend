@@ -80,7 +80,7 @@ export class ProductsService {
       // The response body may contain clues as to what went wrong,
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
-    console.error(errorMessage);
+    console.error(err);
     return throwError(err);
   }
 }

@@ -58,6 +58,7 @@ export class LoginComponent {
     this.authService.loginUser(this.form.value as ILogin)
       .subscribe({
         next: response => {
+          this.authService.setUser(response);
           this.dialogRef.close();
         },
         error: err => {
@@ -72,7 +73,10 @@ export class LoginComponent {
               errorMessage += `\n${element.error}`;
             });
           }
-          this.snackBar.open(`${errorMessage}`, 'OK')
+          if (errorMessage.trim().length === 0) {
+            errorMessage = 'This is unexpected, please contact support'
+          }
+          this.snackBar.open(errorMessage, 'OK')
         }
       })
   }

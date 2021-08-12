@@ -12,8 +12,9 @@ import { environment } from 'src/environments/environment';
 import { validTypes, fileTypeValidator, fileSizeValidator, checkFileValidator, conditionalValidator } from '../helpers/file.validator';
 import { isValidImageExtension } from '../helpers/image-helper';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { constructFormData } from '../helpers/product.processor';
+import { constructFormData, processCurrency } from '../helpers/product.processor';
 import { ProductBaseComponent } from '../product-base/product-base.component';
+import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
@@ -36,8 +37,9 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     private authService: AuthService,
     public router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar) {
-    super(router);
+    private snackBar: MatSnackBar,
+    public currencyPipe: CurrencyPipe) {
+    super(router, currencyPipe);
     this.user = this.authService.getUser() as IUser;
 
   }
@@ -55,12 +57,19 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   private constructFormGroup(product: IProduct) {
     this.form = this.fb.group({
       name: [product.name,
-      [Validators.required, Validators.minLength(8)]],
-      description: [product.description, [Validators.required, Validators.minLength(8)]],
+      this.nameValidators],
+      description: [product.description, this.descriptionValidators],
       file: ['',
         [this.conditionalFileCheck]],
       productType: [product.productType,
-      [Validators.required, Validators.minLength(8)]],
+      this.productTypeValidators],
+      brand: [
+        product.brand,
+        this.brandValidator],
+      price: [
+        processCurrency(product.price.toString()),
+        [Validators.required],
+      ],
       fileName: ['',
         [checkFileValidator]]
     });
@@ -68,6 +77,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     this.form.updateValueAndValidity();
 
   }
+
   cancel() {
     this.router.navigateByUrl('/');
   }
@@ -78,20 +88,20 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     ).subscribe(
       ({ product }) => {
         this.product = product;
-        console.log(this.product.user, this.user.id);
-        if (this.product.user !== this.user.id && this.user.role !== 'admin') {
-          this.router.navigateByUrl('/')
-        }
         console.log(product);
         this.constructFormGroup(product as IProduct);
         this.imageSrc = this.imageUrl;
       })
+    this.form.valueChanges.pipe
+      (
+        takeUntil(this.destroy$),
+      )
+      .subscribe(form => {
+        this.convertToCurrency(form);
+      })
   }
 
-  nameError = '';
-  descriptionError = '';
-  fileError = '';
-  productTypeError = '';
+
   get formFile() {
     return this.form.get('file');
   }
@@ -128,12 +138,14 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   undoChanges() {
     this.form = this.fb.group({
       name: [this.product.name,
-      [Validators.required, Validators.minLength(8)]],
-      description: [this.product.description, [Validators.required, Validators.minLength(8)]],
+      this.nameValidators],
+      brand: [this.product.brand,
+      this.brandValidator],
+      description: [this.product.description, this.descriptionValidators],
       file: ['',
         [this.conditionalFileCheck]],
       productType: [this.product.productType,
-      [Validators.required, Validators.minLength(8)]],
+      this.productTypeValidators],
       fileName: ['',
         [checkFileValidator]]
     });
@@ -146,7 +158,6 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       map(value => value as FormData),
       filter(value => value !== null),
       debounceTime(500),
-      tap(_ => this.isSubmitting = true),
       share(),
       takeUntil(this.destroy$)
     )
@@ -157,16 +168,18 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       map(value => value as IProduct),
       filter(value => value !== null),
       debounceTime(500),
-      tap(_ => this.isSubmitting = true),
       share(),
       takeUntil(this.destroy$)
     )
   private resetForm(res: any) {
     this.isSubmitting = false
     this.errorMessage = '';
-    this.nameError = '';
-    console.table(res);
-    this.snackBar.open(res.message, 'OK');
+    for (const key in this.errorObject) {
+      if (Object.prototype.hasOwnProperty.call(this.errorObject, key)) {
+        this.errorObject[key] = '';
+      }
+    }
+    this.snackBar.open('Product updated!', 'OK');
   }
   private formSubscription = this.formSubmit$
     .pipe(
@@ -205,8 +218,10 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       const formData: FormData = constructFormData(this.form);
       this.formSubmitSubject.next(formData);
     } else {
+      const { price } = this.form.value;
       const updatedProduct = {
-        ...this.form.value
+        ...this.form.value,
+        price: processCurrency(price),
       }
       this.productSubmitSubject.next(updatedProduct as IProduct);
     }

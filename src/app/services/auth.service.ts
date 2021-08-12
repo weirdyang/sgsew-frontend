@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, EMPTY, Observable, of, throwError } from 'rxjs';
-import { catchError, filter, shareReplay, tap } from 'rxjs/operators';
+import { catchError, filter, first, map, shareReplay, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IApiResponse, ILogin, IUser, Profile, RegisterUser } from '../types/user';
 
@@ -10,10 +10,11 @@ import { IApiResponse, ILogin, IUser, Profile, RegisterUser } from '../types/use
 })
 export class AuthService {
   getCsrfToken() {
-    return this.http.get<any>(`${this.apiUrl}/auth/crsftoken`)
+    return this.http.get<any>(`${this.apiUrl}/auth/csrftoken`)
       .pipe(
         catchError(error => this.handleError(error)),
-        tap(value => this.csrfToken = value.token as string)
+        map(value => value.token as string),
+        first(),
       );
   }
   private _csrfToken = '';
@@ -28,6 +29,7 @@ export class AuthService {
   logOut() {
     return this.http.get(`${this.apiUrl}/auth/logout`)
       .pipe(
+        catchError(error => this.handleError(error)),
         tap(_ => this.deleteUser())
       )
   }
@@ -80,8 +82,7 @@ export class AuthService {
     console.log(user);
     return this.http.post<IUser>(`${this.apiUrl}/auth/login`, user)
       .pipe(
-        catchError(error => this.handleError(error)),
-        tap(user => this.setUser(user))
+        catchError(error => this.handleError(error))
       );
   }
 
