@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IProduct, IProductEdit } from '../types/product';
+import { IApiResponse } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,13 @@ export class ProductsService {
   }
   getProductsByUser(userId: string) {
     return this.http.get(`${this.baseUrl}/user/${userId}`)
+      .pipe(
+        catchError(error => this.handleError(error))
+      )
+  }
+
+  deleteProduct(productId: string) {
+    return this.http.delete<IApiResponse>(`${this.baseUrl}/${productId}`)
       .pipe(
         catchError(error => this.handleError(error))
       )

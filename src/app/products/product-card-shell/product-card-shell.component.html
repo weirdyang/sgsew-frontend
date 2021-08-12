@@ -1,1 +1,14 @@
-<app-product-card></app-product-card>
+<ng-container *ngIf="( products$ | async) as products">
+    <app-product-card *ngFor="let item of products.data"
+        [name]="item.name"
+        [brand]="item.brand"
+        [price]="item.price"
+        [description]="item.description"
+        [productType]="item.productType"
+        [productId]="item._id"
+        [isAdmin]="user?.role === 'admin'"
+        [isUser]="user !== null"></app-product-card>
+
+</ng-container>
+
+{{ user | json}}

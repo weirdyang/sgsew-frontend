@@ -1,16 +1,16 @@
 <article class="card"
     [ngClass]="{ 'dark' : ( isDarkMode$ | async)}">
     <section class="card-header">
-        <h1 class="title">Amazing fishcake</h1>
+        <h1 class="title">{{ name | titlecase}}</h1>
         <div class="subtitle tag-group">
-            <span class="brand-tag">Fish & Friends</span>
-            <span class="brand-tag category">food</span>
+            <span class="brand-tag">{{ brand}}</span>
+            <span class="brand-tag category">{{ productType}}</span>
         </div>
     </section>
     <figure class="card-image">
         <img height="200"
             width="300"
-            src="https://cdn.pixabay.com/photo/2016/04/27/18/21/fish-1357193_960_720.jpg" />
+            [src]="imageUrl" />
     </figure>
     <section class="card-content">
 
@@ -19,21 +19,15 @@
             <div class="item-text">
                 <span class="item-text-header"> <span class="item-icon">
                         👋</span>
-                    name</span> <span class="item-text-content">Amazing fishcake</span>
+                    name</span> <span class="item-text-content">{{ name }}</span>
             </div>
         </div>
-        <div class="card-content-item">
+        <div class="card-content-item description">
 
             <div class="item-text description">
                 <span class="item-text-header"> <span class="item-icon">
                         👉</span>
-                    description</span> <span class="item-text-content">Lorem Ipsum is simply dummy text of the printing
-                    and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
-                    1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    It has survived not only five centuries, but also the leap into electronic typesetting, remaining
-                    essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                    containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
-                    PageMaker including versions of Lorem Ipsum.</span>
+                    description</span> <span class="item-text-content">{{ description}}</span>
             </div>
         </div>
         <div class="card-content-item">
@@ -41,12 +35,18 @@
             <div class="item-text">
                 <span class="item-text-header"> <span class="item-icon">
                         💰</span>
-                    price</span> <span class="item-text-content">$100.50</span>
+                    price</span> <span class="item-text-content">{{ price | currency:'USD':'symbol'}}</span>
             </div>
         </div>
     </section>
-    <section class="card-footer">
-        <button class="button button-primary">Edit</button>
-        <button class="button button-danger-borderless">Delete</button>
-    </section>
+    <ng-container *ngIf="isUser">
+        <section class="card-footer">
+            <button mat-raised-button
+                color="primary">Edit</button>
+            <button mat-button
+                [disabled]="!isAdmin || !productId"
+                (click)="delete()"
+                color="warn"> Delete</button>
+        </section>
+    </ng-container>
 </article>

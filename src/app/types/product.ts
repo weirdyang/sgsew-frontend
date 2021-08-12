@@ -6,6 +6,14 @@ export interface IProduct {
     price: number,
 }
 export interface IProductEdit extends IProduct {
-    user: string;
-    id: string;
+    user: string,
+    id: string,
+}
+export interface IProductDisplay extends IProduct {
+    user: string,
+    _id: string,
+}
+export interface IProductResults {
+    data: IProductDisplay[],
+    count: number;
 }
