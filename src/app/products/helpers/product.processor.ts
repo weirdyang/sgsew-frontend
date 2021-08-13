@@ -10,7 +10,7 @@ export const constructFormData = function (form: FormGroup): FormData {
     formData.append("productType", productType);
     formData.append("brand", brand);
     formData.append("price", processCurrency(price));
-    console.log(price.replace(/[^\d.-]/g, ''))
+
     if (file) {
         formData.append('file', file);
     }
@@ -18,6 +18,7 @@ export const constructFormData = function (form: FormGroup): FormData {
 }
 
 export const processCurrency = function (value: string): string {
+    value = value.toString();
     const result = Number(value.replace(/[^\d.-]/g, ''));
     if (isNaN(result)) {
         return value
