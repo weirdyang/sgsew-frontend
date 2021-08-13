@@ -63,8 +63,9 @@
     </app-side-menu>
     <ng-container *ngIf="( dataSource.products$ | async) as products">
         <section class="product-list-parent">
-            <button (click)="toggleMenu()"
-                *ngIf="(breakPoint$ | async)">show</button>
+            <button mat-raised-button
+                (click)="toggleMenu()"
+                *ngIf="(breakPoint$ | async)">Search</button>
             <section class="card-container">
                 <app-product-card *ngFor="let item of products"
                     [isService]="item.productType === 'services'"

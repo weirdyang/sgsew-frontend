@@ -1,8 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs/internal/Subject';
 import { map, shareReplay, takeUntil } from 'rxjs/operators';
-
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
