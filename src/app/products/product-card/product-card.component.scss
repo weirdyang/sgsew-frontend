@@ -59,21 +59,6 @@
   }
   $card-width: 315px;
   $breakpoint-narrow: 350px;
-  .card-container {
-    padding: 1rem 1.5rem;
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    @media screen and (max-width: 800px + 32px) {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      align-items: center;
-      .card {
-        min-width: 75vw;
-      }
-    }
-  }
   .card.dark {
       color: #fff;
       background: $color-bg-dark;
@@ -82,7 +67,8 @@
   }
   .card {
     align-items: stretch;
-    height: 100%;
+    height: 615px;
+    overflow-y: auto;
     display: flex;
     padding: 1rem 2rem;
     margin: 1rem 1rem;
@@ -96,7 +82,7 @@
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 2px rgba(0, 0, 0, 0.15),
       0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15);
-    @media screen and (max-width: 375) {
+    @media screen and (max-width: 376px) {
       padding: 1rem 1.25rem;
       width: 70vw;
     }

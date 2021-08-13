@@ -4,6 +4,7 @@
 
 
 }
+
 .bd-showing-overlay .bd-docs-overlay {
     opacity: 0.8;
     pointer-events: auto;
@@ -15,6 +16,7 @@ $bd-aside-width: 15rem;
         flex-direction: column;
         margin-right: 1rem;
         padding: 1rem;
+        justify-content: center;
         @media screen and (max-width: 768px) {
             margin: auto;
         }
@@ -35,6 +37,11 @@ $bd-aside-width: 15rem;
     position: relative;
     width: auto;
 }
+.centered {
+    display: grid;
+    place-items: center;
+    padding: 1rem 1rem;
+}
 .card-container {
     width: 100%;
     display: grid;
@@ -50,8 +57,7 @@ $bd-aside-width: 15rem;
     }
   }
 .product-card {
-    display: block;
-    max-width: 315px;
+    box-sizing: border-box;
 }
 .product-list-footer {
     margin-top: auto;

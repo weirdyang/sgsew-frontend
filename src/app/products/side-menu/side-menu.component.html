@@ -3,8 +3,8 @@
     (click)="toggleMenu()"></div>
 
 <div [ngClass]="isSmallScreen ?  '' :  'bd-container'">
-
-    <div [ngClass]="active ? 'bd-aside bd-aside--active' : 'bd-aside'">
+    <div class="bd-aside"
+        [ngClass]="{ 'bd-aside--active' : active, 'dark-mode': (isDark$ | async) }">
         <ng-container *ngIf="active">
             <div class="bd-menu-header">
                 <span class="menu-label"> {{ 'Filter options' | uppercase }} </span>

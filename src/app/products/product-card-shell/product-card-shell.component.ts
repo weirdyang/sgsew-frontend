@@ -41,9 +41,13 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     shareReplay(1),
     share(),
   );
-  onMinChange(event: MatSliderChange) {
-    console.log(event.value as number)
-    this._minSubject.next(event.value as number);
+  onMinChange(event: any) {
+    const target = event.target as HTMLInputElement;
+    const { value } = target;
+    if (!Number.isNaN(parseFloat(value))) {
+      this._minSubject.next(parseFloat(value));
+    }
+
   }
   private _maxSubject = new BehaviorSubject<number>(Number.MAX_SAFE_INTEGER);
   max$ = this._maxSubject.pipe(
