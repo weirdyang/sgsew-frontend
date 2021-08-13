@@ -1,17 +1,17 @@
 import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { AfterViewInit, Component, ComponentFactoryResolver, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSliderChange } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BehaviorSubject, Subject, merge, combineLatest } from 'rxjs';
-import { debounceTime, share, shareReplay, takeUntil } from 'rxjs/operators';
+import { debounceTime, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HandsetService } from 'src/app/services/core/handset.service';
 import { NavigationService } from 'src/app/services/core/navigation.service';
 import { SearchService } from 'src/app/services/search.service';
 import { IProductResults } from 'src/app/types/product';
-import { numberValidator } from '../helpers/price.validator';
+import { minMaxValidator, numberValidator, validPrice } from '../helpers/price.validator';
 import { ProductsDataSource } from './product-data-source';
 
 @Component({
@@ -41,21 +41,22 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
   min$ = this._minSubject.pipe(
     debounceTime(500),
     shareReplay(1),
+    tap(val => console.log(val, 'in tap')),
     share(),
   );
-  validPrice(value: string) {
-    return /^\d{0,8}(\.\d{1,4})?$/.test(value);
-  }
+
   onMinChange(event: any) {
     const target = event.target as HTMLInputElement;
     const { value } = target;
 
-    if (this.validPrice(value)) {
+    if (validPrice(value)) {
       this._minSubject.next(parseFloat(value));
     }
+    this.form.controls.max.updateValueAndValidity();
+    this.form.controls.min.updateValueAndValidity();
   }
   numberRegEx = /\-?\d*\.?\d{1,2}/;
-  min = new FormControl(0, [numberValidator]);
+  min = new FormControl('', [numberValidator, minMaxValidator]);
   private _maxSubject = new BehaviorSubject<number>(Number.MAX_SAFE_INTEGER);
   max$ = this._maxSubject.pipe(
     debounceTime(500),
@@ -66,16 +67,19 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     const target = event.target as HTMLInputElement;
     const { value } = target;
 
-    if (this.validPrice(value)) {
+    if (validPrice(value)) {
       this._maxSubject.next(parseFloat(value));
     }
+    this.form.controls.max.updateValueAndValidity();
+    this.form.controls.min.updateValueAndValidity();
   }
-max = new FormControl(0, [numberValidator]);
+  max = new FormControl(Number.MAX_SAFE_INTEGER, [numberValidator, minMaxValidator]);
   private _typeSubject = new BehaviorSubject<string>('');
   type$ = this._typeSubject.pipe(
     shareReplay(1),
     share(),
   );
+
   updateKeyword(event: any) {
     const target = event.target as HTMLInputElement;
     const { value } = target;
@@ -104,7 +108,7 @@ max = new FormControl(0, [numberValidator]);
         console.log(this.searchParams.min, 'min')
         this.searchParams.max = max;
         this.searchParams.type = type;
-        if (this.paginator) {
+        if (this.paginator && this.form.valid) {
           this.paginator.pageIndex = 0
           this.loadProducts()
         };
@@ -152,13 +156,21 @@ max = new FormControl(0, [numberValidator]);
         this.showMenu = false;
       }
     })
+
+  form: FormGroup;
   constructor(
     private snackBar: MatSnackBarModule,
     private handsetService: HandsetService,
     private navigationService: NavigationService,
     private searchService: SearchService,
     private authService: AuthService
-  ) { }
+  ) {
+    this.form = new FormGroup({
+      min: this.min,
+      max: this.max,
+    })
+  }
+
   sortOptions = ['nameasc', 'namedesc', 'brandasc', 'nameasc']
 
   user = this.authService.getUser();
