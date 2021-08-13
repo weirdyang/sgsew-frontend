@@ -24,6 +24,8 @@ export class ProductCardComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   @Input()
+  isService: boolean = false;
+  @Input()
   name: string = 'Product name';
   @Input()
   brand: string = 'Product brand';

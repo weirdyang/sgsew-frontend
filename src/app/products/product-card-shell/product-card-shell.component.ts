@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSliderChange } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -10,6 +11,7 @@ import { HandsetService } from 'src/app/services/core/handset.service';
 import { NavigationService } from 'src/app/services/core/navigation.service';
 import { SearchService } from 'src/app/services/search.service';
 import { IProductResults } from 'src/app/types/product';
+import { numberValidator } from '../helpers/price.validator';
 import { ProductsDataSource } from './product-data-source';
 
 @Component({
@@ -41,21 +43,34 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     shareReplay(1),
     share(),
   );
+  validPrice(value: string) {
+    return /^\d{0,8}(\.\d{1,4})?$/.test(value);
+  }
   onMinChange(event: any) {
     const target = event.target as HTMLInputElement;
     const { value } = target;
-    if (!Number.isNaN(parseFloat(value))) {
+
+    if (this.validPrice(value)) {
       this._minSubject.next(parseFloat(value));
     }
-
   }
+  numberRegEx = /\-?\d*\.?\d{1,2}/;
+  min = new FormControl(0, [numberValidator]);
   private _maxSubject = new BehaviorSubject<number>(Number.MAX_SAFE_INTEGER);
   max$ = this._maxSubject.pipe(
     debounceTime(500),
     shareReplay(1),
     share(),
   );
+  onMaxChange(event: any) {
+    const target = event.target as HTMLInputElement;
+    const { value } = target;
 
+    if (this.validPrice(value)) {
+      this._maxSubject.next(parseFloat(value));
+    }
+  }
+max = new FormControl(0, [numberValidator]);
   private _typeSubject = new BehaviorSubject<string>('');
   type$ = this._typeSubject.pipe(
     shareReplay(1),

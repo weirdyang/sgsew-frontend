@@ -13,21 +13,6 @@
     --shadow-3: rgb(var(--shadow-base) / 22%);
     --border: black;
     text-overflow: ellipsis;
-    &:nth-child(odd):not(:first-child) {
-      .brand-tag:not(.category) {
-        filter: hue-rotate(150deg);
-      }
-    }
-    &:nth-child(even):not(.category) {
-      .brand-tag {
-        --primary-light: hsl(25, 75%, 35%);
-      }
-    }
-    &:nth-child(3n+1):not(.category) {
-      .brand-tag {
-        filter: hue-rotate(250deg)!important;
-      }
-    }
   }
   @mixin styled-scrollbar {
     overflow-y: auto;
@@ -104,6 +89,10 @@
     &.category {
       text-transform: capitalize;
       background: var(--link);
+      &.service {
+        background: var(--primary-dark);
+        color: var(--primary-invert)
+      }
     }
   }
   .card-header {
@@ -122,8 +111,7 @@
       border: 1px solid rgb(0 0 0 / 20%);
     }
   }
-  .card-image + .card-content {
-  }
+
   .card-content {
     padding: 0.25rem;
     &:hover {

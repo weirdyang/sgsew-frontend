@@ -1,39 +1,66 @@
-<app-side-menu [active]="showMenu"
-    [isSmallScreen]="(breakPoint$ | async) ? true : false">
-    <div class="bd-menu container">
-        <section class="centered">
-            <div class="menu-label">
-                Types
-            </div>
-            <input type="text"
-                (keyup)="updateKeyword($event)">
-            <input type="text"
-                (keyup)="onMinChange($event)">
+<div class="main">
+    <app-side-menu [active]="showMenu"
+        [isSmallScreen]="(breakPoint$ | async) ? true : false">
+        <div class="bd-menu container">
+            <section class="centered">
+                <div class="menu-label">
+                    Search
+                </div>
+                <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput
+                        type="text"
+                        (keyup)="updateKeyword($event)">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Min price</mat-label>
+                    <input matInput
+                        [formControl]="min"
+                        type="text"
+                        (keyup)="onMinChange($event)">
+                    <mat-error *ngIf="min.invalid">Invalid input</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Max price</mat-label>
+                    <input matInput
+                        [formControl]="max"
+                        type="text"
+                        (keyup)="onMaxChange($event)">
+                    <mat-error *ngIf="max.invalid">Invalid input</mat-error>
+                </mat-form-field>
+                <input type="text"
+                    (keyup)="updateKeyword($event)">
+                <input type="text"
+                    (keyup)="onMinChange($event)">
+            </section>
+        </div>
+
+    </app-side-menu>
+    <ng-container *ngIf="( dataSource.products$ | async) as products">
+        <section class="product-list-parent">
+            <button (click)="toggleMenu()" *ngIf="(breakPoint$ | async)">show</button>
+            <section class="card-container">
+                <app-product-card *ngFor="let item of products"
+                    class="card"
+                    [isService]="item.productType === 'services'"
+                    [name]="item.name"
+                    [brand]="item.brand"
+                    [price]="item.price"
+                    [description]="item.description"
+                    [productType]="item.productType"
+                    [productId]="item._id"
+                    [isAdmin]="user?.role === 'admin'"
+                    [isUser]="user !== null"></app-product-card>
+
+            </section>
+
         </section>
-    </div>
 
-</app-side-menu>
-<ng-container *ngIf="( dataSource.products$ | async) as products">
-    <section class="product-list-parent">
-        <button (click)="toggleMenu()">show</button>
-        <section class="card-container">
-            <app-product-card *ngFor="let item of products"
-                class="card darkmode"
-                [name]="item.name"
-                [brand]="item.brand"
-                [price]="item.price"
-                [description]="item.description"
-                [productType]="item.productType"
-                [productId]="item._id"
-                [isAdmin]="user?.role === 'admin'"
-                [isUser]="user !== null"></app-product-card>
-
-        </section>
-
-        <mat-paginator class="product-list-footer"
-            [length]="dataSource.total$|async"
-            [pageSize]="12"
-            [pageSizeOptions]="[3, 9, 12]"></mat-paginator>
-    </section>
-
-</ng-container>
+    </ng-container>
+</div>
+<div>
+    <mat-paginator class="product-list-footer"
+        [length]="dataSource.total$|async"
+        [pageSize]="12"
+        [pageSizeOptions]="[3, 9, 12]"></mat-paginator>
+</div>

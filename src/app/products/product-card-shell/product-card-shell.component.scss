@@ -1,14 +1,18 @@
+@import '../../../styles/variables';
 :host {
     font-size: 1rem;
     display: flex;
-
-
+    flex-direction: column;
 }
-
+.main {
+    display: flex;
+    height: 100%;
+}
 .bd-showing-overlay .bd-docs-overlay {
     opacity: 0.8;
     pointer-events: auto;
   }
+
 $bd-aside-width: 15rem;
 .bd {
     &-menu {
@@ -37,6 +41,9 @@ $bd-aside-width: 15rem;
     position: relative;
     width: auto;
 }
+.sticky {
+    position: sticky;
+}
 .centered {
     display: grid;
     place-items: center;
@@ -45,7 +52,10 @@ $bd-aside-width: 15rem;
 .card-container {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    @media screen and (min-width: 2000px){
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
     @media screen and (max-width: 800px + 32px) {
       display: flex;
       flex-direction: column;
@@ -67,5 +77,4 @@ $bd-aside-width: 15rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
 }

@@ -14,12 +14,18 @@ export function createPriceValidator(currencyPipe: CurrencyPipe): ValidatorFn {
 
         try {
             const result = currencyPipe.transform(processCurrency(price), 'USD', 'symbol')
-            console.log(result);
-            console.log('ok');
             return null;
         } catch (error) {
             console.log('bad');
             return { 'invalidPrice': true }
         }
     }
+}
+
+
+export const numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value as string;
+    console.log(value);
+    const numberRegEx = /^\d{0,8}(\.\d{1,4})?$/.test(value);
+    return numberRegEx ? null : { 'invalidFloat': true };
 }

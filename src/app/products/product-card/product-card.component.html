@@ -4,7 +4,8 @@
         <h1 class="title">{{ name | titlecase}}</h1>
         <div class="subtitle tag-group">
             <span class="brand-tag">{{ brand}}</span>
-            <span class="brand-tag category">{{ productType}}</span>
+            <span class="brand-tag category"
+                [ngClass]="{ 'service': isService }">{{ productType}}</span>
         </div>
     </section>
     <figure class="card-image">

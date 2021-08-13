@@ -10,7 +10,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSliderModule } from '@angular/material/slider';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { SideMenuModule } from '../side-menu/side-menu.module';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ProductCardShellComponent
@@ -22,7 +24,10 @@ import { SideMenuModule } from '../side-menu/side-menu.module';
     ProductCardShellRoutingModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatSliderModule
+    MatInputModule,
+    MatSliderModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   exports: [
   ]
