@@ -1,14 +1,39 @@
-<ng-container *ngIf="( products$ | async) as products">
-    <app-product-card *ngFor="let item of products.data"
-        [name]="item.name"
-        [brand]="item.brand"
-        [price]="item.price"
-        [description]="item.description"
-        [productType]="item.productType"
-        [productId]="item._id"
-        [isAdmin]="user?.role === 'admin'"
-        [isUser]="user !== null"></app-product-card>
+<app-side-menu [active]="showMenu"
+    [isSmallScreen]="(breakPoint$ | async) ? true : false">
+    <div class="bd-menu">
+        <div class="menu-label">
+            Types
+        </div>
+        <input type="text"
+            (keyup)="updateKeyword($event)">
+        <mat-slider min="1"
+            max="1000"
+            step="1"
+            (input)="onMinChange($event)"
+            value="(min$ | async)"></mat-slider>
+    </div>
+
+</app-side-menu>
+<ng-container *ngIf="( dataSource.products$ | async) as products">
+    <section class="product-list-parent">
+        <button (click)="toggleMenu()">show</button>
+        <section class="card-container">
+            <app-product-card *ngFor="let item of products"
+                [name]="item.name"
+                [brand]="item.brand"
+                [price]="item.price"
+                [description]="item.description"
+                [productType]="item.productType"
+                [productId]="item._id"
+                [isAdmin]="user?.role === 'admin'"
+                [isUser]="user !== null"></app-product-card>
+
+        </section>
+
+        <mat-paginator class="product-list-footer"
+            [length]="dataSource.total$|async"
+            [pageSize]="12"
+            [pageSizeOptions]="[3, 9, 12]"></mat-paginator>
+    </section>
 
 </ng-container>
-
-{{ user | json}}

@@ -1,0 +1,65 @@
+:host {
+    font-size: 1rem;
+    display: flex;
+
+
+}
+.bd-showing-overlay .bd-docs-overlay {
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+$bd-aside-width: 15rem;
+.bd {
+    &-menu {
+        display: flex;
+        flex-direction: column;
+        margin-right: 1rem;
+        padding: 1rem;
+        @media screen and (max-width: 768px) {
+            margin: auto;
+        }
+    }
+    &-tags-container {
+        max-width: 11.25rem;
+    }
+    &-buttons {
+        @media screen and (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+.container {
+    flex-grow: 1;
+    margin: 0 auto;
+    position: relative;
+    width: auto;
+}
+.card-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    @media screen and (max-width: 800px + 32px) {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      .card {
+        min-width: 75vw;
+      }
+    }
+  }
+.product-card {
+    display: block;
+    max-width: 315px;
+}
+.product-list-footer {
+    margin-top: auto;
+}
+.product-list-parent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
