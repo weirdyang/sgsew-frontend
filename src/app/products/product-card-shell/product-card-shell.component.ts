@@ -4,16 +4,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSliderChange } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { BehaviorSubject, Subject, merge, combineLatest } from 'rxjs';
+import { BehaviorSubject, Subject, merge, combineLatest, Subscription } from 'rxjs';
 import { debounceTime, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HandsetService } from 'src/app/services/core/handset.service';
 import { NavigationService } from 'src/app/services/core/navigation.service';
+import { ThemingService } from 'src/app/services/core/theming.service';
 import { SearchService } from 'src/app/services/search.service';
 import { IProductResults } from 'src/app/types/product';
-import { minMaxValidator, numberValidator, validPrice } from '../helpers/price.validator';
+import { minMaxComparisonValidator, minMaxValidator, MyErrorStateMatcher, numberValidator, validPrice } from '../helpers/price.validator';
 import { ProductsDataSource } from './product-data-source';
-
+import { faSortAlphaDown, faSortAlphaUp } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-product-card-shell',
   templateUrl: './product-card-shell.component.html',
@@ -22,7 +23,17 @@ import { ProductsDataSource } from './product-data-source';
 export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   protected readonly destroy$ = new Subject();
-
+  searchParams = {
+    keyword: '',
+    sort: 'nameasc',
+    type: '',
+    skip: 0,
+    limit: 12,
+    min: 0,
+    max: 100000
+  }
+  alphaDown = faSortAlphaDown;
+  alphaUp = faSortAlphaUp;
   private _sortSubject = new BehaviorSubject<string>('nameasc');
 
   sort$ = this._sortSubject.asObservable()
@@ -30,7 +41,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
       shareReplay(1),
       share()
     );
-
+  sortControl = new FormControl();
   private _keywordSubject = new BehaviorSubject<string>('');
   keyword$ = this._keywordSubject.pipe(
     debounceTime(500),
@@ -41,22 +52,19 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
   min$ = this._minSubject.pipe(
     debounceTime(500),
     shareReplay(1),
-    tap(val => console.log(val, 'in tap')),
     share(),
   );
 
   onMinChange(event: any) {
     const target = event.target as HTMLInputElement;
     const { value } = target;
-
+    this.max.updateValueAndValidity();
     if (validPrice(value)) {
       this._minSubject.next(parseFloat(value));
     }
-    this.form.controls.max.updateValueAndValidity();
-    this.form.controls.min.updateValueAndValidity();
   }
   numberRegEx = /\-?\d*\.?\d{1,2}/;
-  min = new FormControl('', [numberValidator, minMaxValidator]);
+  min = new FormControl(this.searchParams.min, [numberValidator, minMaxValidator, Validators.min(0)]);
   private _maxSubject = new BehaviorSubject<number>(Number.MAX_SAFE_INTEGER);
   max$ = this._maxSubject.pipe(
     debounceTime(500),
@@ -66,14 +74,13 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
   onMaxChange(event: any) {
     const target = event.target as HTMLInputElement;
     const { value } = target;
-
+    this.min.updateValueAndValidity();
     if (validPrice(value)) {
       this._maxSubject.next(parseFloat(value));
     }
-    this.form.controls.max.updateValueAndValidity();
-    this.form.controls.min.updateValueAndValidity();
+
   }
-  max = new FormControl(Number.MAX_SAFE_INTEGER, [numberValidator, minMaxValidator]);
+  max = new FormControl(this.searchParams.max, [numberValidator, minMaxValidator, Validators.max(100000), Validators.min(0)]);
   private _typeSubject = new BehaviorSubject<string>('');
   type$ = this._typeSubject.pipe(
     shareReplay(1),
@@ -86,15 +93,8 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     this._keywordSubject.next(value.trim());
 
   }
-  searchParams = {
-    keyword: '',
-    sort: 'nameasc',
-    type: '',
-    skip: 0,
-    limit: 12,
-    min: 0,
-    max: Number.MAX_SAFE_INTEGER
-  }
+
+  matcher = new MyErrorStateMatcher(() => this.form.invalid)
   search$ = combineLatest(
     [this.sort$,
     this.keyword$,
@@ -105,9 +105,10 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
         this.searchParams.sort = sort;
         this.searchParams.keyword = keyword;
         this.searchParams.min = min;
-        console.log(this.searchParams.min, 'min')
+
         this.searchParams.max = max;
         this.searchParams.type = type;
+
         if (this.paginator && this.form.valid) {
           this.paginator.pageIndex = 0
           this.loadProducts()
@@ -131,7 +132,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     this.searchParams.limit = this.paginator.pageSize;
 
     const { keyword, sort, type, skip, limit, min, max } = this.searchParams;
-    console.log(min);
+
     this.dataSource.loadProducts(keyword, sort, type, skip, limit, min, max);
   }
   get showMenu() {
@@ -156,10 +157,11 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
         this.showMenu = false;
       }
     })
-
+  isDark$ = this.themingService.darkMode$;
+  sortSubscription: Subscription;
   form: FormGroup;
   constructor(
-    private snackBar: MatSnackBarModule,
+    private themingService: ThemingService,
     private handsetService: HandsetService,
     private navigationService: NavigationService,
     private searchService: SearchService,
@@ -168,7 +170,13 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     this.form = new FormGroup({
       min: this.min,
       max: this.max,
-    })
+      sort: this.sortControl,
+    }, { validators: minMaxComparisonValidator })
+
+    this.sortSubscription = this.form.controls['sort'].valueChanges
+      .subscribe(changes => {
+        this._sortSubject.next(changes);
+      })
   }
 
   sortOptions = ['nameasc', 'namedesc', 'brandasc', 'nameasc']

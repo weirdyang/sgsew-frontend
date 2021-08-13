@@ -50,12 +50,12 @@ $bd-aside-width: 15rem;
     padding: 1rem 1rem;
 }
 .card-container {
-    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    grid-template-rows: auto;
-    gap: 1rem;
-    margin: 0;
+    grid-gap: 1rem;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(315px, 1fr));
     @media screen and (max-width: 800px + 32px) {
       display: flex;
       flex-direction: column;
@@ -70,13 +70,43 @@ $bd-aside-width: 15rem;
     margin-top: auto;
 }
 .product-list-parent {
-    padding: 0 2rem;
     width: 100%;
+    padding: 0 2rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
     @media screen and (max-width: 800px + 32px) {
         padding: 0;
     }
 }
+.sort-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+mat-button-toggle-group {
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    &.dark-mode {
+        .mat-button-toggle {
+            background: $color-bg-dark;
+        }
+    }
+
+    .mat-button-toggle {
+
+        border: 0;
+        color: inherit;
+        padding: 0;
+        margin: 0;
+        font: inherit;
+        outline: none;
+        width: 100%;
+        cursor: pointer;
+        &:not(first-child){
+            border-bottom: 1px solid $color-text-med;
+        }
+    }
+  }
