@@ -1,0 +1,23 @@
+<div class="bd-overlay"
+    [ngClass]="{ 'bd-overlay--active': active}"
+    (click)="toggleMenu()"></div>
+
+<div [ngClass]="isSmallScreen ?  '' :  'bd-container'">
+    <div class="bd-aside"
+        [ngClass]="{ 'bd-aside--active' : active, 'dark-mode': (isDark$ | async) }">
+        <ng-container *ngIf="active">
+            <div class="bd-menu-header">
+                <span class="menu-label"> {{ 'Filter options' | uppercase }} </span>
+                <span>
+                    <a role="button"
+                        (click)="toggleMenu()">
+                        ❌
+                    </a>
+                </span>
+            </div>
+        </ng-container>
+        <aside class="menu">
+            <ng-content></ng-content>
+        </aside>
+    </div>
+</div>

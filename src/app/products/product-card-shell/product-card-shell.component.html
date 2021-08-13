@@ -1,0 +1,91 @@
+<div class="main">
+    <app-side-menu [active]="showMenu"
+        [isSmallScreen]="(breakPoint$ | async) ? true : false">
+        <div class="bd-menu container">
+            <section class="centered">
+                <div class="menu-label">
+                    Search
+                </div>
+                <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput
+                        type="text"
+                        (keyup)="updateKeyword($event)">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Min price</mat-label>
+                    <input matInput
+                        [formControl]="min"
+                        type="text"
+                        [errorStateMatcher]="matcher"
+                        (keyup)="onMinChange($event)">
+                    <mat-error *ngIf="min.errors?.invalidFloat">Invalid input</mat-error>
+                    <mat-error *ngIf="min.errors?.minBigger || form.errors?.minMaxError ">Max can't be less than min
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Max price</mat-label>
+                    <input matInput
+                        [formControl]="max"
+                        type="text"
+                        [errorStateMatcher]="matcher"
+                        (keyup)="onMaxChange($event)">
+                    <mat-error *ngIf="max.errors?.invalidFloat">Invalid input</mat-error>
+                    <mat-error *ngIf="max.errors?.minBigger || form.errors?.minMaxError">Max can't be less than min
+                    </mat-error>
+                    <mat-error *ngIf="max.errors?.max">Max value is {{ max.errors?.max?.max }}</mat-error>
+                </mat-form-field>
+                <section class="sort-menu">
+                    <h4>Sort</h4>
+                    <mat-button-toggle-group [formControl]="sortControl"
+                        aria-label="Font Style"
+                        [ngClass]="{'dark-mode': (isDark$ | async)}">
+                        <mat-button-toggle value="nameasc">
+                            NAME <fa-icon [icon]="alphaDown"></fa-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="namedesc">NAME <fa-icon [icon]="alphaUp"></fa-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="brandasc">
+                            BRAND <fa-icon [icon]="alphaDown"></fa-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="branddesc">BRAND <fa-icon [icon]="alphaUp"></fa-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="priceasc">PRICE <mat-icon>trending_up</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle value="pricedesc">PRICE <mat-icon>trending_down</mat-icon>
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                </section>
+            </section>
+        </div>
+
+    </app-side-menu>
+    <ng-container *ngIf="( dataSource.products$ | async) as products">
+        <section class="product-list-parent">
+            <button (click)="toggleMenu()"
+                *ngIf="(breakPoint$ | async)">show</button>
+            <section class="card-container">
+                <app-product-card *ngFor="let item of products"
+                    [isService]="item.productType === 'services'"
+                    [name]="item.name"
+                    [brand]="item.brand"
+                    [price]="item.price"
+                    [description]="item.description"
+                    [productType]="item.productType"
+                    [productId]="item._id"
+                    [isAdmin]="user?.role === 'admin'"
+                    [isUser]="user !== null"></app-product-card>
+
+            </section>
+
+        </section>
+
+    </ng-container>
+</div>
+<div>
+    <mat-paginator class="product-list-footer"
+        [length]="dataSource.total$|async"
+        [pageSize]="12"
+        [pageSizeOptions]="[3, 9, 12]"></mat-paginator>
+</div>

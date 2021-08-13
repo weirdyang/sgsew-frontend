@@ -18,7 +18,7 @@ export class ProductBaseComponent {
   descriptionValidators = [Validators.required, Validators.minLength(6), Validators.maxLength(140)];
   productTypes = ['hardware', 'services'];
   productTypeValidators = [Validators.required];
-  priceValidators = [Validators.required, createPriceValidator(this.currencyPipe)];
+  priceValidators = [Validators.required, Validators.max(100000), Validators.min(1), createPriceValidator(this.currencyPipe)];
   brandValidator = [Validators.required, Validators.minLength(3)]
   _isSubmitting = false;
 

@@ -1,0 +1,53 @@
+<article class="card"
+    [ngClass]="{ 'dark' : ( isDarkMode$ | async)}">
+    <section class="card-header">
+        <h1 class="title">{{ name | titlecase}}</h1>
+        <div class="subtitle tag-group">
+            <span class="brand-tag">{{ brand}}</span>
+            <span class="brand-tag category"
+                [ngClass]="{ 'service': isService }">{{ productType}}</span>
+        </div>
+    </section>
+    <figure class="card-image">
+        <img height="200"
+            width="300"
+            [src]="imageUrl" />
+    </figure>
+    <section class="card-content">
+
+        <div class="card-content-item">
+
+            <div class="item-text">
+                <span class="item-text-header"> <span class="item-icon">
+                        👋</span>
+                    name</span> <span class="item-text-content">{{ name }}</span>
+            </div>
+        </div>
+        <div class="card-content-item description">
+
+            <div class="item-text description">
+                <span class="item-text-header"> <span class="item-icon">
+                        👉</span>
+                    description</span> <span class="item-text-content">{{ description}}</span>
+            </div>
+        </div>
+        <div class="card-content-item">
+
+            <div class="item-text">
+                <span class="item-text-header"> <span class="item-icon">
+                        💰</span>
+                    price</span> <span class="item-text-content">{{ price | currency:'USD':'symbol'}}</span>
+            </div>
+        </div>
+    </section>
+    <ng-container *ngIf="isUser">
+        <section class="card-footer">
+            <button mat-raised-button
+                color="primary">Edit</button>
+            <button mat-button
+                [disabled]="!isAdmin || !productId"
+                (click)="delete()"
+                color="warn"> Delete</button>
+        </section>
+    </ng-container>
+</article>

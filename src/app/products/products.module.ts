@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
-import { ProductCreateModule } from './product-create/product-create.module';
 
 
 @NgModule({
@@ -12,7 +11,6 @@ import { ProductCreateModule } from './product-create/product-create.module';
   ],
   imports: [
     CommonModule,
-    ProductCreateModule,
     ProductsRoutingModule
   ]
 })

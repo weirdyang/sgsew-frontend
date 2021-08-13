@@ -1,6 +1,6 @@
 @use '~@angular/material' as mat;
 @use '../app/nav-bar/_nav-bar-theme' as side-nav;
-
+@import './variables';
 @include mat.core();
 
 //Define a light theme
@@ -34,6 +34,9 @@ $dark-theme: mat.define-dark-theme((
  @include side-nav.theme($dark-theme);
  body {
      background: black
+ }
+ .mat-drawer-container {
+   background-color: $color-bg-darker;
  }
 // Apply the light theme only when the `.my-light-theme` CSS class is applied
 // to an ancestor element of the components (such as `body`).
