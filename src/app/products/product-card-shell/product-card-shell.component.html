@@ -85,6 +85,7 @@
                 *ngIf="(breakPoint$ | async)">Search</button>
             <section class="card-container">
                 <app-product-card *ngFor="let item of products"
+                    class="product-card"
                     [isService]="item.productType === 'services'"
                     [name]="item.name"
                     [brand]="item.brand"

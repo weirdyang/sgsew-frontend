@@ -69,14 +69,13 @@ $breakpoint-narrow: 350px;
   color: var(--primary-invert);
 }
 .card {
-
-  height: 560px;
+  box-sizing: border-box;
+  height: 100%;
   display: flex;
   padding: 1rem 1rem;
   flex-direction: column;
   justify-content: flex-start;
-  max-width: 75vw;
-  min-width: 315px;
+  width: 100%;
   gap: 1rem;
   border: 1px solid black;
   border-radius: 2rem;
@@ -85,7 +84,7 @@ $breakpoint-narrow: 350px;
     0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.15);
   @media screen and (max-width: 376) {
     padding: 1rem 1.25rem;
-    width: 70vw;
+
   }
 }
 .title {
