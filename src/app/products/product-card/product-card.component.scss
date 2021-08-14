@@ -89,6 +89,7 @@ $breakpoint-narrow: 350px;
 }
 .title {
   margin-top: 0;
+  overflow-wrap: break-word;
 }
 .title + .subtitle {
   margin-top: -0.75rem;
@@ -206,6 +207,9 @@ $border-width: 1.25px;
 }
 
 .tag-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   .brand-tag {
       &:not(last-child){
           margin-right: 1rem;

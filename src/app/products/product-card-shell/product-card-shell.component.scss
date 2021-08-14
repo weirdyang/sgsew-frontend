@@ -66,12 +66,12 @@ $bd-aside-width: 15rem;
     display: grid;
     grid-gap: 1rem;
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
-    @media screen and (max-width: 800px + 32px) {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+    // @media screen and (max-width: 800px + 32px) {
+    //   display: flex;
+    //   flex-direction: column;
+    //   gap: 1rem;
+    // }
     @include hide-scrollbar;
   }
 .product-card {
