@@ -11,7 +11,7 @@
   --shadow-1: rgb(var(--shadow-base) / 26%);
   --shadow-2: rgb(var(--shadow-base) / 28%);
   --shadow-3: rgb(var(--shadow-base) / 22%);
-
+  box-sizing: border-box;
   text-overflow: ellipsis;
 
   &:nth-child(odd):not(:first-child) {
