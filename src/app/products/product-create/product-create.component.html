@@ -72,6 +72,9 @@
         <input matInput
             placeholder="Eg. $200.50"
             formControlName="price">
+        <mat-error *ngIf="form.get('price')?.hasError('min')">
+            Price must be more than 0.
+        </mat-error>
         <mat-error *ngIf="form.get('price')?.hasError('required')">
             This is required.
         </mat-error>

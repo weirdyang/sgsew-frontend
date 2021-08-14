@@ -42,6 +42,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
       share()
     );
   sortControl = new FormControl();
+
   private _keywordSubject = new BehaviorSubject<string>('');
   keyword$ = this._keywordSubject.pipe(
     debounceTime(500),
@@ -81,6 +82,8 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
 
   }
   max = new FormControl(this.searchParams.max, [numberValidator, minMaxValidator, Validators.max(100000), Validators.min(0)]);
+
+  typeControl = new FormControl();
   private _typeSubject = new BehaviorSubject<string>('');
   type$ = this._typeSubject.pipe(
     shareReplay(1),
@@ -159,6 +162,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     })
   isDark$ = this.themingService.darkMode$;
   sortSubscription: Subscription;
+  typeSubscription: Subscription;
   form: FormGroup;
   constructor(
     private themingService: ThemingService,
@@ -171,11 +175,16 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
       min: this.min,
       max: this.max,
       sort: this.sortControl,
+      type: this.typeControl,
     }, { validators: minMaxComparisonValidator })
 
     this.sortSubscription = this.form.controls['sort'].valueChanges
       .subscribe(changes => {
         this._sortSubject.next(changes);
+      })
+    this.typeSubscription = this.form.controls['type'].valueChanges
+      .subscribe(changes => {
+        this._typeSubject.next(changes);
       })
   }
 

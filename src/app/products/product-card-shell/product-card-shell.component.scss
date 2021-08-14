@@ -83,11 +83,14 @@ $bd-aside-width: 15rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1rem;
 }
 mat-button-toggle-group {
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
+    &.columns {
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
 
     &.dark-mode {
         .mat-button-toggle {
