@@ -4,6 +4,7 @@ import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EMPTY, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { MAX_PRICE } from 'src/app/config';
 import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
 import { createPriceValidator } from '../helpers/price.validator';
 import { processCurrency } from '../helpers/product.processor';
@@ -18,7 +19,7 @@ export class ProductBaseComponent {
   descriptionValidators = [Validators.required, Validators.minLength(6), Validators.maxLength(140)];
   productTypes = ['hardware', 'services'];
   productTypeValidators = [Validators.required];
-  priceValidators = [Validators.required, Validators.max(100000), Validators.min(1), createPriceValidator(this.currencyPipe)];
+  priceValidators = [Validators.required, Validators.max(MAX_PRICE), Validators.min(1), createPriceValidator(this.currencyPipe)];
   brandValidator = [Validators.required, Validators.minLength(3)]
   _isSubmitting = false;
 

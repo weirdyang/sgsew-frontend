@@ -15,6 +15,7 @@ import { IProductResults } from 'src/app/types/product';
 import { minMaxComparisonValidator, minMaxValidator, MyErrorStateMatcher, numberValidator, validPrice } from '../helpers/price.validator';
 import { ProductsDataSource } from './product-data-source';
 import { faSortAlphaDown, faSortAlphaUp } from '@fortawesome/free-solid-svg-icons';
+import { MAX_PRICE } from 'src/app/config';
 @Component({
   selector: 'app-product-card-shell',
   templateUrl: './product-card-shell.component.html',
@@ -30,7 +31,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     skip: 0,
     limit: 12,
     min: 0,
-    max: 100000
+    max: MAX_PRICE
   }
   alphaDown = faSortAlphaDown;
   alphaUp = faSortAlphaUp;
@@ -66,7 +67,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
   }
   numberRegEx = /\-?\d*\.?\d{1,2}/;
   min = new FormControl(this.searchParams.min, [numberValidator, minMaxValidator, Validators.min(0)]);
-  private _maxSubject = new BehaviorSubject<number>(Number.MAX_SAFE_INTEGER);
+  private _maxSubject = new BehaviorSubject<number>(MAX_PRICE);
   max$ = this._maxSubject.pipe(
     debounceTime(500),
     shareReplay(1),
