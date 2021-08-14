@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Profile } from '../types/user';
+import { IUser, Profile } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,19 +11,29 @@ import { Profile } from '../types/user';
 export class UserService {
 
   apiUrl = environment.userApi;
-  handleError(err: any): Observable<never> {
-    let errorMessage: string;
+  private handleError(err: HttpErrorResponse): Observable<never> {
+    // in a real world app, we may send the server to some remote logging infrastructure
+    // instead of just logging it to the console
+    let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
       errorMessage = `An error occurred: ${err.error.message}`;
     } else {
-
-      errorMessage = `Backend returned code ${err.status}: ${err.body?.error}`;
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
-    // this.errorService.setErrorMessage("Unable to fetch records.")
-    return throwError(errorMessage);
+    return throwError(err);
   }
   getProfile(username: string) {
     return this.http.get<Profile>(`${this.apiUrl}/users/profile/${username}`)
+      .pipe(
+        catchError(error => this.handleError(error)),
+      );
+  }
+
+  getSelf() {
+    return this.http.get<IUser>(`${this.apiUrl}/users/self`)
       .pipe(
         catchError(error => this.handleError(error)),
       );
