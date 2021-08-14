@@ -108,9 +108,7 @@
 
 
 </div>
-<div>
-    <mat-paginator class="product-list-footer"
-        [length]="dataSource.total$|async"
-        [pageSize]="12"
-        [pageSizeOptions]="[3, 9, 12]"></mat-paginator>
-</div>
+<mat-paginator class="product-list-footer"
+    [length]="dataSource.total$|async"
+    [pageSize]="12"
+    [pageSizeOptions]="[3, 9, 12]"></mat-paginator>
