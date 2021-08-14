@@ -44,7 +44,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
 
   }
   get imageUrl() {
-    return `${this.apiUrl}/products/image/${this.product.id}`;
+    return `${this.apiUrl}/products/image/${this.product._id}`;
   }
   product!: IProductEdit;
   user!: IUser;
@@ -198,13 +198,13 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     ).subscribe((res) => this.resetForm(res));
 
   private postUpdatedProduct(prod: IProduct) {
-    return this.productService.updateProductDetails(prod, this.product.id)
+    return this.productService.updateProductDetails(prod, this.product._id)
       .pipe(
         catchError(err => this.processError(err.error))
       );
   }
   private postFormData(formData: FormData) {
-    return this.productService.updateProduct(formData, this.product.id)
+    return this.productService.updateProduct(formData, this.product._id)
       .pipe(
         catchError(err => this.processError(err.error))
       );

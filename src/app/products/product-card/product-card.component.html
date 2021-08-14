@@ -43,6 +43,7 @@
     <ng-container *ngIf="isUser">
         <section class="card-footer">
             <button mat-raised-button
+                (click)="edit()"
                 color="primary">Edit</button>
             <button mat-button
                 [disabled]="!isAdmin || !productId"

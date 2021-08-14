@@ -1,5 +1,21 @@
 @import '../../../styles/variables';
 $bd-aside-width: 15rem;
+:host{
+    box-sizing: border-box;
+    * {
+        box-sizing: border-box;
+    }
+}
+@mixin  hideScrollBar {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    &::-webkit-scrollbar{
+        width: 0;
+        height: 0;
+    }
+}
 .bd {
     &-menu-header {
         display: flex;
@@ -10,14 +26,7 @@ $bd-aside-width: 15rem;
         width: 100%;
         border-radius: 0.25em;
         height: 100%;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        scrollbar-width: none; /* Firefox */
-        -ms-overflow-style: none;  /* Internet Explorer 10+ */
-        &::-webkit-scrollbar{
-            width: 0;
-            height: 0;
-        }
+        @include hideScrollBar;
 
     }
     &-overlay {
@@ -38,7 +47,7 @@ $bd-aside-width: 15rem;
     &-aside {
         height: 100%;
         width: $bd-aside-width;
-
+        @include hideScrollBar;
         @media screen and (min-width:1600px){
             display: flex;
             justify-content: flex-end;
