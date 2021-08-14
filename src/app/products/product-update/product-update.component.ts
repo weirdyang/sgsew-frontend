@@ -68,7 +68,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
         this.brandValidator],
       price: [
         processCurrency(product.price.toString()),
-        [Validators.required],
+        this.priceValidators,
       ],
       fileName: ['',
         [checkFileValidator]]

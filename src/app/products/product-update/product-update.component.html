@@ -78,6 +78,12 @@
         <mat-error *ngIf="form.get('price')?.hasError('required')">
             This is required.
         </mat-error>
+        <mat-error *ngIf="form.get('price')?.hasError('min')">
+            Price must be more than 0.
+        </mat-error>
+        <mat-error *ngIf="form.get('price')?.hasError('max')">
+            Max price is {{ form.get('price')?.errors?.max?.max }}.
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill"
         class="form-item">
