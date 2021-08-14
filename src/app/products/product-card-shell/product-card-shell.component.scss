@@ -13,7 +13,14 @@
     opacity: 0.8;
     pointer-events: auto;
   }
-
+:host-context(.light){
+    .loader {
+        border-left: 1.1em solid #003e94;
+    }
+}
+.loader {
+    border-left: 1.1em solid #00947e;
+}
 $bd-aside-width: 15rem;
 .bd {
     &-menu {
