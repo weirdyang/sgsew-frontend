@@ -193,7 +193,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
   user = this.authService.getUser();
 
   dataSource: ProductsDataSource = new ProductsDataSource(this.searchService);
-
+  loading$ = this.dataSource.loading$;
   private productSubject = new BehaviorSubject<IProductResults | null>(null)
   products$ = this.productSubject.asObservable()
     .pipe(

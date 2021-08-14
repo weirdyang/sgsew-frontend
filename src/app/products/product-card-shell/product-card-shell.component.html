@@ -78,29 +78,35 @@
         </div>
 
     </app-side-menu>
-    <ng-container *ngIf="( dataSource.products$ | async) as products">
-        <section class="product-list-parent">
-            <button mat-raised-button
-                (click)="toggleMenu()"
-                *ngIf="(breakPoint$ | async)">Search</button>
-            <section class="card-container">
-                <app-product-card *ngFor="let item of products"
-                    class="product-card"
-                    [isService]="item.productType === 'services'"
-                    [name]="item.name"
-                    [brand]="item.brand"
-                    [price]="item.price"
-                    [description]="item.description"
-                    [productType]="item.productType"
-                    [productId]="item._id"
-                    [isAdmin]="user?.role === 'admin'"
-                    [isUser]="user !== null"></app-product-card>
 
-            </section>
+    <section class="product-list-parent">
+        <button mat-raised-button
+            (click)="toggleMenu()"
+            *ngIf="(breakPoint$ | async)">Search</button>
+        <div *ngIf="(loading$ | async)"
+            class="loader"></div>
+        <ng-container *ngIf="(loading$ | async) === false">
+            <ng-container *ngIf="(dataSource.products$ | async) as products">
+                <section class="card-container">
+                    <app-product-card *ngFor="let item of products"
+                        class="product-card"
+                        [isService]="item.productType === 'services'"
+                        [name]="item.name"
+                        [brand]="item.brand"
+                        [price]="item.price"
+                        [description]="item.description"
+                        [productType]="item.productType"
+                        [productId]="item._id"
+                        [isAdmin]="user?.role === 'admin'"
+                        [isUser]="user !== null"></app-product-card>
 
-        </section>
+                </section>
+            </ng-container>
+        </ng-container>
 
-    </ng-container>
+    </section>
+
+
 </div>
 <div>
     <mat-paginator class="product-list-footer"
