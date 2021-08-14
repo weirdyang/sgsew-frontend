@@ -9,7 +9,7 @@ $bd-aside-width: 15rem;
     &-container {
         width: 100%;
         border-radius: 0.25em;
-        height: calc(85vh);
+        height: 100%;
         overflow-x: hidden;
         overflow-y: scroll;
         scrollbar-width: none; /* Firefox */
@@ -36,7 +36,7 @@ $bd-aside-width: 15rem;
         }
     }
     &-aside {
-        height: 85vh;
+        height: 100%;
         width: $bd-aside-width;
 
         @media screen and (min-width:1600px){

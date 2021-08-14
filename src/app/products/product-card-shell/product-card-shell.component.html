@@ -36,9 +36,27 @@
                     <mat-error *ngIf="max.errors?.max">Max value is {{ max.errors?.max?.max }}</mat-error>
                 </mat-form-field>
                 <section class="sort-menu">
+                    <h4>Type</h4>
+                    <mat-button-toggle-group [formControl]="typeControl"
+                        aria-label="Font Style"
+                        class="columns"
+                        [ngClass]="{'dark-mode': (isDark$ | async)}">
+                        <mat-button-toggle value="services">
+                            Services
+                        </mat-button-toggle>
+                        <mat-button-toggle value="hardware">
+                            Hardware
+                        </mat-button-toggle>
+                        <mat-button-toggle value="">
+                            All
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </section>
+                <section class="sort-menu">
                     <h4>Sort</h4>
                     <mat-button-toggle-group [formControl]="sortControl"
-                        aria-label="Font Style"
+                        aria-label="Sort"
+                        class="columns"
                         [ngClass]="{'dark-mode': (isDark$ | async)}">
                         <mat-button-toggle value="nameasc">
                             NAME <fa-icon [icon]="alphaDown"></fa-icon>
@@ -55,7 +73,6 @@
                         <mat-button-toggle value="pricedesc">PRICE <mat-icon>trending_down</mat-icon>
                         </mat-button-toggle>
                     </mat-button-toggle-group>
-
                 </section>
             </section>
         </div>
@@ -68,6 +85,7 @@
                 *ngIf="(breakPoint$ | async)">Search</button>
             <section class="card-container">
                 <app-product-card *ngFor="let item of products"
+                    class="product-card"
                     [isService]="item.productType === 'services'"
                     [name]="item.name"
                     [brand]="item.brand"

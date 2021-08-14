@@ -47,7 +47,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
         this.productTypeValidators],
       brand: [null,
         this.brandValidator],
-      price: [0, this.priceValidators],
+      price: [1, this.priceValidators],
       fileName: [null,
         [Validators.required, checkFileValidator]]
     })
