@@ -1,5 +1,6 @@
 @import '../../../styles/variables';
 @import '../../../styles/loader';
+@import '../../../styles/mixins';
 :host {
     font-size: 1rem;
     display: flex;
@@ -21,19 +22,6 @@
         border: 1px solid $color-text-med;
      }
 }
-
-@mixin hide-scrollbar {
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    &::-webkit-scrollbar {
-      /* WebKit */
-      width: 0;
-      height: 0;
-    }
-  }
-
 .loader {
     border-left: 1.1em solid #00947e;
 }
@@ -160,6 +148,4 @@ mat-button-toggle-group {
             filter: brightness(140%);
          }
     }
-
-
-  }
+}

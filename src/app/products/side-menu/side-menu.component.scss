@@ -1,21 +1,14 @@
 @import '../../../styles/variables';
+@import '../../../styles/mixins';
 $bd-aside-width: 15rem;
 :host{
-    position: sticky;
     box-sizing: border-box;
     * {
         box-sizing: border-box;
     }
 }
-@mixin  hideScrollBar {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    &::-webkit-scrollbar{
-        width: 0;
-        height: 0;
-    }
+.close-button {
+    cursor: pointer;
 }
 .bd {
     &-menu-header {
@@ -26,7 +19,7 @@ $bd-aside-width: 15rem;
     &-container {
         width: 100%;
         border-radius: 0.25em;
-        @include hideScrollBar;
+
 
     }
     &-overlay {
@@ -47,7 +40,7 @@ $bd-aside-width: 15rem;
     &-aside {
         height: 100%;
         width: $bd-aside-width;
-        @include hideScrollBar;
+        @include hide-scrollbar;
         @media screen and (min-width:1600px){
             display: flex;
             justify-content: flex-end;
