@@ -17,6 +17,16 @@
     .loader {
         border-left: 1.1em solid #003e94;
     }
+     .sort-menu{
+        border: 1px solid $color-text-med;
+     }
+}
+
+
+.sort-menu{
+    border: 1px solid $color-bg-med;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
 }
 .loader {
     border-left: 1.1em solid #00947e;
@@ -74,7 +84,7 @@ $bd-aside-width: 15rem;
     display: grid;
     grid-gap: 1rem;
     width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 .product-card {
     box-sizing: border-box;
@@ -95,13 +105,23 @@ $bd-aside-width: 15rem;
         padding: 0;
     }
 }
+.menu-label {
+    margin-bottom: 00.25rem;
+}
 .sort-menu {
+    box-sizing: border-box;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
 }
 mat-button-toggle-group {
+    border: 0!important;
+    padding: 0!important;
+    * {
+        padding-left: 0;
+    }
     &.columns {
         flex-direction: column;
         justify-content: center;
@@ -112,11 +132,14 @@ mat-button-toggle-group {
         .mat-button-toggle {
             background: $color-bg-dark;
         }
+        .mat-button-toggle-checked {
+            filter: brightness(140%);
+         }
     }
 
     .mat-button-toggle {
-
-        border: 0;
+        padding:0;
+        border: 0!important;
         color: inherit;
         padding: 0;
         margin: 0;
@@ -124,8 +147,6 @@ mat-button-toggle-group {
         outline: none;
         width: 100%;
         cursor: pointer;
-        &:not(first-child){
-            border-bottom: 1px solid $color-text-med;
-        }
+        margin-bottom: 0.25rem;
     }
   }

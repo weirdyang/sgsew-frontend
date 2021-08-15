@@ -36,7 +36,7 @@
                     <mat-error *ngIf="max.errors?.max">Max value is {{ max.errors?.max?.max }}</mat-error>
                 </mat-form-field>
                 <section class="sort-menu">
-                    <h4>Type</h4>
+                    <h4 class="menu-label">Type</h4>
                     <mat-button-toggle-group [formControl]="typeControl"
                         aria-label="Font Style"
                         class="columns"
@@ -53,7 +53,7 @@
                     </mat-button-toggle-group>
                 </section>
                 <section class="sort-menu">
-                    <h4>Sort</h4>
+                    <h4 class="menu-label">Sort</h4>
                     <mat-button-toggle-group [formControl]="sortControl"
                         aria-label="Sort"
                         class="columns"
