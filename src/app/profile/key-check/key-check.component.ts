@@ -14,6 +14,7 @@ import { ThemingService } from 'src/app/services/core/theming.service';
   styleUrls: ['./key-check.component.scss']
 })
 export class KeyCheckComponent implements OnInit {
+  hide = true;
   isDarkSubscription = this.themingService.darkMode$
     .subscribe(
       isDark => {
