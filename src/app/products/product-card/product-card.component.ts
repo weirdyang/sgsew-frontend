@@ -1,8 +1,10 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 import { ThemingService } from 'src/app/services/core/theming.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { IHttpError } from 'src/app/types/http-error';
@@ -18,7 +20,8 @@ export class ProductCardComponent implements OnInit {
 
   isDarkMode$ = this.themingService.darkMode$;
 
-  constructor(private themingService: ThemingService,
+  constructor(
+    private themingService: ThemingService,
     private productService: ProductsService,
     private router: Router,
     private snackBar: MatSnackBar) { }
@@ -44,6 +47,7 @@ export class ProductCardComponent implements OnInit {
   isAdmin: boolean = false;
   @Input()
   isUser: boolean = false;
+
 
   ngOnInit(): void {
     console.log(this.isUser);

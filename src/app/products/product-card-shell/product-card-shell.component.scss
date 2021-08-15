@@ -1,5 +1,6 @@
 @import '../../../styles/variables';
 @import '../../../styles/loader';
+@import '../../../styles/mixins';
 :host {
     font-size: 1rem;
     display: flex;
@@ -21,9 +22,6 @@
         border: 1px solid $color-text-med;
      }
 }
-
-
-
 .loader {
     border-left: 1.1em solid #00947e;
 }
@@ -54,26 +52,24 @@ $bd-aside-width: 15rem;
     margin: 0 auto;
     position: relative;
     width: auto;
+
 }
-.sticky {
-    position: sticky;
+.fixed {
+    width: 15rem;
+
+}
+.fixed-left {
+    position: fixed;
+    top: 2.5rem;
+    height: calc(100vh - 5.5rem);
 }
 .centered {
     display: grid;
     place-items: center;
     padding: 1rem 1rem;
+    @include hide-scrollbar;
 }
-@mixin hide-scrollbar {
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-    &::-webkit-scrollbar {
-      /* WebKit */
-      width: 0;
-      height: 0;
-    }
-  }
+
 .card-container {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -104,6 +100,7 @@ $bd-aside-width: 15rem;
 .menu-label {
     margin-bottom: 00.25rem;
 }
+
 .sort-menu {
     box-sizing: border-box;
     width: 100%;
@@ -127,16 +124,6 @@ mat-button-toggle-group {
         justify-content: center;
         width: 100%;
     }
-
-    &.dark-mode {
-        .mat-button-toggle {
-            background: $color-bg-dark;
-        }
-        .mat-button-toggle-checked {
-            filter: brightness(140%);
-         }
-    }
-
     .mat-button-toggle {
         padding:0;
         border: 0!important;
@@ -148,5 +135,17 @@ mat-button-toggle-group {
         width: 100%;
         cursor: pointer;
         margin-bottom: 0.25rem;
+        background: $color-text-light;
+        &.mat-button-toggle-checked {
+            filter: brightness(80%);
+         }
     }
-  }
+    &.dark-mode {
+        .mat-button-toggle {
+            background: $color-bg-med;
+        }
+        .mat-button-toggle-checked {
+            filter: brightness(140%);
+         }
+    }
+}

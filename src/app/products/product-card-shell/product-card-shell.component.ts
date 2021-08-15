@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSliderChange } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BehaviorSubject, Subject, merge, combineLatest, Subscription } from 'rxjs';
-import { debounceTime, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
+import { debounceTime, filter, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HandsetService } from 'src/app/services/core/handset.service';
 import { NavigationService } from 'src/app/services/core/navigation.service';
@@ -16,6 +16,7 @@ import { minMaxComparisonValidator, minMaxValidator, MyErrorStateMatcher, number
 import { ProductsDataSource } from './product-data-source';
 import { faSortAlphaDown, faSortAlphaUp } from '@fortawesome/free-solid-svg-icons';
 import { MAX_PRICE } from 'src/app/config';
+import { IUser } from 'src/app/types/user';
 @Component({
   selector: 'app-product-card-shell',
   templateUrl: './product-card-shell.component.html',
@@ -192,7 +193,15 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
   sortOptions = ['nameasc', 'namedesc', 'brandasc', 'nameasc']
 
   user = this.authService.getUser();
-
+  protected userLoginSubscription = this.authService.currentUser$
+    .pipe(
+      filter(user => user !== null),
+      takeUntil(this.destroy$)
+    ).subscribe(value => {
+      if (value as IUser) {
+        this.user = value as IUser;
+      }
+    })
   dataSource: ProductsDataSource = new ProductsDataSource(this.searchService);
   loading$ = this.dataSource.loading$;
   private productSubject = new BehaviorSubject<IProductResults | null>(null)
