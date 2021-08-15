@@ -14,7 +14,7 @@ import { isValidImageExtension } from '../helpers/image-helper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { constructFormData, processCurrency } from '../helpers/product.processor';
 import { ProductBaseComponent } from '../product-base/product-base.component';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, Location } from '@angular/common';
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
@@ -38,7 +38,8 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     public router: Router,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    public currencyPipe: CurrencyPipe) {
+    public currencyPipe: CurrencyPipe,
+    private location: Location) {
     super(router, currencyPipe);
     this.user = this.authService.getUser() as IUser;
 
@@ -79,7 +80,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   }
 
   cancel() {
-    this.router.navigateByUrl('/');
+    this.location.back();
   }
   ngOnInit(): void {
 
