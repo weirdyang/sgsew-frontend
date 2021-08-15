@@ -1,7 +1,10 @@
 <div class="main">
+
     <app-side-menu [active]="showMenu"
+        [ngClass]="{'fixed': (breakPoint$ | async) === false}"
         [isSmallScreen]="(breakPoint$ | async) ? true : false">
-        <div class="bd-menu container">
+        <div class="bd-menu container"
+            [ngClass]="{'fixed-left': (breakPoint$ | async) === false}">
             <section class="centered">
                 <div class="menu-label">
                     Search
