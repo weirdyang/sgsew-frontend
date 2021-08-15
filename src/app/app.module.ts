@@ -14,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import { ProfileModule } from './profile/profile.module';
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DefaultInterceptor } from './interceptors/default.interceptor';
+import { CurrencyPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DefaultInterceptor } from './interceptors/default.interceptor';
   ],
   providers: [
     [
+      CurrencyPipe,
       { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true }
     ]
   ],

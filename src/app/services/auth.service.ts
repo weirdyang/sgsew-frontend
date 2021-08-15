@@ -47,6 +47,7 @@ export class AuthService {
   }
 
   setUser = (user: IUser) => {
+    console.log('setting...')
     window.localStorage.setItem(this.USER_KEY, JSON.stringify(user));
     this._currentUserSubject.next(user as IUser);
   }

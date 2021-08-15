@@ -61,6 +61,10 @@ export class ProductCardComponent implements OnInit {
     }
     this.router.navigateByUrl('/');
   }
+  edit() {
+
+    this.router.navigateByUrl(`/products/update/${this.productId}`);
+  }
   showError(error: IHttpError) {
     const message = error.message ?? 'This is unexpected, please contact support.';
     this.snackBar.open(message, 'OK');

@@ -7,7 +7,7 @@ export interface IProduct {
 }
 export interface IProductEdit extends IProduct {
     user: string,
-    id: string,
+    _id: string,
 }
 export interface IProductDisplay extends IProduct {
     user: string,

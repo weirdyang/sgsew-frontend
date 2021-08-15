@@ -14,7 +14,7 @@ import { isValidImageExtension } from '../helpers/image-helper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { constructFormData, processCurrency } from '../helpers/product.processor';
 import { ProductBaseComponent } from '../product-base/product-base.component';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, Location } from '@angular/common';
 @Component({
   selector: 'app-product-update',
   templateUrl: './product-update.component.html',
@@ -38,13 +38,14 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     public router: Router,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    public currencyPipe: CurrencyPipe) {
+    public currencyPipe: CurrencyPipe,
+    private location: Location) {
     super(router, currencyPipe);
     this.user = this.authService.getUser() as IUser;
 
   }
   get imageUrl() {
-    return `${this.apiUrl}/products/image/${this.product.id}`;
+    return `${this.apiUrl}/products/image/${this.product._id}`;
   }
   product!: IProductEdit;
   user!: IUser;
@@ -68,7 +69,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
         this.brandValidator],
       price: [
         processCurrency(product.price.toString()),
-        [Validators.required],
+        this.priceValidators,
       ],
       fileName: ['',
         [checkFileValidator]]
@@ -79,7 +80,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   }
 
   cancel() {
-    this.router.navigateByUrl('/');
+    this.location.back();
   }
   ngOnInit(): void {
 
@@ -198,13 +199,13 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     ).subscribe((res) => this.resetForm(res));
 
   private postUpdatedProduct(prod: IProduct) {
-    return this.productService.updateProductDetails(prod, this.product.id)
+    return this.productService.updateProductDetails(prod, this.product._id)
       .pipe(
         catchError(err => this.processError(err.error))
       );
   }
   private postFormData(formData: FormData) {
-    return this.productService.updateProduct(formData, this.product.id)
+    return this.productService.updateProduct(formData, this.product._id)
       .pipe(
         catchError(err => this.processError(err.error))
       );

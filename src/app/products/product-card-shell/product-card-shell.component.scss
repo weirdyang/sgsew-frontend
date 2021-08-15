@@ -75,19 +75,15 @@ $bd-aside-width: 15rem;
     grid-gap: 1rem;
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
-    // @media screen and (max-width: 800px + 32px) {
-    //   display: flex;
-    //   flex-direction: column;
-    //   gap: 1rem;
-    // }
-    @include hide-scrollbar;
-  }
+}
 .product-card {
     box-sizing: border-box;
     margin: 0.25rem 0.25rem;
 }
 .product-list-footer {
-    margin-top: auto;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 .product-list-parent {
     width: 100%;
