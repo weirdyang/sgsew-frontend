@@ -54,6 +54,8 @@ $bd-aside-width: 15rem;
     width: auto;
 
 }
+
+
 .fixed {
     width: 15rem;
 
@@ -63,6 +65,8 @@ $bd-aside-width: 15rem;
     top: 64px;
     left: 0;
     height: calc(100vh - 8rem);
+    display: flex;
+    justify-content: flex-start;
 }
 .centered {
     display: grid;
