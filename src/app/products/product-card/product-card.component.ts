@@ -16,7 +16,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss'],
 })
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent {
 
   isDarkMode$ = this.themingService.darkMode$;
 
@@ -49,9 +49,6 @@ export class ProductCardComponent implements OnInit {
   isUser: boolean = false;
 
 
-  ngOnInit(): void {
-    console.log(this.isUser);
-  }
 
   get imageUrl() {
     if (!this.productId) {

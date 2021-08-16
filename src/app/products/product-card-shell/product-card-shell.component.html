@@ -22,8 +22,11 @@
                         type="text"
                         [errorStateMatcher]="matcher"
                         (keyup)="onMinChange($event)">
-                    <mat-error *ngIf="min.errors?.invalidFloat">Invalid input</mat-error>
-                    <mat-error *ngIf="min.errors?.minBigger || form.errors?.minMaxError ">Max can't be less than min
+                    <mat-error *ngIf="min.errors?.invalidFloat">
+                        Invalid input
+                    </mat-error>
+                    <mat-error *ngIf="!min.errors?.invalidFloat && (min.errors?.minBigger || form.errors?.minMaxError)">
+                        Max must be more than min
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field>
@@ -33,10 +36,15 @@
                         type="text"
                         [errorStateMatcher]="matcher"
                         (keyup)="onMaxChange($event)">
-                    <mat-error *ngIf="max.errors?.invalidFloat">Invalid input</mat-error>
-                    <mat-error *ngIf="max.errors?.minBigger || form.errors?.minMaxError">Max can't be less than min
+                    <mat-error *ngIf="max.errors?.invalidFloat">
+                        Invalid input
                     </mat-error>
-                    <mat-error *ngIf="max.errors?.max">Max value is {{ max.errors?.max?.max }}</mat-error>
+                    <mat-error *ngIf="!max.errors?.invalidFloat && max.errors?.minBigger">
+                        Max must be more than min
+                    </mat-error>
+                    <mat-error *ngIf="!max.errors?.invalidFloat &&max.errors?.max">
+                        Max value is {{ max.errors?.max?.max }}
+                    </mat-error>
                 </mat-form-field>
                 <section class="sort-menu">
                     <h4 class="menu-label">Type</h4>
@@ -45,13 +53,13 @@
                         class="columns"
                         [ngClass]="{'dark-mode': (isDark$ | async)}">
                         <mat-button-toggle value="services">
-                            Services
+                            SERVICES
                         </mat-button-toggle>
                         <mat-button-toggle value="hardware">
-                            Hardware
+                            HARDWARE
                         </mat-button-toggle>
                         <mat-button-toggle value="">
-                            All
+                            ALL
                         </mat-button-toggle>
                     </mat-button-toggle-group>
                 </section>
