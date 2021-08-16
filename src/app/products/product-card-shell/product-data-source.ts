@@ -52,7 +52,7 @@ export class ProductsDataSource implements DataSource<IProductDisplay> {
             .set('min', min)
             .set('max', max)
 
-        console.log(min)
+
         this.searchService.search(params)
             .pipe(
                 shareReplay(1),

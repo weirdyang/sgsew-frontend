@@ -28,7 +28,7 @@ export class NavigationService {
   }
 
   toggle() {
-    console.log(!this.isShown);
+
     this._showNavSubject.next(!this.isShown);
   }
   toggleNavState(value: boolean) {

@@ -20,7 +20,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar) {
-    console.log('in constructor')
+
   }
   private handleAuthError(err: HttpErrorResponse): Observable<any> {
     //handle your auth error or rethrow

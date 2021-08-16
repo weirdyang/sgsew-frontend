@@ -61,7 +61,10 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     const target = event.target as HTMLInputElement;
     const { value } = target;
     this.max.updateValueAndValidity();
-    if (validPrice(value)) {
+    if (!value) {
+      this._minSubject.next(0);
+    }
+    else if (validPrice(value)) {
       this._minSubject.next(parseFloat(value));
     }
   }
@@ -77,7 +80,10 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     const target = event.target as HTMLInputElement;
     const { value } = target;
     this.min.updateValueAndValidity();
-    if (validPrice(value)) {
+    if (!value) {
+      this._maxSubject.next(MAX_PRICE);
+    }
+    else if (validPrice(value)) {
       this._maxSubject.next(parseFloat(value));
     }
 

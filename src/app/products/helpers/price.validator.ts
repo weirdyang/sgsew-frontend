@@ -25,31 +25,45 @@ export function createPriceValidator(currencyPipe: CurrencyPipe): ValidatorFn {
 export const numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const value = control.value as string;
 
-    const numberRegEx = /^\d{0,23}(\.\d{1,4})?$/.test(value);
+    const numberRegEx = /^\d{0,24}(\.\d{1,4})?$/.test(value);
+
     return numberRegEx ? null : { 'invalidFloat': true };
 }
 
 export const minMaxComparisonValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const max = control.get('max');
     const min = control.get('min');
-    if (!min) return null;
-    if (!max) return null;
-    return +min.value > +max.value ? { minMaxError: true } : null;
+
+    if (!min?.value || !max?.value || !min || !max) {
+
+        return null;
+    }
+    return +min.value >= +max.value
+        ? { minMaxError: true }
+        : null;
 };
 export const minMaxValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const parent = control.parent as FormGroup;
 
     if (!parent) return null;
+
     const min = parent?.get('min')?.value;
     const max = parent?.get('max')?.value;
-    if (!min) return null;
-    if (!max) return null;
 
-    return +min < +max
-        ? null
-        : { minBigger: true };
+    if (!min || !max) {
+        return null;
+    }
+    if (!validPrice(min) || !validPrice(max)) {
+        return null;
+    }
+
+    return +min >= +max
+        ? { minBigger: true }
+        : null;
 }
 export const validPrice = function validPrice(value: string) {
+    if (!value) return false;
+
     return /^\d{0,24}(\.\d{1,4})?$/.test(value);
 }
 

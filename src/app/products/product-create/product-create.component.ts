@@ -57,7 +57,6 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
         takeUntil(this.destroy$),
         map(form => this.convertToCurrency(form)),
         catchError(err => {
-          console.log(err);
           this.form.patchValue({
             price: this.currencyPipe.transform(0, 'USD', 'symbol')
           });
@@ -116,7 +115,6 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
   }
   private subscription = this.submit$
     .pipe(
-      tap(data => console.log(data, 'subscription')),
       switchMap(formData =>
         this.postFormData(formData)),
       catchError(err => this.processError(err.error)),
@@ -133,7 +131,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
 
   submitForm() {
     const formData: FormData = constructFormData(this.form);
-    console.log(formData);
+
     this.submitSubject.next(formData);
   }
   ngOnDestroy() {
