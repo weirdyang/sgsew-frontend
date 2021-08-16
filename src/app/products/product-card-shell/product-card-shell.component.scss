@@ -8,7 +8,7 @@
 }
 .main {
     display: flex;
-    height: calc(100vh - 7.5rem);
+    height: fit-content(1rem);
 }
 .bd-showing-overlay .bd-docs-overlay {
     opacity: 0.8;
@@ -62,12 +62,13 @@ $bd-aside-width: 15rem;
     position: fixed;
     top: 64px;
     left: 0;
-    height: calc(100vh - 5.5rem);
+    height: calc(100vh - 8rem);
 }
 .centered {
     display: grid;
     place-items: center;
     padding: 1rem 1rem;
+
     @include hide-scrollbar;
 }
 
@@ -94,6 +95,7 @@ $bd-aside-width: 15rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: 4rem;
     @media screen and (max-width: 800px + 32px) {
         padding: 0;
     }
