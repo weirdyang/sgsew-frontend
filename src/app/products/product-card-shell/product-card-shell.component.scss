@@ -60,7 +60,8 @@ $bd-aside-width: 15rem;
 }
 .fixed-left {
     position: fixed;
-    top: 2.5rem;
+    top: 64px;
+    left: 0;
     height: calc(100vh - 5.5rem);
 }
 .centered {
