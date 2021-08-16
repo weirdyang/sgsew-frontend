@@ -80,7 +80,7 @@ export class AuthService {
   }
 
   loginUser(user: ILogin) {
-    console.log(user);
+
     return this.http.post<IUser>(`${this.apiUrl}/auth/login`, user)
       .pipe(
         catchError(error => this.handleError(error))
