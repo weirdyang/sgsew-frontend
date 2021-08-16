@@ -80,7 +80,7 @@ export class RegisterComponent implements OnDestroy {
 
 
   save() {
-    console.log(this.form.value as RegisterUser);
+
     this.authService.registerUser(this.form.value as RegisterUser)
       .subscribe({
         next: result => {

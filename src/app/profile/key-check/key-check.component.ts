@@ -52,7 +52,7 @@ export class KeyCheckComponent implements OnInit {
               this.dialogRef.close(true)
             },
             error: (err) => {
-              console.log(err);
+
               if (err.status === 403) {
                 this.snackBar.open(err.error.message, 'OK')
               } else {

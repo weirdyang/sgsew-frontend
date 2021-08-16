@@ -68,21 +68,21 @@ export class ProductBaseComponent {
   }
   processErrorMessage(error: IHttpError) {
     for (const item of error.additionalInfo) {
-      console.log(item);
+
       const message = item as IErrorMessage;
       this.errorObject[item.name] = item.error;
     }
   }
   processError(error: IHttpError) {
-    console.log(error);
+
     if (error.message) {
       this.errorMessage = error.message;
     }
     if (error.additionalInfo) {
-      console.log(error.additionalInfo);
+
     }
     if (error.additionalInfo && error.additionalInfo.length) {
-      console.table(error.additionalInfo[0]);
+
       this.processErrorMessage(error);
     }
     this.isSubmitting = false;

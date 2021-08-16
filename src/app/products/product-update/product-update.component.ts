@@ -89,7 +89,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     ).subscribe(
       ({ product }) => {
         this.product = product;
-        console.log(product);
+
         this.constructFormGroup(product as IProduct);
         this.imageSrc = this.imageUrl;
       })
@@ -184,7 +184,6 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   }
   private formSubscription = this.formSubmit$
     .pipe(
-      tap(data => console.log(data, 'subscription')),
       switchMap(formData =>
         this.postFormData(formData)),
       catchError(err => this.processError(err.error)),
@@ -192,7 +191,6 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
 
   private postSubscription = this.productSubmit$
     .pipe(
-      tap(data => console.log(data, 'subscription')),
       switchMap(formData =>
         this.postUpdatedProduct(formData)),
       catchError(err => this.processError(err.error)),

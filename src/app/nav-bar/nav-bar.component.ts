@@ -68,7 +68,7 @@ export class NavBarComponent implements OnDestroy {
       .afterClosed()
       .subscribe(result => {
         if (result) {
-          console.log(result);
+
           this.openRegisterDialog();
         }
       });
