@@ -2,8 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { AfterViewInit, Component, ComponentFactoryResolver, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSliderChange } from '@angular/material/slider';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { BehaviorSubject, Subject, merge, combineLatest, Subscription } from 'rxjs';
 import { debounceTime, filter, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
