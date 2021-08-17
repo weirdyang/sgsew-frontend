@@ -28,7 +28,7 @@ export class ProductBaseComponent {
   invalidErrorMessage = 'Invalid value';
   requiredErrorMessage = 'This is required';
   brandMinErrorMessage = 'Product brand must be at least 3 characters';
-  nameMinErrorMessage = 'Product name must be at least 8 characters';
+  nameMinErrorMessage = 'Product name must be at least 6 characters';
   typeMinErrorMessage = 'Product type must be at least 6 characters';
   descriptionErrorMessage = ' Product description must be at least 6 characters and max 140 characters.';
   imageFormatErrorMessage = 'Only images in png and jpg format are allowed.';
