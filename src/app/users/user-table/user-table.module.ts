@@ -9,18 +9,31 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
+import { DeleteDialogComponent } from './delete-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
-    UserTableComponent],
+    UserTableComponent,
+    DeleteDialogComponent],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
     CommonModule,
+    MatFormFieldModule,
+    MatIconModule,
     UserTableRoutingModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
     MatChipsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class UserTableModule { }

@@ -5,7 +5,6 @@ import { ProfileComponent } from './profile.component';
 
 const routes: Routes = [
   { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
-  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }
 ]
 

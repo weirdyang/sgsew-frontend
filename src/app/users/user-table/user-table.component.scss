@@ -1,69 +1,61 @@
-:host-context(.light){
-    .mat-table {
-        background-color: #fff;
-    }
+:host-context(.light) {
+  .mat-table {
+    background-color: #fff;
+  }
 }
 .mat-table {
-    background-color: #232837;
+  background-color: #232837;
 }
 .full-width-table {
-    width: 100%;
+  width: 100%;
+}
+.small-table {
+  overflow-x: scroll !important;
+}
+.mat-header-cell {
+  text-align: center;
+}
+:host ::ng-deep .mat-sort-header-container {
+  display: flex;
+  justify-content: center;
+}
+:host ::ng-deep .mat-chip-list-wrapper {
+  align-items: center;
+  justify-content: center;
+}
+.table-container {
+  margin: 1rem 1rem;
+  padding: 1rem 1rem;
+}
+.column-hide-small {
+  @media screen and (max-width: 600px) {
+    display: none;
   }
-  .small-table {
-    overflow-x: scroll !important;
+}
+.centered {
+  text-align: center;
+}
+.button-cell {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: 100%;
+  padding: 1em 0;
+  button {
+    height: 100%;
   }
-
-  .mat-header-cell{
-    text-align: center;
-  }
-
-  :host ::ng-deep .mat-sort-header-container {
-    display: flex;
-    justify-content: center;
-  }
-  :host ::ng-deep .mat-chip-list-wrapper{
-    align-items: center;
-    justify-content: center;
-  }
-
-  .table-container{
-      margin: 1rem 1rem;
-      padding: 1rem 1rem;
-  }
-
-  .mat-column-red,
-  .mat-column-green,
-  .mat-column-amber{
-
-    width: 20%;
-    text-align: center;
-    align-items: center;
-  }
-  .centered {
-      text-align: center;
-  }
-  .button-cell {
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      height: 100%;
-      padding: 1em 0;
-      button {
-          height: 100%;
-      }
-  }
-  .mat-row .mat-cell {
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-    cursor: pointer;
-  }
-
-  .mat-row:hover .mat-cell {
-    border-color: currentColor;
-  }
-  .mat-chip.admin {
-      background-color: red;
-  }
-  .green {
-    background-color: green;
-  }
+}
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+.mat-chip.admin {
+  background-color: red;
+}
+.green {
+  background-color: green;
+}
