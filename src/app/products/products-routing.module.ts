@@ -10,11 +10,11 @@ const routes: Routes = [
   {
     path: 'create',
     loadChildren: () => import('./product-create/product-create.module').then(m => m.ProductCreateModule),
-    canActivate: [AuthGuard]
+    canLoad: [AuthGuard]
   },
   {
     path: 'update', loadChildren: () => import('./product-update/product-update.module').then(m => m.ProductUpdateModule),
-    canActivate: [AuthGuard]
+    canLoad: [AuthGuard]
   },
 ];
 

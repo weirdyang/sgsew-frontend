@@ -13,6 +13,17 @@ export interface IUser {
     role: string;
 }
 
+export interface IUserDisplay {
+    _id: string;
+    role: string;
+    username: string;
+    email: string;
+    createdAt: string;
+
+}
+export interface IUserArray {
+    users: IUserDisplay[]
+}
 export interface ILogin {
     username: string;
     password: string;

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IUser, Profile } from '../types/user';
+import { IUser, IUserArray, IUserDisplay, Profile } from '../types/user';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +37,21 @@ export class UserService {
       .pipe(
         catchError(error => this.handleError(error)),
       );
+  }
+
+
+  getUsers() {
+    return this.http.get<IUserArray>(`${this.apiUrl}/users`)
+      .pipe(
+        catchError(error => this.handleError(error))
+      )
+  }
+
+  deleteUser(userId: string) {
+    return this.http.delete(`${this.apiUrl}/users/${userId}`)
+      .pipe(
+        catchError(error => this.handleError(error))
+      )
   }
 
   constructor(private http: HttpClient) { }
