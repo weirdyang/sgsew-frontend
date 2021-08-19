@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IUser, IUserDisplay } from 'src/app/types/user';
+import { IUserDisplay } from 'src/app/types/user';
 import { nameComparisonValidator } from './username.validator';
 
 @Component({

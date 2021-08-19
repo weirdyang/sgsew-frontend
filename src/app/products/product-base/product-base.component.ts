@@ -1,9 +1,8 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EMPTY, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 import { MAX_PRICE } from 'src/app/config';
 import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
 import { createPriceValidator } from '../helpers/price.validator';

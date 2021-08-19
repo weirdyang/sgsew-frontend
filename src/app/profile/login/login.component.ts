@@ -1,13 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import { ThemingService } from 'src/app/services/core/theming.service';
-import { UserService } from 'src/app/services/user.service';
-import { IApiResponse, ILogin, IUser } from 'src/app/types/user';
-import { RegisterComponent } from '../register/register.component';
+import { ILogin } from 'src/app/types/user';
 import { IErrorMessage } from 'src/app/types/http-error';
 @Component({
   selector: 'app-login',

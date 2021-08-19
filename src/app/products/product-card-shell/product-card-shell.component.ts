@@ -1,9 +1,7 @@
-import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, ComponentFactoryResolver, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-
-import { BehaviorSubject, Subject, merge, combineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, Subscription } from 'rxjs';
 import { debounceTime, filter, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HandsetService } from 'src/app/services/core/handset.service';

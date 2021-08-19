@@ -13,13 +13,14 @@ export class AdminGuard implements CanLoad {
 
   }
   canLoad(route: Route, segments: UrlSegment[]): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    console.log(this.authService.isAuthenticated, 'isauth');
+    console.log(this.authService.getUser(), 'user');
     if (this.authService.isAuthenticated) {
       this.userService.getSelf()
         .subscribe(next => this.authService.setUser(next));
     }
-    console.log(this.authService.isAuthenticated, 'auth');
-    console.log(this.authService.getUser());
 
-    return this.authService.isAuthenticated && this.authService.getUser()?.role === 'admin';
+    return this.authService.isAuthenticated
+      && this.authService.getUser()?.role === 'admin';
   }
 }

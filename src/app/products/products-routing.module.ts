@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../services/guards/auth.guard';
-import { ProductCardShellComponent } from './product-card-shell/product-card-shell.component';
-import { ProductsComponent } from './products.component';
 
 const routes: Routes = [
-  { path: '', component: ProductsComponent },
   { path: 'list', loadChildren: () => import('./product-card-shell/product-card-shell.module').then(m => m.ProductCardShellModule), },
   {
     path: 'create',
