@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { BehaviorSubject, EMPTY, Subject } from 'rxjs';
 import { catchError, debounceTime, filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -19,6 +19,8 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
 
   accepted = validTypes.join();
 
+  @ViewChild('fileUpload', { static: false })
+  fileInput!: ElementRef;
 
   form!: FormGroup;
 
@@ -103,6 +105,9 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
   private resetForm(res: any) {
     this.form.reset();
     this.myForm.resetForm();
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
     this.isSubmitting = false
     this.errorMessage = '';
     for (const key in this.errorObject) {
