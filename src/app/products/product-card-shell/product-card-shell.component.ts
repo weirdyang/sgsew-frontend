@@ -1,21 +1,26 @@
-import { HttpParams } from '@angular/common/http';
-import { AfterViewInit, Component, ComponentFactoryResolver, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-
-import { BehaviorSubject, Subject, merge, combineLatest, Subscription } from 'rxjs';
+import { BehaviorSubject, Subject, combineLatest, Subscription, EMPTY, merge } from 'rxjs';
 import { debounceTime, filter, share, shareReplay, takeUntil, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { HandsetService } from 'src/app/services/core/handset.service';
 import { NavigationService } from 'src/app/services/core/navigation.service';
 import { ThemingService } from 'src/app/services/core/theming.service';
 import { SearchService } from 'src/app/services/search.service';
-import { IProductResults } from 'src/app/types/product';
+import { IProductDisplay, IProductResults } from 'src/app/types/product';
 import { minMaxComparisonValidator, minMaxValidator, MyErrorStateMatcher, numberValidator, validPrice } from '../helpers/price.validator';
 import { ProductsDataSource } from './product-data-source';
 import { faSortAlphaDown, faSortAlphaUp } from '@fortawesome/free-solid-svg-icons';
 import { MAX_PRICE } from 'src/app/config';
 import { IUser } from 'src/app/types/user';
+import { ProductsService } from 'src/app/services/products.service';
+import { IHttpError } from 'src/app/types/http-error';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
+import { DeleteData } from 'src/app/shared/delete-dialog/delete-data';
 @Component({
   selector: 'app-product-card-shell',
   templateUrl: './product-card-shell.component.html',
@@ -149,6 +154,16 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     return this.navigationService.isShown;
   }
 
+  logEvent(data: any) {
+    alert(JSON.stringify(data));
+  }
+  navigateAfterDelete(message: string) {
+    if (message) {
+      this.snackBar.open(message, 'OK')
+    }
+    this.router.navigateByUrl('/');
+  }
+
   set showMenu(value) {
     this.navigationService.setShowNav(value);
   }
@@ -176,7 +191,11 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     private handsetService: HandsetService,
     private navigationService: NavigationService,
     private searchService: SearchService,
-    private authService: AuthService
+    private authService: AuthService,
+    private productsService: ProductsService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private dialog: MatDialog,
   ) {
     this.form = new FormGroup({
       min: this.min,
@@ -194,7 +213,44 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
         this._typeSubject.next(changes);
       })
   }
+  edit(productId: string) {
+    this.router.navigateByUrl(`/products/update/${productId}`);
+  }
+  showError(error: IHttpError) {
+    const message = error.message ?? 'This is unexpected, please contact support.';
+    this.snackBar.open(message, 'OK');
+    return EMPTY;
+  }
 
+  openDeleteDialog(product: IProductDisplay) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      propertyValue: product.name,
+      propertyName: 'Product Name',
+      errorMessage: 'Names do not match'
+    } as DeleteData;
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data) {
+        this.delete(product._id)
+      }
+    })
+  }
+  deleteProductAndRefresh(message: string) {
+    this.snackBar.open(message, 'OK');
+    this.dataSource.loadProducts();
+  }
+  delete(productId: string) {
+    this.productsService.deleteProduct(productId)
+      .subscribe({
+        next: (res) => this.deleteProductAndRefresh(res.message),
+        error: (err) => this.showError(err.error)
+      })
+  }
   sortOptions = ['nameasc', 'namedesc', 'brandasc', 'nameasc']
 
   user = this.authService.getUser();

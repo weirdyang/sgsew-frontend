@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { ThemingService } from 'src/app/services/core/theming.service';
 import { NavigationService } from '../../services/core/navigation.service'
 @Component({

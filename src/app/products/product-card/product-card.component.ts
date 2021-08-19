@@ -1,14 +1,5 @@
-import { ThrowStmt } from '@angular/compiler';
-import { Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { EMPTY } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth.service';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { ThemingService } from 'src/app/services/core/theming.service';
-import { ProductsService } from 'src/app/services/products.service';
-import { IHttpError } from 'src/app/types/http-error';
-import { IUser } from 'src/app/types/user';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,10 +12,7 @@ export class ProductCardComponent {
   isDarkMode$ = this.themingService.darkMode$;
 
   constructor(
-    private themingService: ThemingService,
-    private productService: ProductsService,
-    private router: Router,
-    private snackBar: MatSnackBar) { }
+    private themingService: ThemingService) { }
 
   @Input()
   isService: boolean = false;
@@ -48,34 +36,21 @@ export class ProductCardComponent {
   @Input()
   isUser: boolean = false;
 
+  @Output() deleteClicked = new EventEmitter();
 
+  @Output() editClicked = new EventEmitter();
+
+  editClick() {
+    this.editClicked.emit(this.productId);
+  }
+  deleteClick() {
+    this.deleteClicked.emit(this.productId);
+  }
 
   get imageUrl() {
     if (!this.productId) {
       return 'assets/images/fish.jpg'
     }
     return `${environment.searchApi}/search/image/${this.productId}`
-  }
-  navigateAfterDelete(message: string) {
-    if (message) {
-      this.snackBar.open(message, 'OK')
-    }
-    this.router.navigateByUrl('/');
-  }
-  edit() {
-
-    this.router.navigateByUrl(`/products/update/${this.productId}`);
-  }
-  showError(error: IHttpError) {
-    const message = error.message ?? 'This is unexpected, please contact support.';
-    this.snackBar.open(message, 'OK');
-    return EMPTY;
-  }
-  delete() {
-    this.productService.deleteProduct(this.productId)
-      .subscribe({
-        next: (res) => this.navigateAfterDelete(res.message),
-        error: (err) => this.showError(err.error)
-      })
   }
 }

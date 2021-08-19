@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>Please type in the username to confirm deletion</h2>
+<h2 mat-dialog-title>Please type in {{ dataSource.propertyValue}} to confirm deletion</h2>
 <mat-dialog-content class="dialog-container">
     <mat-form-field appearance="fill">
-        <mat-label>{{ user.username }} </mat-label>
+        <mat-label>{{ dataSource.propertyValue }} </mat-label>
         <input matInput
             type="text"
-            [formControl]="username"
-            placeholder="Username">
-        <mat-error *ngIf="username.errors?.mismatch && !username.errors?.required">
-            Usernames do not match.
+            [formControl]="control"
+            placeholder="{{ dataSource.propertyName}}">
+        <mat-error *ngIf="control.errors?.mismatch && !control.errors?.required">
+            {{ dataSource.errorMessage }}
         </mat-error>
     </mat-form-field>
 </mat-dialog-content>
@@ -16,7 +16,7 @@
 <mat-dialog-actions>
     <button mat-raised-button
         color="primary"
-        [disabled]="!username.valid"
+        [disabled]="!control.valid"
         (click)="submit()">
         <mat-icon>save</mat-icon>
     </button>

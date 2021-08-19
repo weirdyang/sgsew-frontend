@@ -1,13 +1,12 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { BehaviorSubject, EMPTY, Subject } from 'rxjs';
 import { catchError, debounceTime, filter, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-
 import { isValidImageExtension } from '../helpers/image-helper';
 import { ProductsService } from 'src/app/services/products.service';
 import { validTypes, fileSizeValidator, fileTypeValidator, checkFileValidator } from '../helpers/file.validator';
 import { Router } from '@angular/router';
-import { constructFormData, processCurrency } from '../helpers/product.processor';
+import { constructFormData } from '../helpers/product.processor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductBaseComponent } from '../product-base/product-base.component';
 import { CurrencyPipe } from '@angular/common';
@@ -20,6 +19,8 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
 
   accepted = validTypes.join();
 
+  @ViewChild('fileUpload', { static: false })
+  fileInput!: ElementRef;
 
   form!: FormGroup;
 
@@ -104,6 +105,9 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
   private resetForm(res: any) {
     this.form.reset();
     this.myForm.resetForm();
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
     this.isSubmitting = false
     this.errorMessage = '';
     for (const key in this.errorObject) {

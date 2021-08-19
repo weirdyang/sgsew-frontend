@@ -1,10 +1,9 @@
 import { CollectionViewer, DataSource } from "@angular/cdk/collections";
 import { HttpParams } from "@angular/common/http";
-import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { catchError, finalize, shareReplay } from "rxjs/operators";
 import { SearchService } from "src/app/services/search.service";
-import { IProduct, IProductDisplay, IProductResults } from "src/app/types/product";
+import { IProductDisplay, IProductResults } from "src/app/types/product";
 
 export class ProductsDataSource implements DataSource<IProductDisplay> {
 
