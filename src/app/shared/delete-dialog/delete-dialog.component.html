@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>Please type in {{productName}} to confirm deletion</h2>
+<h2 mat-dialog-title>Please type in {{ dataSource.propertyValue}} to confirm deletion</h2>
 <mat-dialog-content class="dialog-container">
     <mat-form-field appearance="fill">
-        <mat-label>{{ productName }} </mat-label>
+        <mat-label>{{ dataSource.propertyValue }} </mat-label>
         <input matInput
             type="text"
-            [formControl]="product"
-            placeholder="Product Name">
-        <mat-error *ngIf="product.errors?.mismatch && !product.errors?.required">
-            Product names do not match.
+            [formControl]="control"
+            placeholder="{{ dataSource.propertyName}}">
+        <mat-error *ngIf="control.errors?.mismatch && !control.errors?.required">
+            {{ dataSource.errorMessage }}
         </mat-error>
     </mat-form-field>
 </mat-dialog-content>
@@ -16,7 +16,7 @@
 <mat-dialog-actions>
     <button mat-raised-button
         color="primary"
-        [disabled]="!product.valid"
+        [disabled]="!control.valid"
         (click)="submit()">
         <mat-icon>save</mat-icon>
     </button>

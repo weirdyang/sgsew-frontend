@@ -8,13 +8,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SideMenuModule } from '../side-menu/side-menu.module';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SharedModule } from 'src/app/shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ProductDeleteComponent } from './product-delete.component';
+import { DeleteDialogModule } from 'src/app/shared/delete-dialog/delete-dialog.module';
 @NgModule({
   declarations: [
     ProductCardShellComponent,
-    ProductDeleteComponent
   ],
   imports: [
     CommonModule,
@@ -22,11 +20,11 @@ import { ProductDeleteComponent } from './product-delete.component';
     ProductCardModule,
     ProductCardShellRoutingModule,
     MatPaginatorModule,
-    SharedModule,
     MatButtonToggleModule,
     MatIconModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    DeleteDialogModule
   ],
   exports: [
     FontAwesomeModule

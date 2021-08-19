@@ -7,17 +7,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
-import { DeleteDialogComponent } from './delete-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DeleteDialogModule } from 'src/app/shared/delete-dialog/delete-dialog.module';
 
 @NgModule({
   declarations: [
     UserTableComponent,
-    DeleteDialogComponent],
+  ],
   imports: [
-    SharedModule,
+    DeleteDialogModule,
     CommonModule,
     MatIconModule,
     UserTableRoutingModule,

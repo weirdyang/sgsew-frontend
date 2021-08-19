@@ -7,8 +7,9 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { DeleteData } from 'src/app/shared/delete-dialog/delete-data';
+import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
 import { IUser, IUserDisplay } from 'src/app/types/user';
-import { DeleteDialogComponent } from './delete-dialog.component';
 import { UsersDataSource } from './users.datasource';
 
 @Component({
@@ -47,7 +48,11 @@ export class UserTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = user;
+    dialogConfig.data = {
+      propertyName: 'username',
+      propertyValue: user.username,
+      errorMessage: 'Names do not match.'
+    } as DeleteData;
 
     const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {

@@ -19,8 +19,8 @@ import { IHttpError } from 'src/app/types/http-error';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { DeleteDialogComponent } from 'src/app/users/user-table/delete-dialog.component';
-import { ProductDeleteComponent } from './product-delete.component';
+import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
+import { DeleteData } from 'src/app/shared/delete-dialog/delete-data';
 @Component({
   selector: 'app-product-card-shell',
   templateUrl: './product-card-shell.component.html',
@@ -227,8 +227,12 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = product.name;
-    const dialogRef = this.dialog.open(ProductDeleteComponent, dialogConfig);
+    dialogConfig.data = {
+      propertyValue: product.name,
+      propertyName: 'Product Name',
+      errorMessage: 'Names do not match'
+    } as DeleteData;
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
       if (data) {

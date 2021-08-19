@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IUserDisplay } from 'src/app/types/user';
-import { nameComparisonValidator } from './username.validator';
+import { nameComparisonValidator } from 'src/app/users/user-table/username.validator';
+import { DeleteData } from './delete-data';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -11,16 +11,14 @@ import { nameComparisonValidator } from './username.validator';
 })
 export class DeleteDialogComponent {
 
+  dataSource!: DeleteData;
+  control!: FormControl;
 
-  username!: FormControl;
-  user!: IUserDisplay
   constructor(
-    private fb: FormBuilder,
     private dialogRef: MatDialogRef<DeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: IUserDisplay) {
-    console.log(data);
-    this.user = data
-    this.username = new FormControl('', [Validators.required, nameComparisonValidator(this.user.username)]);
+    @Inject(MAT_DIALOG_DATA) data: DeleteData) {
+    this.dataSource = data;
+    this.control = new FormControl('', [Validators.required, nameComparisonValidator(data.propertyValue)]);
   }
 
   submit() {
@@ -29,5 +27,5 @@ export class DeleteDialogComponent {
   dismiss() {
     this.dialogRef.close();
   }
-
 }
+
