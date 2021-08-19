@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, BehaviorSubject } from 'rxjs';
@@ -135,6 +135,12 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       }
     }
   }
+
+
+  @ViewChild('fileUpload', { static: false })
+  fileInput!: ElementRef;
+
+
   undoChanges() {
     this.form = this.fb.group({
       name: [this.product.name,
@@ -149,6 +155,9 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       fileName: ['',
         [checkFileValidator]]
     });
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
     this.imageSrc = this.imageUrl;
   }
   protected readonly destroy$ = new Subject();
