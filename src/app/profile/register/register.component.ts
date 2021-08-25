@@ -11,6 +11,7 @@ import { passwordMatchValidator } from './password-match.validator';
 import { createPasswordStrengthValidator } from './password.validator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IErrorMessage } from 'src/app/types/http-error';
+import { shareReplay } from 'rxjs/operators';
 // need to inject select module into root
 //https://github.com/angular/angular/issues/35264
 @Component({
@@ -26,6 +27,12 @@ export class RegisterComponent implements OnDestroy {
   get passwordConfirm() {
     return this.form.get('passwordConfirm');
   }
+  get email() {
+    return this.form.get('email');
+  }
+  get username() {
+    return this.form.get('username');
+  }
   get avatar() {
     return this.form.get('avatar')?.value;
   }
@@ -40,6 +47,8 @@ export class RegisterComponent implements OnDestroy {
         }
       }
     )
+
+  isDark$ = this.themingService.darkMode$.pipe(shareReplay(1));
   avatars = avatars;
   user: RegisterUser = new RegisterUser();
   constructor(
