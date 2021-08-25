@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, NgForm, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, EMPTY } from 'rxjs';
 import { map, filter, debounceTime, tap, takeUntil, switchMap, catchError, share, merge } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -92,13 +92,14 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
         this.constructFormGroup(product as IProduct);
         this.imageSrc = this.imageUrl;
       })
-    this.form.valueChanges.pipe
+    this.form.controls['price'].valueChanges.
+      pipe
       (
         takeUntil(this.destroy$),
-      )
-      .subscribe(form => {
-        this.convertToCurrency(form);
-      })
+        debounceTime(500),
+      ).subscribe({
+        next: price => this.convertToCurrency(price)
+      });
   }
 
 

@@ -205,10 +205,12 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     }, { validators: minMaxComparisonValidator })
 
     this.sortSubscription = this.form.controls['sort'].valueChanges
+      .pipe(takeUntil(this.destroy$))
       .subscribe(changes => {
         this._sortSubject.next(changes);
       })
     this.typeSubscription = this.form.controls['type'].valueChanges
+      .pipe(takeUntil(this.destroy$))
       .subscribe(changes => {
         this._typeSubject.next(changes);
       })
@@ -234,11 +236,13 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     } as DeleteData;
     const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        this.delete(product._id)
-      }
-    })
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(data => {
+        if (data) {
+          this.delete(product._id)
+        }
+      })
   }
   deleteProductAndRefresh(message: string) {
     this.snackBar.open(message, 'OK');
