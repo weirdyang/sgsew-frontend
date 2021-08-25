@@ -7,6 +7,12 @@
             type="text"
             formControlName="username"
             placeholder="Username">
+        <mat-error *ngIf="username?.errors?.minlength && !username?.hasError('required')">
+            Username must be at least 6 characters long.
+        </mat-error>
+        <mat-error *ngIf="username?.hasError('required')">
+            This is required.
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
@@ -14,6 +20,12 @@
             type="email"
             formControlName="email"
             placeholder="Email">
+        <mat-error *ngIf="email?.invalid && !email?.hasError('required')">
+            Invalid email
+        </mat-error>
+        <mat-error *ngIf="email?.hasError('required')">
+            This is required.
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
@@ -53,11 +65,13 @@
         <mat-select placeholder="Select avatar"
             formControlName="avatar">
             <mat-select-trigger>
-                <mat-icon svgIcon="{{avatar}}"></mat-icon> {{avatar}}
+                <mat-icon [ngClass]="{'filter-green': (isDark$ | async) === false }"
+                    svgIcon="{{avatar}}"></mat-icon> {{avatar}}
             </mat-select-trigger>
             <mat-option *ngFor="let avatar of avatars"
                 [value]="avatar">
-                <mat-icon svgIcon="{{avatar}}"></mat-icon> {{avatar}}
+                <mat-icon [ngClass]="{'filter-green': (isDark$ | async) === false }"
+                    svgIcon="{{avatar}}"></mat-icon> {{avatar}}
             </mat-option>
         </mat-select>
     </mat-form-field>
