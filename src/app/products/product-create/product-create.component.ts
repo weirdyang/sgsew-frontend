@@ -10,6 +10,7 @@ import { constructFormData } from '../helpers/product.processor';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductBaseComponent } from '../product-base/product-base.component';
 import { CurrencyPipe } from '@angular/common';
+import { MyErrorStateMatcher } from '../helpers/price.validator';
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
@@ -53,17 +54,14 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
         [Validators.required, checkFileValidator]]
     })
 
-    this.form.valueChanges.pipe
+    this.form.controls['price'].valueChanges.
+      pipe
       (
         takeUntil(this.destroy$),
-        map(form => this.convertToCurrency(form)),
-        catchError(err => {
-          this.form.patchValue({
-            price: this.currencyPipe.transform(0, 'USD', 'symbol')
-          });
-          return EMPTY;
-        })
-      ).subscribe();
+        debounceTime(500),
+      ).subscribe({
+        next: price => this.convertToCurrency(price)
+      });
   }
 
 
