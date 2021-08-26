@@ -87,7 +87,7 @@
             {{ requiredErrorMessage }}
         </mat-error>
         <mat-error *ngIf="form.get('price')?.hasError('invalidPrice')">
-            {{ invalidErrorMessage }}
+            {{ invalidPriceErrorMessage }}
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill"
