@@ -119,6 +119,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
       takeUntil(this.destroy$)
     )
   private resetForm(res: any) {
+    this.isSubmitting = false;
     this.form.reset();
     this.myForm.resetForm();
     if (this.fileInput) {

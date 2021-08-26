@@ -1,4 +1,9 @@
-<form [formGroup]="form"
+<div *ngIf="isSubmitting"
+    class="loader">
+
+</div>
+<form *ngIf="!isSubmitting"
+    [formGroup]="form"
     #createForm="ngForm"
     (ngSubmit)="submitForm()"
     [ngClass]="{'bd-overlay-dark': isSubmitting}"

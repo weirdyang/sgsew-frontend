@@ -1,8 +1,17 @@
+@import '../../../styles/loader.scss';
 .bd-overlay-dark {
     opacity: 0.5;
 }
 .spacer {
     flex: 1 1 auto;
+}
+:host-context(.light){
+    .loader {
+        border-left: 1.1em solid #003e94;
+    }
+}
+.loader {
+    border-left: 1.1em solid #00947e;
 }
 $min-width: 75vw;
 .bm-button-row {

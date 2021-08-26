@@ -37,6 +37,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     public dialogRef: MatDialogRef<LoginComponent>) {
+
     this.user = {
       username: '',
       password: '',
@@ -51,8 +52,9 @@ export class LoginComponent {
   dismiss() {
     this.dialogRef.close();
   }
-
+  isSubmitting = false;
   submit() {
+    this.isSubmitting = true;
     this.authService.loginUser(this.form.value as ILogin)
       .subscribe({
         next: response => {
@@ -60,6 +62,8 @@ export class LoginComponent {
           this.dialogRef.close();
         },
         error: err => {
+
+          this.isSubmitting = false;
           const { error } = err;
 
           let errorMessage = '';
