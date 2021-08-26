@@ -24,7 +24,7 @@ export class ProductBaseComponent {
 
   minErrorMessage = 'Price must be at least $1.';
   maxErrorMessage = `Max price is ${MAX_PRICE}`;
-  invalidErrorMessage = 'Invalid value';
+  invalidPriceErrorMessage = 'Enter a valid price. e.g. 200.45';
   requiredErrorMessage = 'This is required';
   brandMinErrorMessage = 'Product brand must be at least 3 characters';
   nameMinErrorMessage = 'Product name must be at least 6 characters';
@@ -77,9 +77,7 @@ export class ProductBaseComponent {
     if (error.message) {
       this.errorMessage = error.message;
     }
-    if (error.additionalInfo) {
 
-    }
     if (error.additionalInfo && error.additionalInfo.length) {
 
       this.processErrorMessage(error);
@@ -88,7 +86,7 @@ export class ProductBaseComponent {
     return EMPTY;
   }
   descriptionMatcher = new MyErrorStateMatcher(() => this.form.get('description')?.invalid as boolean)
-  priceMatcher = new MyErrorStateMatcher(() => this.form.get('price')?.invalid as boolean)
+  priceMatcher = new MyErrorStateMatcher(() => this.form.get('price')?.invalid as boolean && this.form.dirty)
   convertToCurrency(price: string) {
     if (price) {
       try {
@@ -104,5 +102,13 @@ export class ProductBaseComponent {
       }
     }
     return EMPTY;
+  }
+
+  priceBlur(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    this.form.patchValue({
+      price: processCurrency(value)
+    }, { emitEvent: false })
   }
 };

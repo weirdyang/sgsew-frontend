@@ -25,7 +25,7 @@ export const processCurrency = function (value: string): string {
     }
     const result = Number(value.replace(/[^\d.-]/g, ''));
     if (isNaN(result)) {
-        return value
+        return value;
     }
     return result.toFixed(2);
 }

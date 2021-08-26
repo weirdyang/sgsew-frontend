@@ -92,14 +92,6 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
         this.constructFormGroup(product as IProduct);
         this.imageSrc = this.imageUrl;
       })
-    this.form.controls['price'].valueChanges.
-      pipe
-      (
-        takeUntil(this.destroy$),
-        debounceTime(500),
-      ).subscribe({
-        next: price => this.convertToCurrency(price)
-      });
   }
 
 
