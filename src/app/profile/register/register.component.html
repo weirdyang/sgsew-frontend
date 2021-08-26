@@ -1,7 +1,10 @@
 <h2 mat-dialog-title>Register</h2>
 <mat-dialog-content class="dialog-container"
     [formGroup]="form">
-    <mat-form-field appearance="fill">
+    <div *ngIf="isSubmitting"
+        class="loader"></div>
+    <mat-form-field appearance="fill"
+        *ngIf="!isSubmitting">
         <mat-label>Username</mat-label>
         <input matInput
             type="text"

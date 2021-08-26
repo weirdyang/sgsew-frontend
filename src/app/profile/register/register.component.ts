@@ -12,6 +12,7 @@ import { createPasswordStrengthValidator } from './password.validator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IErrorMessage } from 'src/app/types/http-error';
 import { shareReplay } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 // need to inject select module into root
 //https://github.com/angular/angular/issues/35264
 @Component({
@@ -51,6 +52,8 @@ export class RegisterComponent implements OnDestroy {
   isDark$ = this.themingService.darkMode$.pipe(shareReplay(1));
   avatars = avatars;
   user: RegisterUser = new RegisterUser();
+
+  passwordChange$!: Subscription;
   constructor(
     private snackBar: MatSnackBar,
     private overlay: OverlayContainer,
@@ -82,21 +85,27 @@ export class RegisterComponent implements OnDestroy {
         [Validators.required, passwordMatchValidator]
       ]
     });
+    this.passwordChange$ = this.password?.valueChanges
+      .subscribe(value => this.passwordConfirm?.updateValueAndValidity()) as Subscription;
   }
   ngOnDestroy(): void {
     this.isDarkSubscription.unsubscribe();
+    this.passwordChange$?.unsubscribe();
   }
 
+  isSubmitting = false;
 
   save() {
-
+    this.isSubmitting = true;
     this.authService.registerUser(this.form.value as RegisterUser)
       .subscribe({
         next: result => {
+
           this.snackBar.open(result.message, 'OK');
           this.dialogRef.close();
         },
         error: err => {
+          this.isSubmitting = false;
           const { error } = err;
           let errorMessage = '';
           if (error.additionalInfo && error.additionalInfo.length) {
