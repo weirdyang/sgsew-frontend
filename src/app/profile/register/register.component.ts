@@ -62,17 +62,30 @@ export class RegisterComponent implements OnDestroy {
     private authService: AuthService,
     @Optional() public dialogRef: MatDialogRef<RegisterComponent>) {
 
-
     this.form = this.fb.group({
-      username: [this.user.username, [Validators.required, Validators.minLength(6)]],
+      username: [
+        {
+          value: this.user.username,
+          disabled: this.isSubmitting
+        }, [Validators.required, Validators.minLength(6)]],
       email: [
-        this.user.email, {
+        {
+          value: this.user.email,
+          disabled: this.isSubmitting
+        }, {
           validators: [Validators.required, Validators.email],
           updateOn: 'blur'
         }],
-      avatar: [this.user.avatar, Validators.required],
+      avatar: [
+        {
+          value: this.user.avatar,
+          disabled: this.isSubmitting
+        }, Validators.required],
       password: [
-        this.user.password,
+        {
+          value: this.user.password,
+          disabled: this.isSubmitting
+        },
         [
           Validators.required,
           Validators.minLength(8),
@@ -81,7 +94,10 @@ export class RegisterComponent implements OnDestroy {
 
       ],
       passwordConfirm: [
-        '',
+        {
+          value: '',
+          disabled: this.isSubmitting
+        },
         [Validators.required, passwordMatchValidator]
       ]
     });

@@ -1,3 +1,7 @@
+<div *ngIf="isSubmitting"
+    class="loader">
+
+</div>
 <form [formGroup]="form"
     #createForm="ngForm"
     (ngSubmit)="submitForm()"

@@ -1,5 +1,14 @@
+@import '../../../styles/loader.scss';
 .bd-overlay-dark {
     opacity: 0.5;
+}
+:host-context(.light){
+    .loader {
+        border-left: 1.1em solid #003e94;
+    }
+}
+.loader {
+    border-left: 1.1em solid #00947e;
 }
 .spacer {
     flex: 1 1 auto;

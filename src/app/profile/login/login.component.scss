@@ -1,7 +1,16 @@
+@import '../../../styles/loader.scss';
 .dialog-container {
     display: flex;
     flex-direction: column;
 }
 .dialog-container > * {
     width: 100%;
+}
+:host-context(.light){
+    .loader {
+        border-left: 1.1em solid #003e94;
+    }
+}
+.loader {
+    border-left: 1.1em solid #00947e;
 }

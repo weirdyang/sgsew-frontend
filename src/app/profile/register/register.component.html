@@ -1,4 +1,8 @@
-<div [ngClass]="{ 'darken' : isSubmitting }">
+<div class="loader"
+    *ngIf="isSubmitting">
+
+</div>
+<ng-container *ngIf="!isSubmitting">
     <h2 mat-dialog-title>{{ isSubmitting ? "Submitting..." : "Register"}}</h2>
     <mat-dialog-content class="dialog-container"
         [formGroup]="form">
@@ -95,4 +99,4 @@
             </mat-icon>
         </button>
     </mat-dialog-actions>
-</div>
+</ng-container>

@@ -38,23 +38,47 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
 
   }
   ngOnInit(): void {
+
     this.form = this.fb.group({
-      name: [null,
+      name: [
+        {
+          value: '',
+          disabled: this.isSubmitting
+        },
         this.nameValidators],
       description:
-        [null, this.descriptionValidators],
-      file: [null,
-        [Validators.required, fileTypeValidator, fileSizeValidator]],
-      productType: [null,
-        this.productTypeValidators],
-      brand: [null,
-        this.brandValidator],
-      price: [1, {
+        [{
+          value: '',
+          disabled: this.isSubmitting
+        }, this.descriptionValidators],
+      file: [{
+        value: null,
+        disabled: this.isSubmitting
+      },
+      [Validators.required, fileTypeValidator, fileSizeValidator]],
+      productType: [{
+        value: '',
+        disabled: this.isSubmitting
+      },
+      this.productTypeValidators],
+      brand: [{
+        value: null,
+        disabled: this.isSubmitting
+      },
+      this.brandValidator],
+      price: [{
+        value: '1.00',
+        disabled: this.isSubmitting
+      },
+      {
         validators: this.priceValidators,
         updateOn: 'change'
       }],
-      fileName: [null,
-        [Validators.required, checkFileValidator]]
+      fileName: [{
+        value: null,
+        disabled: this.isSubmitting
+      },
+      [Validators.required, checkFileValidator]]
     })
   }
 
@@ -95,6 +119,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
       takeUntil(this.destroy$)
     )
   private resetForm(res: any) {
+    this.isSubmitting = false;
     this.form.reset();
     this.myForm.resetForm();
     if (this.fileInput) {
