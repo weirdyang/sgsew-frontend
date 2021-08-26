@@ -74,6 +74,7 @@
         <mat-label>Product price</mat-label>
         <input matInput
             placeholder="Eg. $200"
+            (blur)="priceBlur($event)"
             [errorStateMatcher]="priceMatcher"
             formControlName="price">
         <mat-error *ngIf="form.get('price')?.hasError('min') && !form.get('price')?.hasError('invalidPrice')">
