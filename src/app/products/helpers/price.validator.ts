@@ -66,7 +66,7 @@ export const validPrice = function validPrice(value: string) {
     return /^\d{0,24}(\.\d{1,4})?$/.test(value);
 }
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+export class ConditionalErrorStateMatcher implements ErrorStateMatcher {
     comparison: () => boolean;
     constructor(predicate: () => boolean) {
         this.comparison = predicate;
@@ -74,5 +74,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
 
         return this.comparison();
+    }
+}
+export class InstantErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+
+        return !!(control && control.invalid && (control.dirty || control.touched));
     }
 }
