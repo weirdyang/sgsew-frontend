@@ -38,7 +38,7 @@ export class ProductCreateComponent extends ProductBaseComponent implements OnIn
 
   }
   ngOnInit(): void {
-    this.isSubmitting = true;
+
     this.form = this.fb.group({
       name: [
         {

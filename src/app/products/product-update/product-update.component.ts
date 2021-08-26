@@ -55,22 +55,47 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
     ) as ValidatorFn);
 
   private constructFormGroup(product: IProduct) {
+
     this.form = this.fb.group({
-      name: [product.name,
-      this.nameValidators],
-      description: [product.description, this.descriptionValidators],
-      file: ['',
-        [this.conditionalFileCheck]],
-      productType: [product.productType,
+      name: [
+        {
+          value: product.name,
+          disabled: this.isSubmitting
+        },
+        this.nameValidators],
+      description: [
+        {
+          value: product.description,
+          disabled: this.isSubmitting
+        }, this.descriptionValidators],
+      file: [{
+        value: '',
+        disabled: this.isSubmitting
+      },
+      [this.conditionalFileCheck]],
+      productType: [{
+        value: product.productType,
+        disabled: this.isSubmitting
+      },
       this.productTypeValidators],
       brand: [
-        product.brand,
+        {
+          value: product.brand,
+          disabled: this.isSubmitting
+        },
         this.brandValidator],
       price: [
-        processCurrency(product.price.toString()),
+        {
+          value: product.price.toFixed(2),
+          disabled: this.isSubmitting
+        },
         this.priceValidators,
       ],
-      fileName: ['',
+      fileName: [
+        {
+          value: '',
+          disabled: this.isSubmitting
+        },
         [checkFileValidator]]
     });
 
