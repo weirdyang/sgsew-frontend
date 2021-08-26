@@ -6,7 +6,7 @@ import { EMPTY } from 'rxjs';
 import { MAX_PRICE } from 'src/app/config';
 import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
 import { createPriceValidator, MyErrorStateMatcher } from '../helpers/price.validator';
-import { processCurrency } from '../helpers/product.processor';
+import { processCurrency, processNumber } from '../helpers/product.processor';
 
 @Component({
   templateUrl: './product-base.component.html',
@@ -104,5 +104,13 @@ export class ProductBaseComponent {
       }
     }
     return EMPTY;
+  }
+
+  priceBlur(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    this.form.patchValue({
+      price: processNumber(value, 2)
+    }, { emitEvent: false })
   }
 };
