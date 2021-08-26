@@ -9,7 +9,7 @@ import { NavigationService } from 'src/app/services/core/navigation.service';
 import { ThemingService } from 'src/app/services/core/theming.service';
 import { SearchService } from 'src/app/services/search.service';
 import { IProductDisplay, IProductResults } from 'src/app/types/product';
-import { minMaxComparisonValidator, minMaxValidator, MyErrorStateMatcher, numberValidator, validPrice } from '../helpers/price.validator';
+import { minMaxComparisonValidator, minMaxValidator, ConditionalErrorStateMatcher, numberValidator, validPrice } from '../helpers/price.validator';
 import { ProductsDataSource } from './product-data-source';
 import { faSortAlphaDown, faSortAlphaUp } from '@fortawesome/free-solid-svg-icons';
 import { MAX_PRICE } from 'src/app/config';
@@ -109,7 +109,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
 
   }
 
-  matcher = new MyErrorStateMatcher(() => this.form.invalid)
+  matcher = new ConditionalErrorStateMatcher(() => this.form.invalid)
   search$ = combineLatest(
     [this.sort$,
     this.keyword$,
