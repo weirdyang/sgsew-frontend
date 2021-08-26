@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { EMPTY } from 'rxjs';
 import { MAX_PRICE } from 'src/app/config';
 import { IErrorMessage, IHttpError } from 'src/app/types/http-error';
-import { createPriceValidator, MyErrorStateMatcher } from '../helpers/price.validator';
+import { createPriceValidator, ConditionalErrorStateMatcher, InstantErrorStateMatcher } from '../helpers/price.validator';
 import { processCurrency } from '../helpers/product.processor';
 
 @Component({
@@ -85,8 +85,8 @@ export class ProductBaseComponent {
     this.isSubmitting = false;
     return EMPTY;
   }
-  descriptionMatcher = new MyErrorStateMatcher(() => this.form.get('description')?.invalid as boolean)
-  priceMatcher = new MyErrorStateMatcher(() => this.form.get('price')?.invalid as boolean && this.form.dirty)
+  descriptionMatcher = new InstantErrorStateMatcher();
+  priceMatcher = new InstantErrorStateMatcher();
   convertToCurrency(price: string) {
     if (price) {
       try {
