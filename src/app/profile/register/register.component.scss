@@ -9,3 +9,16 @@
 .filter-green {
     filter: invert(48%) sepia(79%) saturate(200%) hue-rotate(86deg) brightness(118%) contrast(119%)
 }
+
+:host-context(.light){
+    .loader {
+        border-left: 1.1em solid #003e94;
+    }
+}
+.loader {
+    border-left: 1.1em solid #00947e;
+}
+.darken {
+    opacity: 0.5;
+
+}

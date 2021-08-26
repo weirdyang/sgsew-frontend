@@ -76,10 +76,10 @@
             placeholder="Eg. $200"
             [errorStateMatcher]="priceMatcher"
             formControlName="price">
-        <mat-error *ngIf="form.get('price')?.hasError('min')">
+        <mat-error *ngIf="form.get('price')?.hasError('min') && !form.get('price')?.hasError('invalidPrice')">
             {{ minErrorMessage }}
         </mat-error>
-        <mat-error *ngIf="form.get('price')?.hasError('max')">
+        <mat-error *ngIf="form.get('price')?.hasError('max') && !form.get('price')?.hasError('invalidPrice')">
             {{ maxErrorMessage }}
         </mat-error>
         <mat-error *ngIf="form.get('price')?.hasError('required')">
