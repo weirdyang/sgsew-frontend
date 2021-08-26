@@ -97,6 +97,7 @@ export class RegisterComponent implements OnDestroy {
 
   save() {
     this.isSubmitting = true;
+
     this.authService.registerUser(this.form.value as RegisterUser)
       .subscribe({
         next: result => {
