@@ -19,10 +19,10 @@ export const constructFormData = function (form: FormGroup): FormData {
 
 export const processCurrency = function (value: string): string {
     value = value.toString();
-    const test = Number(value);
-    if (isNaN(test)) {
-        return value;
-    }
+    // const test = Number(value);
+    // if (isNaN(test)) {
+    //     return value;
+    // }
     const result = Number(value.replace(/[^\d.-]/g, ''));
     if (isNaN(result)) {
         return value
