@@ -74,7 +74,8 @@
         class="form-item">
         <mat-label>Product price</mat-label>
         <input matInput
-            (blur)="priceBlur($event)"
+            appDecimalOnly
+            type="text"
             [errorStateMatcher]="priceMatcher"
             placeholder="Eg. $200.50"
             formControlName="price">

@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DecimalDirectiveModule } from 'src/app/shared/decimal-directive/decimal-directive.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatInputModule,
     MatSnackBarModule,
     MatTooltipModule,
-    ProductUpdateRoutingModule
+    ProductUpdateRoutingModule,
+    DecimalDirectiveModule
   ]
 })
 export class ProductUpdateModule { }
