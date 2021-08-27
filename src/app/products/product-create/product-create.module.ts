@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductCreateRoutingModule } from './product-create-routing.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DecimalDirectiveModule } from 'src/app/shared/decimal-directive/decimal-directive.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSnackBarModule,
     ProductCreateRoutingModule,
     MatTooltipModule,
+    DecimalDirectiveModule
   ],
   providers: [
     CurrencyPipe

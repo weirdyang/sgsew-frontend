@@ -26,6 +26,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
   accepted = validTypes.join();
 
   form!: FormGroup;
+
   errorMessage: string = '';
   @ViewChild('createForm', { static: false })
   myForm!: NgForm;
@@ -160,19 +161,7 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
 
 
   undoChanges() {
-    this.form = this.fb.group({
-      name: [this.product.name,
-      this.nameValidators],
-      brand: [this.product.brand,
-      this.brandValidator],
-      description: [this.product.description, this.descriptionValidators],
-      file: ['',
-        [this.conditionalFileCheck]],
-      productType: [this.product.productType,
-      this.productTypeValidators],
-      fileName: ['',
-        [checkFileValidator]]
-    });
+    this.constructFormGroup(this.product);
     if (this.fileInput) {
       this.fileInput.nativeElement.value = '';
     }
