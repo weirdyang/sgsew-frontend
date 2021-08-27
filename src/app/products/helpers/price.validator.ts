@@ -12,7 +12,7 @@ export function createPriceValidator(currencyPipe: CurrencyPipe): ValidatorFn {
         if (isNaN(price)) return { 'invalidPrice': true };
 
         try {
-            const result = currencyPipe.transform(processCurrency(price), 'USD', 'symbol')
+            currencyPipe.transform(processCurrency(price), 'USD', 'symbol')
             return null;
         } catch (error) {
             return { 'invalidPrice': true }
@@ -20,15 +20,20 @@ export function createPriceValidator(currencyPipe: CurrencyPipe): ValidatorFn {
     }
 }
 
+const numberRegEx = /^\d{0,5}(\.\d{1,2})?$/;
 
 export const numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const value = control.value as string;
 
-    const numberRegEx = /^\d{0,24}(\.\d{1,4})?$/.test(value);
+    const test = numberRegEx.test(value);
 
-    return numberRegEx ? null : { 'invalidFloat': true };
+    return test ? null : { 'invalidFloat': true };
 }
+export const validPrice = function validPrice(value: string) {
+    if (!value) return false;
 
+    return numberRegEx.test(value);
+}
 export const minMaxComparisonValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const max = control.get('max');
     const min = control.get('min');
@@ -59,11 +64,6 @@ export const minMaxValidator: ValidatorFn = (control: AbstractControl): Validati
     return +min >= +max
         ? { minBigger: true }
         : null;
-}
-export const validPrice = function validPrice(value: string) {
-    if (!value) return false;
-
-    return /^\d{0,24}(\.\d{1,4})?$/.test(value);
 }
 
 export class ConditionalErrorStateMatcher implements ErrorStateMatcher {
