@@ -240,7 +240,6 @@ export class ProductUpdateComponent extends ProductBaseComponent implements OnIn
       this.productSubmitSubject.next(updatedProduct as IProduct);
     }
 
-
   }
   ngOnDestroy() {
     this.destroy$.next();
