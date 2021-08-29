@@ -1,0 +1,49 @@
+/* Marker tweaks */
+.mapboxgl-popup-close-button {
+    display: none;
+  }
+  .mapboxgl-popup {
+    padding-bottom: 2rem;
+  }
+  .mapboxgl-popup-content {
+    font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", sans-serif;
+    padding: 0;
+    width: 180px;
+  }
+
+  .mapboxgl-popup-content h3 {
+    background: var(--main-color);
+    color: black;
+    margin: 0;
+    padding: 0.25rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+    font-weight: 700;
+    margin-top: -1rem;
+  }
+  .marker {
+    margin-top: 1rem;
+    background: white;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .mapboxgl-popup-content h4 {
+    margin: 0;
+    padding: 0.25rem;
+    font-weight: 400;
+    color: var(--darken);
+  }
+
+  .mapboxgl-popup-content div {
+    padding: 10px;
+  }
+
+  .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+    margin-top: 0.75rem;
+  }
+
+  .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+    border-bottom-color: var(--main-color);
+  }

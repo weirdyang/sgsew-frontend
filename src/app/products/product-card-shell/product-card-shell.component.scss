@@ -68,7 +68,8 @@ $bd-aside-width: 15rem;
     position: fixed;
     top: 64px;
     left: 0;
-    height: auto;
+    height: 100vh;
+    padding-bottom: 80px;
     display: flex;
     justify-content: flex-start;
 }
@@ -107,7 +108,7 @@ $bd-aside-width: 15rem;
     }
 }
 .menu-label {
-    margin-bottom: 00.25rem;
+    margin-bottom: 1rem;
 }
 
 .sort-menu {

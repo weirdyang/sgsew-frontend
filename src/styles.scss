@@ -1,8 +1,16 @@
 @import './styles/mat-theme';
 @import './styles/normalize';
-
+@import './styles/mapbox-gl.css';
+@import './styles/mapbox-popup';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-simple-snackbar {
     text-transform: capitalize;
+}
+:root {
+    // h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    //     font-family: 'Montserrat', sans-serif; font-weight:700;
+
+    //     letter-spacing: 2px
+    // }
 }

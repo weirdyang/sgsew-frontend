@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faTwitter, faGithub, faYoutube, faLinkedin, faFacebook } from '@fortawesome/free-brands-svg-icons';
 @Component({
   selector: 'app-social-footer',
@@ -6,7 +6,8 @@ import { faTwitter, faGithub, faYoutube, faLinkedin, faFacebook } from '@fortawe
   styleUrls: ['./social-footer.component.scss']
 })
 export class SocialFooterComponent {
-
+  @Input()
+  isDark: boolean = false;
   constructor() { }
   faFacebook = faFacebook;
   faTwitter = faTwitter;
