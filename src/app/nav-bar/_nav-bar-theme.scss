@@ -9,8 +9,8 @@
   $primary-palette: map.get($color-config, 'primary');
   $accent-palette: map.get($color-config, 'accent');
     .mat-toolbar.mat-primary {
-        background: mat.get-color-from-palette($accent-palette, 400);
-        color: mat.get-color-from-palette($accent-palette, '400-contrast')
+        background: mat.get-color-from-palette($accent-palette, 600);
+        color: mat.get-color-from-palette($accent-palette, '600-contrast')
     }
   }
 
