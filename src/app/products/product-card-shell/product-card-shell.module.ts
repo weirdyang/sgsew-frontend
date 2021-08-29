@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogModule } from 'src/app/shared/delete-dialog/delete-dialog.module';
+import { SocialFooterModule } from 'src/app/shared/social-footer/social-footer.module';
 @NgModule({
   declarations: [
     ProductCardShellComponent,
@@ -24,7 +25,8 @@ import { DeleteDialogModule } from 'src/app/shared/delete-dialog/delete-dialog.m
     MatIconModule,
     FontAwesomeModule,
     MatDialogModule,
-    DeleteDialogModule
+    DeleteDialogModule,
+    SocialFooterModule
   ],
   exports: [
     FontAwesomeModule

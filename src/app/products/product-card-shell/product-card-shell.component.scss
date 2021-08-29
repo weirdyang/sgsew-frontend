@@ -1,14 +1,15 @@
 @import '../../../styles/variables';
 @import '../../../styles/loader';
 @import '../../../styles/mixins';
+@import "@primer/css/blankslate/index.scss";
 :host {
     font-size: 1rem;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
 }
 .main {
     display: flex;
-    height: fit-content(1rem);
+    height:  max-content;
 }
 .bd-showing-overlay .bd-docs-overlay {
     opacity: 0.8;
@@ -21,6 +22,9 @@
      .sort-menu{
         border: 1px solid $color-text-med;
      }
+     .icon-color {
+        filter: invert(0%) sepia(0%) saturate(200%) hue-rotate(86deg) brightness(100%) contrast(100%) !important;
+    }
 }
 .loader {
     border-left: 1.1em solid #00947e;
@@ -64,7 +68,7 @@ $bd-aside-width: 15rem;
     position: fixed;
     top: 64px;
     left: 0;
-    height: calc(100vh - 8rem);
+    height: auto;
     display: flex;
     justify-content: flex-start;
 }
@@ -89,9 +93,8 @@ $bd-aside-width: 15rem;
     margin: 0.25rem 0.25rem;
 }
 .product-list-footer {
-    position: fixed;
     width: 100%;
-    bottom: 0;
+    margin-top: auto;
 }
 .product-list-parent {
     width: 100%;
@@ -99,7 +102,6 @@ $bd-aside-width: 15rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 4rem;
     @media screen and (max-width: 800px + 32px) {
         padding: 0;
     }
@@ -155,4 +157,17 @@ mat-button-toggle-group {
             filter: brightness(140%);
          }
     }
+}
+
+.icon-color {
+    filter: invert(48%) sepia(79%) saturate(200%) hue-rotate(86deg) brightness(118%) contrast(119%)
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.footer {
+    margin-top: auto;
+}
+.hide {
+    display: none;
 }
