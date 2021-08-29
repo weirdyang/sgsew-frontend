@@ -1,0 +1,189 @@
+@import "@primer/css/utilities/index.scss";
+
+:host {
+
+  --main-sat: 173;
+  --darken: rgba(26, 29, 37, 0.8);
+  --main-color: hsla(var(--main-sat), 100%, 50%, 1);
+  * {
+    box-sizing: border-box;
+  }
+}
+.main-color {
+  color: var(--main-color);
+}
+
+.underline {
+  width: 25%;
+  margin-left: 0px;
+}
+
+
+#lead {
+  //position: absolute;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  min-width: 100%;
+  height: 100vh;
+  min-height: 100%;
+  background: rgba(26, 29, 37, 0.8);
+  display: grid;
+  grid-template-rows: 250px auto;
+}
+#services {
+  // position: absolute;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  min-width: 100%;
+  height: auto;
+  background: hsla(var(--main-sat), 100%, 50%, 0.7);
+}
+@mixin image-bg($imageUrl, $minHeight) {
+  width: 100%;
+  min-height: $minHeight;
+  background: url($imageUrl) center center;
+  background-size: cover;
+  opacity: 1;
+  //display: table;
+  width: 100%;
+  position: relative;
+  border-radius: 0px;
+  color: white;
+  text-transform: uppercase;
+  margin: 0;
+  -webkit-clip-path: polygon(0 0%, 100% 0, 100% 100%, 0% 85%);
+  clip-path: url(#poly);
+  overflow: hidden;
+}
+@mixin container {
+  width: 100%;
+}
+.hm {
+  &-lead {
+    @include image-bg(
+      "https://upload.wikimedia.org/wikipedia/commons/7/77/Home_computer_systems_%26_computer_store.jpg",
+      450px
+    );
+    display: grid;
+  }
+  &-services {
+    @include image-bg(
+      "https://upload.wikimedia.org/wikipedia/commons/7/7a/Samuel_Sulcer_building_a_computer_3_assembling_the_components.jpg",
+      450px
+    );
+    display: grid;
+    &-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      place-items: center;
+      height: 100%;
+      width: 100%;
+      border: 1px solid black;
+      .services-card {
+        h2 {
+          color: var(--main-color);
+        }
+        padding: 0 1rem;
+        margin: 2rem;
+        border: 1px solid black;
+        border-radius: 0.25rem;
+        min-height: 450px;
+        height: fit-content(1rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: var(--darken);
+        .card-content {
+          margin: 0 1rem;
+          margin-top: -0.5rem;
+          margin-bottom: 1rem;
+        }
+        .card-actions {
+          margin-bottom: 1rem;
+          .card-button {
+            width: 100px;
+            height: 50px;
+            background-color: var(--main-color);
+            color: var(--darken);
+            border: none;
+            border-radius: 3px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+  &-section {
+    &-content {
+      width: 100%;
+      height: 100%;
+      display: grid;
+
+      margin: 0 1rem;
+      padding: 1rem 1rem;
+    }
+    width: 100%;
+    //height: 100vh;
+    background: var(--main-color);
+    display: grid;
+    place-items: center;
+
+    &:nth-child(2n) {
+      filter: hue-rotate(0.15turn);
+    }
+    &:nth-child(2n + 1):not(:first-child) {
+      filter: hue-rotate(1turn);
+    }
+  }
+}
+
+#location {
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(150px, 25%) 1fr;
+}
+#map {
+  height: 450px;
+  width: 100%;
+}
+.address-side {
+  .heading {
+    min-height: 60px;
+    line-height: 60px;
+    padding: 0 10px;
+    background: var(--darken);
+    color: var(--main-color);
+    h1 {
+
+        font: sans-serif!important;
+        font-size: 2em;
+        margin: .67em 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      padding: 0;
+    }
+  }
+  .listings {
+    ul {
+      padding: 0;
+      list-style: none;
+    }
+    overflow: auto;
+    .item {
+        cursor: pointer;
+      color: var(--darken);
+      margin-top: 1rem;
+      padding: 0 0.25rem;
+      display: block;
+      text-decoration: none;
+      .title {
+        display: block;
+        font-weight: 700;
+      }
+    }
+  }
+}

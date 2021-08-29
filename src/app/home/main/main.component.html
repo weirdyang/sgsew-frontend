@@ -1,1 +1,70 @@
-<p>main works!</p>
+<section class="hm-section">
+    <div class="hm-lead">
+        <div id="lead">
+            <section class="hm-section-content">
+                <h1 class="anim-pulse-in">
+                    <span class="main-color"> Collab</span><br /> making tech<br /> easy and affordable <br />
+                </h1>
+                <hr class="underline" />
+            </section>
+        </div>
+    </div>
+</section>
+<section class="hm-section">
+    <div class="hm-services">
+        <div id="services">
+            <section class="hm-services-cards">
+                <div class="services-card">
+                    <h2>Amazing stuff</h2>
+                    <div class="card-content">
+                        Et harum quidem rerum facilis est et expedita distinctio.
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-button hover-grow"
+                            [routerLink]="'/products/list'">view products</button>
+                    </div>
+                </div>
+                <div class="services-card">
+                    <h2>Amazing People</h2>
+                    <div class="card-content">
+                        Et harum quidem rerum facilis est et expedita distinctio.
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-button hover-grow"
+                            [routerLink]="'/home/about'">our team</button>
+                    </div>
+                </div>
+                <div class="services-card">
+                    <h2>Amazing Services</h2>
+                    <div class="card-content">
+                        Et harum quidem rerum facilis est et expedita distinctio.
+                    </div>
+                    <div class="card-actions">
+                        <button class="card-button hover-grow"
+                            [routerLink]="'/home/contact'">Say hello</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+<section class="hm-section">
+    <div id="location">
+        <div class="address-side">
+            <div class="heading">
+                <h1>Our location</h1>
+            </div>
+            <div class="listings">
+                <div class="item"
+                    id="listing"
+                    (click)="flyToStore()">
+                    <h3 class="title">MacRitchie Reservoir Park <br />Singapore 298717</h3>
+                    <app-social-footer [isDark]="true"></app-social-footer>
+                </div>
+            </div>
+        </div>
+        <div id="map"
+            class="map">
+        </div>
+    </div>
+</section>

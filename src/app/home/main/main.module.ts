@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
+import { SocialFooterModule } from 'src/app/shared/social-footer/social-footer.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { MainComponent } from './main.component';
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    SocialFooterModule
   ]
 })
 export class MainModule { }
