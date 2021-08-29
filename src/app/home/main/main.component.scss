@@ -63,14 +63,14 @@
 .hm {
   &-lead {
     @include image-bg(
-      "https://upload.wikimedia.org/wikipedia/commons/7/77/Home_computer_systems_%26_computer_store.jpg",
+      "/assets/images/comp-store.jpg",
       450px
     );
     display: grid;
   }
   &-services {
     @include image-bg(
-      "https://upload.wikimedia.org/wikipedia/commons/7/7a/Samuel_Sulcer_building_a_computer_3_assembling_the_components.jpg",
+      "/assets/images/comp-build.jpg",
       450px
     );
     display: grid;
