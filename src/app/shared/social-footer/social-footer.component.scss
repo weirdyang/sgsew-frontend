@@ -1,16 +1,19 @@
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
 :host {
     font-size: 1rem;
     * {
         box-sizing: border-box;
     }
-    --darken: rgba(255, 255, 255, 0.8);
+    ul:not(.dark){
+        --darken: rgba(255, 255, 255, 0.8);
+    }
     margin: 0;
     padding: 0;
     height: 3rem;
 }
 :host-context(.light){
-    --darken: rgba(26, 29, 37, 0.8);
+        .social-icon{
+            --darken: rgba(26, 29, 37, 0.8);
+        }
 }
 ul {
     padding: 0;
