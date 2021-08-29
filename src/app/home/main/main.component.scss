@@ -1,7 +1,6 @@
-@import "@primer/css/utilities/index.scss";
+@import "@primer/css/utilities/animations.scss";
 
 :host {
-
   --main-sat: 173;
   --darken: rgba(26, 29, 37, 0.8);
   --main-color: hsla(var(--main-sat), 100%, 50%, 1);
@@ -57,9 +56,7 @@
   clip-path: url(#poly);
   overflow: hidden;
 }
-@mixin container {
-  width: 100%;
-}
+
 .hm {
   &-lead {
     @include image-bg(
