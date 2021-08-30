@@ -20,7 +20,18 @@ a {
     all: unset;
     cursor: pointer;
     margin-right: 0.75rem;
+    display: table-cell;
+    vertical-align: middle;
+    @media  screen and (max-width: 675px + 1px) {
+        &:not(.icon-filter){
+          display: none;
+        }
+    }
   }
+}
+.brand-icon {
+  height: 40px;
+  width: 40px;
 }
 .spacer {
   flex: 1 1 auto;
