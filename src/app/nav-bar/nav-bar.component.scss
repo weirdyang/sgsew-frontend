@@ -30,9 +30,10 @@ a {
 .brand-button {
   margin-right: 0.75rem!important;
 }
-.brand-icon {
+img.brand-icon {
   height: 40px;
   width: 40px;
+  object-fit: contain;
 
 }
 .spacer {
