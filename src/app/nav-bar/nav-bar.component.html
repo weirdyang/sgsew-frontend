@@ -28,11 +28,12 @@
           (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <a class="toolbar-link icon-filter"><img [src]="darkMode ? 'assets/svg/c-icon.svg' : 'assets/svg/c-light.svg'"
-            height="52px"
-            width="52px"
-            alt=""
-            srcset=""></a>
+        <button mat-icon-button
+          class="brand-button"><img [src]="darkMode ? 'assets/svg/c-icon.svg' : 'assets/svg/c-light.svg'"
+            height="45px"
+            width="45px"
+            alt="brand icon"
+            class="brand-icon"></button>
         <span><a class="toolbar-link"
             [routerLink]="''">Collab</a></span>
         <span><a class="toolbar-link"
