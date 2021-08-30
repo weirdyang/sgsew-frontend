@@ -28,7 +28,7 @@
           (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <a class="toolbar-link icon-filter"><img src="assets/svg/c-icon.svg"
+        <a class="toolbar-link icon-filter"><img [src]="darkMode ? 'assets/svg/c-icon.svg' : 'assets/svg/c-light.svg'"
             height="52px"
             width="52px"
             alt=""

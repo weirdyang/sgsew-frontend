@@ -29,12 +29,10 @@ a {
   filter: invert(48%) sepia(79%) saturate(200%) hue-rotate(86deg) brightness(118%) contrast(119%)
 }
 :host-context(.light){
-  .icon-filter {
-    filter: hue-rotate(65deg)!important
-  }
+  filter: none!important;
 }
 .icon-filter {
-  filter: contrast(119%)  saturate(200%) sepia(55%)!important
+  filter: saturate(95%) brightness(118%) sepia(25%)!important
 }
 .hidden {
   display: none;
