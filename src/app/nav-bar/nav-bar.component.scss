@@ -15,11 +15,24 @@
   top: 0;
   z-index: 1;
 }
+a {
+  &.toolbar-link {
+    all: unset;
+    cursor: pointer;
+    margin-right: 0.75rem;
+  }
+}
 .spacer {
   flex: 1 1 auto;
 }
 .filter-green {
   filter: invert(48%) sepia(79%) saturate(200%) hue-rotate(86deg) brightness(118%) contrast(119%)
+}
+:host-context(.light){
+  filter: none!important;
+}
+.icon-filter {
+  filter: saturate(95%) brightness(118%) sepia(25%)!important
 }
 .hidden {
   display: none;
