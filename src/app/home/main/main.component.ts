@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MapService } from '../map.service';
+import { Component, OnInit } from '@angular/core';
+import { MapService } from '../../services/map.service';
 
 @Component({
   selector: 'app-main',
