@@ -19,9 +19,7 @@ a {
   &.toolbar-link {
     all: unset;
     cursor: pointer;
-    margin-right: 0.75rem;
-    display: table-cell;
-    vertical-align: middle;
+    margin-right: 0.75rem!important;
     @media  screen and (max-width: 675px + 1px) {
         &:not(.icon-filter){
           display: none;
@@ -29,9 +27,13 @@ a {
     }
   }
 }
+.brand-button {
+  margin-right: 0.75rem!important;
+}
 .brand-icon {
   height: 40px;
   width: 40px;
+
 }
 .spacer {
   flex: 1 1 auto;
