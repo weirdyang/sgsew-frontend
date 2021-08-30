@@ -16,6 +16,8 @@ export class AppComponent {
 
   constructor(private themeService: ThemingService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl('assets/svg/avatars.svg'))
+    iconRegistry.addSvgIcon('c-icon', sanitizer.bypassSecurityTrustResourceUrl(`assets/svg/c-icon.svg`));
+    iconRegistry.addSvgIcon('c-light', sanitizer.bypassSecurityTrustResourceUrl(`assets/svg/c-light.svg`));
     avatars.forEach(name =>
       iconRegistry.
         addSvgIcon(name, sanitizer.bypassSecurityTrustResourceUrl(`assets/svg/${name}.svg`)))
