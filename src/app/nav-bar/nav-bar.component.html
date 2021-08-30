@@ -28,7 +28,15 @@
           (click)="drawer.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span>Collab</span>
+        <a class="toolbar-link icon-filter"><img src="assets/svg/c-icon.svg"
+            height="52px"
+            width="52px"
+            alt=""
+            srcset=""></a>
+        <span><a class="toolbar-link"
+            [routerLink]="''">Collab</a></span>
+        <span><a class="toolbar-link"
+            [routerLink]="'/products/list'">Products</a></span>
         <span class="spacer"></span>
         <button mat-icon-button
           [matMenuTriggerFor]="menu"
