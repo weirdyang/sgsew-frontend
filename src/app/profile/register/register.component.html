@@ -7,7 +7,8 @@
     <mat-dialog-content class="dialog-container"
         [formGroup]="form">
 
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill"
+            *ngIf="!isSubmitting">
             <mat-label> Username</mat-label>
             <input matInput
                 type="text"

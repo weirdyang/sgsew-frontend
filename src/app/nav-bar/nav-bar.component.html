@@ -8,35 +8,16 @@
       [opened]="false">
       <mat-toolbar>Menu</mat-toolbar>
       <mat-nav-list>
-        <a matLine
-          mat-list-item
-          routerLink="/products/list">
-          Products and Services
-        </a>
-        <a matLine
-          mat-list-item
-          routerLink="/home/about">
-          About Us
-        </a>
-        <a matLine
-          mat-list-item
-          routerLink="/home/contact">
-          Contact Us
-        </a>
-      </mat-nav-list>
-      <mat-nav-list *ngIf="isAuthenticated">
-        <a matLine
-          mat-list-item
-          routerLink="/products/create">
-          Create new product
-        </a>
-      </mat-nav-list>
-      <mat-nav-list *ngIf="isAuthenticated && isAdmin">
-        <a matLine
-          mat-list-item
-          routerLink="/users/list">
-          Manage users
-        </a>
+        <ng-container *ngFor="let item of menuItems">
+          <a matLine
+            mat-list-item
+            [routerLink]="'/'+item.path"
+            *ngIf="(item.auth && !isAuthenticated) || isAuthenticated">
+            <mat-icon svgIcon="{{item.icon}}"
+              class="filter-green"> </mat-icon>
+            {{item.name | titlecase}}
+          </a>
+        </ng-container>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -56,11 +37,9 @@
             class="brand-icon"></a>
         <span><a class="toolbar-link"
             [routerLink]="''">Collab</a></span>
-        <span class="spacer"></span>
-
         <span><a class="toolbar-link"
             [routerLink]="'/products/list'">Products</a></span>
-        <hr class="vertical-hr">
+        <span class="spacer"></span>
         <button mat-icon-button
           [matMenuTriggerFor]="menu"
           matToolTip="Manage account"

@@ -45,9 +45,7 @@ export class AuthService {
   get isAuthenticated() {
     return this.getUser() !== null;
   }
-  get isAdmin() {
-    return this.getUser()?.role === 'admin';
-  }
+
   setUser = (user: IUser) => {
     window.localStorage.setItem(this.USER_KEY, JSON.stringify(user));
     this._currentUserSubject.next(user as IUser);
