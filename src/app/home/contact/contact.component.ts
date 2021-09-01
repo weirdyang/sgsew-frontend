@@ -38,6 +38,7 @@ export class ContactComponent {
         this.isSubmitting = false;
         this.contactForm.reset();
         this.myForm.resetForm();
+        this.snackBar.open('Thank you for reaching out!', 'OK');
       },
       err => {
         this.isSubmitting = false;
