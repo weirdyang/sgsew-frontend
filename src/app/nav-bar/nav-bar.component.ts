@@ -23,14 +23,6 @@ interface MenuItem {
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnDestroy {
-  menuItems: Array<MenuItem> = [
-    {
-      name: 'public', path: 'products/create', icon: 'orange', auth: true
-    },
-    {
-      name: 'private', path: 'products/create', icon: 'leaf', auth: false
-    }
-  ]
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -39,6 +31,9 @@ export class NavBarComponent implements OnDestroy {
 
   get isAuthenticated() {
     return this.authService.isAuthenticated;
+  }
+  get isAdmin() {
+    return this.authService.isAdmin;
   }
   @Input()
   darkMode!: boolean | null;
