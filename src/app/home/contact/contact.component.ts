@@ -12,8 +12,9 @@ import { Feedback } from './feedback';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
-  @ViewChild('contactForm', { static: false })
+  @ViewChild('myForm', { static: false })
   myForm!: NgForm;
+
   contactForm = this.fb.group({
 
     name: ['', Validators.required],
