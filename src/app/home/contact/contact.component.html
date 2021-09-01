@@ -3,7 +3,7 @@
 
 </div>
 <form class="contact-form"
-    #myForm
+    #myForm="ngForm"
     name="contact"
     [ngClass]="{'hide': isSubmitting }"
     [formGroup]="contactForm"
