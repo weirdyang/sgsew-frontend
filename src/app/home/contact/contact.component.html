@@ -1,66 +1,57 @@
-<form (submit)="sendContact(contactForm)"
-    #contactForm="ngForm"
-    class="form"
-    name="contact">
-    <div class="u-margin-bottom-medium">
-        <h2 class="heading-secondary heading-secondary--red">
-            Let's get in touch
-        </h2>
-        <span class="form__subtitle">...and create something amazing!</span>
-    </div>
-    <div class="form__group">
-        <input type="text"
-            class="form__input"
-            id="name"
-            name="name"
-            [(ngModel)]="name" />
-        <label for="name"
-            class="form__label">Your Name</label>
-    </div>
-    <div class="form__group">
-        <input type="email"
-            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-            class="form__input"
-            id="email"
-            name="email"
-            [(ngModel)]="email" />
-        <label for="email"
-            class="form__label">Email Address</label>
-    </div>
-    <div class="form__group u-margin-bottom-medium">
-        <input type="phone"
-            class="form__input"
-            id="phone"
-            name="phone"
-            [(ngModel)]="phone" />
-        <label for="phone"
-            class="form__label">Phone number</label>
-    </div>
-    <div class="form__group u-margin-bottom-medium">
-        <textarea class="form__input"
-            id="message"
-            name="message"
-            [(ngModel)]="message"
-            placeholder="Your Message* (Min. 30 characters)"></textarea>
-        <label for="message"
-            class="form__label">Your Message</label>
-    </div>
-    <div class="form__group u-text-left u-margin-bottom-medium">
-        <input type="checkbox"
-            class="form__checkbox-input"
-            id="subscription"
-            name="subscription"
-            [(ngModel)]="subscribe" />
-        <label class="form__checkbox-label"
-            for="subscription">
-            <span class="form__checkbox-button"></span>
-            I'd like to receive news and updates every once in a while.
-        </label>
-    </div>
-    <div class="form__group">
-        <button type="submit"
-            class="btn btn--primary form__button">
-            Let's go <i class="fas fa-arrow-right"></i>
-        </button>
-    </div>
+<div *ngIf="isSubmitting"
+    class="loader">
+
+</div>
+<form class="contact-form"
+    name="contact"
+    [ngClass]="{'hide': isSubmitting }"
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+    novalidate>
+    <h2>Contact us</h2>
+    <mat-form-field appearance="fill">
+        <mat-label> Name</mat-label>
+        <input matInput
+            type="text"
+            formControlName="name"
+            placeholder="Name">
+        <mat-error *ngIf="name?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput
+            type="email"
+            formControlName="email"
+            placeholder="Email">
+        <mat-error *ngIf="email?.invalid && !email?.hasError('required')">
+            Invalid email
+        </mat-error>
+        <mat-error *ngIf="email?.hasError('required')">
+            This is required.
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill"
+        class="form-item">
+        <mat-label>Message</mat-label>
+        <textarea matInput
+            [rows]="8"
+            [errorStateMatcher]="messageMatcher"
+            formControlName="message"
+            placeholder="Eg. Super Special Fishcake is 100% made from wild caught salmon"></textarea>
+        <mat-error *ngIf="message?.invalid && !message?.hasError('required')">
+            <ng-container *ngIf="message?.errors?.minlength">
+                Please enter a message longer than 30 characters.
+                Current character count: {{ message?.errors?.minlength.actualLength }}
+            </ng-container>
+        </mat-error>
+        <mat-error *ngIf="message?.hasError('required')">
+            {{requiredErrorMessage}}
+        </mat-error>
+        <mat-hint align="end">Characters: {{message?.value?.length || 0}}</mat-hint>
+    </mat-form-field>
+    <button mat-raised-button
+        [disabled]="!contactForm.valid"
+        color="primary">Submit</button>
 </form>

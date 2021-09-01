@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { InstantErrorStateMatcher } from 'src/app/products/helpers/price.validator';
 import { NetlifyFormsService } from 'src/app/services/netlify-forms.service';
 import { Feedback } from './feedback';
 
@@ -9,61 +11,39 @@ import { Feedback } from './feedback';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnDestroy {
-  name: any;
-  email: any;
-  phone: any;
-  message: any;
-  subscribe: any;
-  loading: boolean = false;
-  emailSent: boolean = false;
-  emailFailed: boolean = false;
-  constructor(private netlifyForms: NetlifyFormsService) { }
+export class ContactComponent {
+  @ViewChild('contactForm', { static: false })
+  myForm!: NgForm;
+  contactForm = this.fb.group({
 
-  private formStatusSub!: Subscription;
+    name: ['', Validators.required],
+    email: ['', [Validators.email, Validators.required]],
+    message: ['', [Validators.required, Validators.minLength(30)]],
+  });
 
-  sendContact(contactForm: NgForm) {
-    if (
-      contactForm.invalid
-    ) {
-      return;
-    }
-
-    const data = {
-      name: this.name,
-      email: this.email,
-      phone: this.phone,
-      message: this.message,
-      subscribe: this.subscribe
-        ? "Subscribe to newsletter"
-        : "Do not subscribe to newsletter",
-    };
-
-    const entry = {
-      ...data,
-    } as Feedback;
-
-    this.formStatusSub = this.netlifyForms.submitFeedback(entry).subscribe(
-      (res) => {
-        this.loading = false;
-        this.emailSent = true;
-        setTimeout(() => {
-          this.emailSent = false;
-        }, 10000);
-        contactForm.resetForm();
+  message = this.contactForm.get('message');
+  email = this.contactForm.get('email');
+  name = this.contactForm.get('name');
+  messageMatcher = new InstantErrorStateMatcher();
+  isSubmitting: boolean = false;
+  constructor(
+    private netlifyForms: NetlifyFormsService,
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar) { }
+  requiredErrorMessage = 'This field is required.';
+  onSubmit() {
+    this.isSubmitting = true;
+    this.netlifyForms.submitFeedback(this.contactForm.value).subscribe(
+      () => {
+        this.isSubmitting = false;
+        this.contactForm.reset();
+        this.myForm.resetForm();
       },
-      (err) => {
-        this.loading = false;
-        this.emailFailed = true;
-        setTimeout(() => {
-          this.emailFailed = false;
-        }, 10000);
+      err => {
+        this.isSubmitting = false;
+        console.error(err);
+        this.snackBar.open('Error submitting form!', 'OK');
       }
     );
   }
-
-  ngOnDestroy() {
-    this.formStatusSub ? this.formStatusSub.unsubscribe() : null;
-  }
-
 }
