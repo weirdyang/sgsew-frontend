@@ -1,0 +1,35 @@
+@import '../../../styles/loader.scss';
+.bd-overlay-dark {
+    opacity: 0.5;
+}
+:host-context(.light){
+    .loader {
+        border-left: 1.1em solid #003e94;
+    }
+}
+.loader {
+    border-left: 1.1em solid #00947e;
+}
+.hide {
+    display: none!important;
+}
+:host{
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(100vh - 2rem - 64px);
+}
+.contact-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 75vw;
+}
+.footer {
+    margin-top: auto;
+}
