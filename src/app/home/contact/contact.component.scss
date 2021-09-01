@@ -10,6 +10,9 @@
 .loader {
     border-left: 1.1em solid #00947e;
 }
+.hide {
+    display: none;
+}
 :host{
     display: flex;
     flex-direction: column;
