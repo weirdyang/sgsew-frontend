@@ -30,7 +30,8 @@ export class ContactComponent {
   constructor(
     private netlifyForms: NetlifyFormsService,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) {
+  }
   requiredErrorMessage = 'This field is required.';
   onSubmit() {
     this.isSubmitting = true;
