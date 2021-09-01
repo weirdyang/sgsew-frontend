@@ -1,26 +1,66 @@
-<form name="contact"
-    method="POST"
-    data-netlify="true"
-    action="/">
-    <p>
-        <label>Your Name: <input type="text"
-                name="name" /></label>
-    </p>
-    <p>
-        <label>Your Email: <input type="email"
-                name="email" /></label>
-    </p>
-    <p>
-        <label>Your Role: <select name="role[]"
-                multiple>
-                <option value="leader">Leader</option>
-                <option value="follower">Follower</option>
-            </select></label>
-    </p>
-    <p>
-        <label>Message: <textarea name="message"></textarea></label>
-    </p>
-    <p>
-        <button type="submit">Send</button>
-    </p>
+<form (submit)="sendContact(contactForm)"
+    #contactForm="ngForm"
+    class="form"
+    name="contact">
+    <div class="u-margin-bottom-medium">
+        <h2 class="heading-secondary heading-secondary--red">
+            Let's get in touch
+        </h2>
+        <span class="form__subtitle">...and create something amazing!</span>
+    </div>
+    <div class="form__group">
+        <input type="text"
+            class="form__input"
+            id="name"
+            name="name"
+            [(ngModel)]="name" />
+        <label for="name"
+            class="form__label">Your Name</label>
+    </div>
+    <div class="form__group">
+        <input type="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+            class="form__input"
+            id="email"
+            name="email"
+            [(ngModel)]="email" />
+        <label for="email"
+            class="form__label">Email Address</label>
+    </div>
+    <div class="form__group u-margin-bottom-medium">
+        <input type="phone"
+            class="form__input"
+            id="phone"
+            name="phone"
+            [(ngModel)]="phone" />
+        <label for="phone"
+            class="form__label">Phone number</label>
+    </div>
+    <div class="form__group u-margin-bottom-medium">
+        <textarea class="form__input"
+            id="message"
+            name="message"
+            [(ngModel)]="message"
+            placeholder="Your Message* (Min. 30 characters)"></textarea>
+        <label for="message"
+            class="form__label">Your Message</label>
+    </div>
+    <div class="form__group u-text-left u-margin-bottom-medium">
+        <input type="checkbox"
+            class="form__checkbox-input"
+            id="subscription"
+            name="subscription"
+            [(ngModel)]="subscribe" />
+        <label class="form__checkbox-label"
+            for="subscription">
+            <span class="form__checkbox-button"></span>
+            I'd like to receive news and updates every once in a while.
+        </label>
+    </div>
+    <div class="form__group">
+        <button type="submit"
+            class="btn btn--primary form__button">
+            Let's go <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
 </form>
