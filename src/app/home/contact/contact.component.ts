@@ -43,7 +43,9 @@ export class ContactComponent {
       err => {
         this.isSubmitting = false;
         console.error(err);
-        this.snackBar.open('Error submitting form!', 'OK');
+        this.snackBar.open('Error submitting form!', 'OK', {
+          duration: 5000
+        });
       }
     );
   }
