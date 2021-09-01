@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SocialFooterModule } from 'src/app/shared/social-footer/social-footer.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatInputModule,
     MatSnackBarModule,
+    SocialFooterModule
   ]
 })
 export class ContactModule { }
