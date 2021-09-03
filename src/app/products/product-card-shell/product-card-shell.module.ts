@@ -11,6 +11,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogModule } from 'src/app/shared/delete-dialog/delete-dialog.module';
 import { SocialFooterModule } from 'src/app/shared/social-footer/social-footer.module';
+import { DecimalDirectiveModule } from 'src/app/shared/decimal-directive/decimal-directive.module';
 @NgModule({
   declarations: [
     ProductCardShellComponent,
@@ -26,7 +27,8 @@ import { SocialFooterModule } from 'src/app/shared/social-footer/social-footer.m
     FontAwesomeModule,
     MatDialogModule,
     DeleteDialogModule,
-    SocialFooterModule
+    SocialFooterModule,
+    DecimalDirectiveModule
   ],
   exports: [
     FontAwesomeModule

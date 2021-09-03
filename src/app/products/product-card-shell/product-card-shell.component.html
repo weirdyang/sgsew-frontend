@@ -20,6 +20,7 @@
                     <input matInput
                         [formControl]="min"
                         type="text"
+                        appDecimalOnly
                         [errorStateMatcher]="matcher"
                         (keyup)="onMinChange($event)">
                     <mat-error *ngIf="min.errors?.invalidFloat">
@@ -32,6 +33,7 @@
                 <mat-form-field>
                     <mat-label>Max price</mat-label>
                     <input matInput
+                        appDecimalOnly
                         [formControl]="max"
                         type="text"
                         [errorStateMatcher]="matcher"
@@ -42,7 +44,7 @@
                     <mat-error *ngIf="!max.errors?.invalidFloat && max.errors?.minBigger">
                         Max must be more than min
                     </mat-error>
-                    <mat-error *ngIf="!max.errors?.invalidFloat &&max.errors?.max">
+                    <mat-error *ngIf="!max.errors?.invalidFloat && max.errors?.max">
                         Max value is {{ max.errors?.max?.max }}
                     </mat-error>
                 </mat-form-field>

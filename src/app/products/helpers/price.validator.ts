@@ -20,7 +20,7 @@ export function createPriceValidator(currencyPipe: CurrencyPipe): ValidatorFn {
     }
 }
 
-const numberRegEx = /^\d{0,5}(\.\d{1,2})?$/;
+const numberRegEx = /^\d+\.?(\d{1,2})?$/;
 
 export const numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const value = control.value as string;
