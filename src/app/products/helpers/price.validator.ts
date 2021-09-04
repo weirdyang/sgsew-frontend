@@ -24,7 +24,9 @@ const numberRegEx = /^\d+\.?(\d{1,2})?$/;
 
 export const numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const value = control.value as string;
-
+    if (value === '') {
+        return null;
+    }
     const test = numberRegEx.test(value);
 
     return test ? null : { 'invalidFloat': true };
