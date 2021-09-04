@@ -93,7 +93,7 @@ export class ProductCardShellComponent implements OnInit, AfterViewInit, OnDestr
     }
 
   }
-  max = new FormControl(this.searchParams.max, [numberValidator, minMaxValidator, Validators.max(100000), Validators.min(0)]);
+  max = new FormControl(this.searchParams.max, [numberValidator, minMaxValidator, Validators.max(10000), Validators.min(0)]);
 
   typeControl = new FormControl();
   private _typeSubject = new BehaviorSubject<string>('');
