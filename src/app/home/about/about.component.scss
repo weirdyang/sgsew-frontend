@@ -1,3 +1,4 @@
+
 @mixin transparent_bg(
   $bg_image,
   $overlay_opacity: "",
@@ -166,17 +167,17 @@
   padding: 1rem;
 }
 
-.flip-card {
-  margin: 10px;
-  position: relative;
-  -webkit-perspective: 800px;
-  perspective: 800px;
-}
+  .flip-card {
+    margin: 10px;
+    position: relative;
+    -webkit-perspective: 800px;
+    perspective: 800px;
+  }
 
-.flip-card-container {
-  position: relative;
-  width: 300px;
-  height: 400px;
+  .flip-card-container {
+    position: relative;
+    width: 300px;
+    height: 400px;
 
   margin: 3rem auto;
   -webkit-transform-style: preserve-3d;
@@ -186,11 +187,11 @@
   transform: transform 1s;
 }
 
-.flip-card-side {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-radius: 5px;
+  .flip-card-side {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 5px;
 
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -204,49 +205,49 @@
   user-select: none;
 }
 
-.flip-card-side-front {
-  &.dark-mode {
-    background: rgba(177, 123, 7, 0.9);
+  .flip-card-side-front {
+    &.dark-mode {
+      background: rgba(177, 123, 7, 0.9);
+    }
+    transform: rotateY(0deg);
+    background: rgb(49, 147, 232, 0.9);
+    text-align: center;
+    padding: 30px;
+    position: absolute;
+    transition-timing-function: linear;
+    border-radius: 5px;
+    .name {
+      display: inline-block;
+      font-size: 18px;
+    }
+    .contact {
+      height: 40%;
+      border: 5px solid white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
   }
-  transform: rotateY(0deg);
-  background: rgb(49, 147, 232, 0.9);
-  text-align: center;
-  padding: 30px;
-  position: absolute;
-  transition-timing-function: linear;
-  border-radius: 5px;
-  .name {
-    display: inline-block;
-    font-size: 18px;
+  .flip-card-side-back {
+    background: rgba(98, 8, 216, 0.678);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    padding: 20px 10px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 5px;
+    .contact {
+      height: 40%;
+      border: 5px solid white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
   }
-  .contact {
-    height: 40%;
-    border: 5px solid white;
-    border-radius: 50%;
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-}
-.flip-card-side-back {
-  background: rgba(98, 8, 216, 0.678);
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-  padding: 20px 10px;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 5px;
-  .contact {
-    height: 40%;
-    border: 5px solid white;
-    border-radius: 50%;
-    display: inline-block;
-    margin-bottom: 10px;
-  }
-}
 
 .Logo {
   @include transparent_bg(
