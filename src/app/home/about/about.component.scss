@@ -158,7 +158,7 @@
 }
 
 .Team-cards {
-  display: grid;
+  display: inline-block;
   grid-column: 2 / 13;
   place-items: center;
   height: 100%;
@@ -166,12 +166,10 @@
   padding: 1rem;
 }
 
-#Team-cards-container {
   .flip-card {
     margin: 10px;
     display: inline-block;
     position: relative;
-    grid-column: 2 / 13;
     -webkit-perspective: 800px;
     perspective: 800px;
   }
@@ -251,7 +249,7 @@
       margin-bottom: 10px;
     }
   }
-}
+
 .Logo {
   @include transparent_bg(
     "/assets/images/Building.jpg",
