@@ -152,52 +152,52 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <section class="Logo"
+    [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
+    <div class="Logo-Title">
+      <span>
+        <h1>Behind the Logo</h1>
+        <hr class="underline-middle" />
+      </span>
+    </div>
+    <div class="Logo-Image">
+      <span>
+        <img [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+          [src]="(isDarkMode$ | async) ? darklogo : lightlogo"
+          title=""
+          (click)="updateLogo()" />
+      </span>
+      <span class="Logo-description"
+        [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
+        <p>
+          Our logo symbolises the goals and aspirations of what our company wishes
+          to reach. We aim to stay connected with everyone, from local IT
+          businesses to global corporations, in order to provide the best possible
+          products and services out there.
+        </p>
+        <p>
+          Everyone is welcome to join us in our quest and every type of IT
+          product, from simple gadgets to the most complicated of systems, are
+          welcome on our shelves.
+        </p>
+        <p>
+          Flexibility is key to survive in this ever-changing global environment,
+          even the big-hitters of yesterday can fall if they don't adapt. Even if
+          we do try to adapt, we must strive to be nimble about it or it will not
+          matter much.
+        </p>
+        <p>
+          We will strive to engage with each and everyone to achieve those goals,
+          and then we can breakthrough as leaders of this industry!
+        </p>
+      </span>
+      <span> </span>
+    </div>
+  </section>
 
-    <section class="Logo"
-      [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
-      <div class="Logo-Title">
-        <span>
-          <h1>Behind the Logo</h1>
-          <hr class="underline-middle" />
-        </span>
-      </div>
-      <div class="Logo-Image">
-        <span>
-          <img [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
-            [src]="(isDarkMode$ | async) ? darklogo : lightlogo"
-            title=""
-            (click)="updateLogo()" />
-        </span>
-        <span class="Logo-description"
-          [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
-          <p>
-            Our logo symbolises the goals and aspirations of what our company wishes
-            to reach. We aim to stay connected with everyone, from local IT
-            businesses to global corporations, in order to provide the best possible
-            products and services out there.
-          </p>
-          <p>
-            Everyone is welcome to join us in our quest and every type of IT
-            product, from simple gadgets to the most complicated of systems, are
-            welcome on our shelves.
-          </p>
-          <p>
-            Flexibility is key to survive in this ever-changing global environment,
-            even the big-hitters of yesterday can fall if they don't adapt. Even if
-            we do try to adapt, we must strive to be nimble about it or it will not
-            matter much.
-          </p>
-          <p>
-            We will strive to engage with each and everyone to achieve those goals,
-            and then we can breakthrough as leaders of this industry!
-          </p>
-        </span>
-        <span> </span>
-      </div>
-    </section>
+  <footer class="footer">
+    <app-social-footer></app-social-footer>
 
-    <footer class="footer">
-      <app-social-footer></app-social-footer>
-
-    </footer>
+  </footer>
