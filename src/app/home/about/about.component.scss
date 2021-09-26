@@ -1,0 +1,371 @@
+@import "../../../styles/loader.scss";
+@import "@primer/css/utilities/animations.scss";
+
+@mixin transparent_bg(
+  $bg_image,
+  $overlay_opacity: "",
+  $overlay_color: "",
+  $minHeight
+) {
+  background: -webkit-linear-gradient(
+      left,
+      rgba($overlay_color, $overlay_opacity),
+      rgba($overlay_color, $overlay_opacity)
+    ),
+    url($bg_image) no-repeat;
+  min-height: $minHeight;
+  width: 100%;
+  position: relative;
+  border-bottom: 0.1px solid black;
+  margin: 1;
+  overflow: hidden;
+}
+
+.header {
+  @include transparent_bg(
+    "/assets/images/shadow.jpg",
+    0.25,
+    rgba(241, 241, 241, 0.9),
+    350px
+  ); //  black overlay with 40% opacity
+  background-size: cover; // can use any regular css properties to style background
+  display: grid;
+
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/shadow.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      350px
+    );
+    background-size: cover;
+    display: grid;
+  }
+}
+
+.header-content {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  padding: 1rem 1rem;
+  position: relative;
+}
+
+.Collab {
+  color: cyan;
+  text-transform: uppercase;
+}
+
+.Shedding-light {
+  text-transform: uppercase;
+  text-shadow: 1rem;
+}
+
+.underline {
+  width: 30%;
+  margin-left: 0px;
+}
+
+.underline-middle {
+  width: 20%;
+  margin-left: 0px;
+}
+
+.company-background {
+  @include transparent_bg(
+    "/assets/images/Building1.jpg",
+    0.25,
+    rgba(241, 241, 241, 0.8),
+    500px
+  ); //  black overlay with 40% opacity
+  background-size: cover; // can use any regular css properties to style background
+  display: grid;
+
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/Building1.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      500px
+    );
+    background-size: cover;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.company-background-container {
+  display: grid;
+  grid-column: 1 / 13;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.company-background-description {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  .Our-Origins {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    margin: 0 1rem;
+    padding: 2rem 1rem;
+    position: relative;
+    .company-background-text {
+      &.dark-mode {
+        background-color: rgba(26, 29, 37, 0.15);
+        text-align: justify;
+        line-height: 20px;
+        margin-bottom: 0px;
+        padding: 20px;
+        color: white;
+      }
+      background-color: rgba(241, 241, 241, 0.3);
+      text-align: justify;
+      line-height: 20px;
+      margin-bottom: 0px;
+      padding: 20px;
+      color: black;
+    }
+  }
+}
+
+.Team {
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/office-computer-desks.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      500px
+    );
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+  @include transparent_bg(
+    "/assets/images/office-computer-desks.jpg",
+    0.25,
+    rgba(241, 241, 241, 0.8),
+    500px
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.Our-Team {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  margin: 0 1rem;
+  padding: 1rem 1rem;
+  position: relative;
+  grid-column: 1 / 13;
+}
+
+.Team-cards {
+  display: grid;
+  grid-column: 2 / 13;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+}
+
+#Team-cards-container {
+  .flip-card {
+    margin: 10px;
+    display: inline-block;
+    position: relative;
+    grid-column: 2 / 13;
+    -webkit-perspective: 800px;
+    perspective: 800px;
+  }
+
+  .flip-card-container {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    height: 400px;
+
+    margin: 3rem auto;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform: transform 1s;
+    -ms-transform: transform 1s;
+    transform: transform 1s;
+  }
+
+  .flip-card-container-side {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 5px;
+
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .flip-card-container-side-front {
+    &.dark-mode {
+      transform: rotateY(0deg);
+      background: rgba(177, 123, 7, 0.9);
+      text-align: center;
+      padding: 30px;
+      position: absolute;
+      transition-timing-function: linear;
+      border-radius: 5px;
+    }
+    transform: rotateY(0deg);
+    background: rgb(49, 147, 232, 0.9);
+    text-align: center;
+    padding: 30px;
+    position: absolute;
+    transition-timing-function: linear;
+    border-radius: 5px;
+    .name {
+      display: inline-block;
+      font-size: 18px;
+    }
+    .contact {
+      height: 40%;
+      border: 5px solid white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  }
+  .flip-card-container-side-back {
+    background: rgba(98, 8, 216, 0.678);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    padding: 20px 10px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 5px;
+    .contact {
+      height: 40%;
+      border: 5px solid white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  }
+}
+.Logo {
+  @include transparent_bg(
+    "/assets/images/Building.jpg",
+    0.4,
+    rgba(241, 241, 241, 0.8),
+    500px
+  );
+  background-size: cover;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 1rem 0 1rem;
+
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/Building.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      500px
+    );
+    background-size: cover;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .Logo-Title {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    margin: 0 1rem;
+    padding: 1rem 1rem;
+    position: relative;
+    grid-column: 1 / 13;
+
+    img {
+      border-radius: 4px;
+      padding: 5px;
+      width: 150px;
+    }
+  }
+
+  .Logo-Image {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    margin: 0 1rem;
+    padding: 1rem 1rem;
+    position: relative;
+    justify-content: center;
+    place-items: center;
+    grid-column: 1 / 13;
+
+    img {
+      &.dark-mode {
+        cursor: pointer;
+        background-color: rgba(241, 241, 241, 0.5);
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 5px;
+        height: 300px;
+      }
+      cursor: pointer;
+      background: rgba(241, 241, 241, 0.5);
+      border: 1px solid white;
+      border-radius: 4px;
+      padding: 5px;
+      height: 300px;
+    }
+    .Logo-description {
+      &.dark-mode {
+        background-color: rgba(26, 29, 37, 0.2);
+        line-height: 20px;
+        margin-bottom: 0px;
+        padding: 20px;
+        color: white;
+      }
+      background-color: rgba(241, 241, 241, 0.3);
+      line-height: 20px;
+      margin-bottom: 0px;
+      padding: 20px;
+      color: black;
+    }
+  }
+}
+
+.footer {
+  margin-top: auto;
+}

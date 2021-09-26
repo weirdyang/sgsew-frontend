@@ -1,1 +1,203 @@
-<p>about works!</p>
+<section class="header" [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
+  <div class="header-content">
+    <div class="Shedding-light">
+      <h1>Shedding Light On</h1>
+    </div>
+    <div class="Collab">
+      <h1>Collab</h1>
+    </div>
+    <hr class="underline" />
+  </div>
+</section>
+
+<section
+  class="company-background"
+  [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+>
+  <div class="company-background-container">
+    <div class="company-background-description">
+      <span class="Our-Origins"
+        ><h1>Our Origins</h1>
+        <hr class="underline-middle" />
+        <br />
+        <span
+          class="company-background-text"
+          [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+        >
+          <p>
+            Welcome to Collab, your number one source for all things IT. We're
+            dedicated to providing you the very best of our IT hardware and
+            services, with an emphasis on being timely, accessible and
+            up-to-date.
+          </p>
+          <p>
+            Founded in 2015 by Weiyang and Rex, Collab has come a long way from
+            its beginnings in Bedok Princess Center. When they first started
+            out, their passion for IT hardware and services drove them to start
+            their own business.
+          </p>
+          <p>
+            Currently, we have spread our wings from our physical stores to a
+            more modern, virtual approach. We sell our products through renown
+            platforms in Singapore such as Carousell, Shopee and Lazada.
+          </p>
+          <p>
+            We hope you enjoy our products as much as we enjoy offering them to
+            you.
+          </p>
+        </span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="Team" [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
+  <div class="Our-Team">
+    <h1>Our Team</h1>
+    <hr class="underline-middle" />
+  </div>
+  <div class="Team-cards">
+    <div id="Team-cards-container">
+      <div class="flip-card">
+        <div
+          class="flip-card-container"
+          (click)="toggleFlip1()"
+          [@flipState]="flip1"
+        >
+          <div
+            class="flip-card-container-side flip-card-container-side-front"
+            [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+          >
+            <img src="/assets/images/person-avatar1.jpg" class="contact" />
+            <br />
+            <span class="name"><h2>Wei Yang</h2></span>
+            <hr />
+            <span class="job"><h2>Founder #1</h2></span>
+          </div>
+          <div class="flip-card-container-side flip-card-container-side-back">
+            <img src="/assets/images/Brains.png" class="contact" />
+            <br />
+            <span
+              ><h2>The Brains of Collab</h2>
+              <p>
+                With his exceptional ideas and brilliant plans, he keeps the
+                company running smoothly and efficiently. Occasionally seen
+                arranging his files to fit a certain symmetry.
+              </p></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div
+          class="flip-card-container"
+          (click)="toggleFlip2()"
+          [@flipState]="flip2"
+        >
+          <div
+            class="flip-card-container-side flip-card-container-side-front"
+            [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+          >
+            <img src="/assets/images/person-avatar1.jpg" class="contact" />
+            <br />
+            <span class="name"><h2>Bhareth Rex</h2></span>
+            <hr />
+            <span class="job"><h2>Founder #2</h2></span>
+          </div>
+          <div class="flip-card-container-side flip-card-container-side-back">
+            <img src="/assets/images/cartoon-megaphone.jpg" class="contact" />
+            <br />
+            <span
+              ><h2>The Voice of Collab</h2>
+              <p>
+                With his flair for communication and psychology, he definitely
+                conveys the company's ideas and thoughts efficiently. Often
+                found browsing through social media on his mobile.
+              </p></span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="flip-card">
+        <div
+          class="flip-card-container"
+          (click)="toggleFlip3()"
+          [@flipState]="flip3"
+        >
+          <div
+            class="flip-card-container-side flip-card-container-side-front"
+            [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+          >
+            <img src="/assets/images/person-avatar1.jpg" class="contact" />
+            <br />
+            <span class="name"><h2>K.E.N.N.E.T.H</h2></span>
+            <hr />
+            <span class="job"><h2>The Sponsor</h2></span>
+          </div>
+          <div class="flip-card-container-side flip-card-container-side-back">
+            <img src="/assets/images/Eye.jpg" class="contact" />
+            <br />
+            <span
+              ><h2>The All Watching Eye</h2>
+              <p>
+                The one who truly keeps us in check from the shadows. Makes sure
+                don't deviate from the plan and what we truly need to achieve
+                our goal. Pretty nice guy if there's no funny business.
+              </p></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="Logo" [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
+  <div class="Logo-Title">
+    <span>
+      <h1>Behind the Logo</h1>
+      <hr class="underline-middle" />
+    </span>
+  </div>
+  <div class="Logo-Image">
+    <span>
+      <img
+        [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+        [src]="(isDarkMode$ | async) ? darklogo : lightlogo"
+        title=""
+        (click)="updateLogo()"
+      />
+    </span>
+    <span
+      class="Logo-description"
+      [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+    >
+      <p>
+        Our logo symbolises the goals and aspirations of what our company wishes
+        to reach. We aim to stay connected with everyone, from local IT
+        businesses to global corporations, in order to provide the best possible
+        products and services out there.
+      </p>
+      <p>
+        Everyone is welcome to join us in our quest and every type of IT
+        product, from simple gadgets to the most complicated of systems, are
+        welcome on our shelves.
+      </p>
+      <p>
+        Flexibility is key to survive in this ever-changing global environment,
+        even the big-hitters of yesterday can fall if they don't adapt. Even if
+        we do try to adapt, we must strive to be nimble about it or it will not
+        matter much.
+      </p>
+      <p>
+        We will strive to engage with each and everyone to achieve those goals,
+        and then we can breakthrough as leaders of this industry!
+      </p>
+    </span>
+    <span> </span>
+  </div>
+</section>
+
+<footer class="footer">
+  <app-social-footer [isDark]="true"></app-social-footer>
+</footer>
