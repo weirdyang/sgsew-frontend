@@ -1,3 +1,4 @@
+
 @mixin transparent_bg(
   $bg_image,
   $overlay_opacity: "",
@@ -13,6 +14,7 @@
   min-height: $minHeight;
   width: 100%;
   position: relative;
+  background-size: cover;
   border-bottom: 0.1px solid black;
   margin: 1;
   overflow: hidden;
@@ -35,8 +37,6 @@
       rgba(26, 29, 37, 0.8),
       350px
     );
-    background-size: cover;
-    display: grid;
   }
 }
 
@@ -55,7 +55,6 @@
 
 .Shedding-light {
   text-transform: uppercase;
-  text-shadow: 1rem;
 }
 
 .underline {
@@ -68,7 +67,7 @@
   margin-left: 0px;
 }
 
-.company-background {
+.background {
   @include transparent_bg(
     "/assets/images/Building1.jpg",
     0.25,
@@ -85,14 +84,11 @@
       rgba(26, 29, 37, 0.8),
       500px
     );
-    background-size: cover;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
   }
   grid-template-columns: repeat(12, 1fr);
 }
 
-.company-background-container {
+.background-container {
   display: grid;
   grid-column: 1 / 13;
   place-items: center;
@@ -100,7 +96,7 @@
   width: 100%;
 }
 
-.company-background-description {
+.background-description {
   position: relative;
   height: 100%;
   width: 100%;
@@ -117,13 +113,9 @@
     margin: 0 1rem;
     padding: 2rem 1rem;
     position: relative;
-    .company-background-text {
+    .background-text {
       &.dark-mode {
         background-color: rgba(26, 29, 37, 0.15);
-        text-align: justify;
-        line-height: 20px;
-        margin-bottom: 0px;
-        padding: 20px;
         color: white;
       }
       background-color: rgba(241, 241, 241, 0.3);
@@ -144,10 +136,6 @@
       rgba(26, 29, 37, 0.8),
       500px
     );
-    background-size: cover;
-    background-repeat: no-repeat;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
   }
   @include transparent_bg(
     "/assets/images/office-computer-desks.jpg",
@@ -155,8 +143,6 @@
     rgba(241, 241, 241, 0.8),
     500px
   );
-  background-size: cover;
-  background-repeat: no-repeat;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
 }
@@ -204,7 +190,7 @@
     transform: transform 1s;
   }
 
-  .flip-card-container-side {
+  .flip-card-side {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -222,15 +208,9 @@
     user-select: none;
   }
 
-  .flip-card-container-side-front {
+  .flip-card-side-front {
     &.dark-mode {
-      transform: rotateY(0deg);
       background: rgba(177, 123, 7, 0.9);
-      text-align: center;
-      padding: 30px;
-      position: absolute;
-      transition-timing-function: linear;
-      border-radius: 5px;
     }
     transform: rotateY(0deg);
     background: rgb(49, 147, 232, 0.9);
@@ -251,7 +231,7 @@
       margin-bottom: 10px;
     }
   }
-  .flip-card-container-side-back {
+  .flip-card-side-back {
     background: rgba(98, 8, 216, 0.678);
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
@@ -279,7 +259,6 @@
     rgba(241, 241, 241, 0.8),
     500px
   );
-  background-size: cover;
   position: relative;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -295,12 +274,6 @@
       rgba(26, 29, 37, 0.8),
       500px
     );
-    background-size: cover;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    align-items: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 
   .Logo-Title {
@@ -332,12 +305,8 @@
 
     img {
       &.dark-mode {
-        cursor: pointer;
         background-color: rgba(241, 241, 241, 0.5);
         border: 1px solid black;
-        border-radius: 4px;
-        padding: 5px;
-        height: 300px;
       }
       cursor: pointer;
       background: rgba(241, 241, 241, 0.5);
@@ -347,18 +316,15 @@
       height: 300px;
     }
     .Logo-description {
-      &.dark-mode {
-        background-color: rgba(26, 29, 37, 0.2);
-        line-height: 20px;
-        margin-bottom: 0px;
-        padding: 20px;
-        color: white;
-      }
       background-color: rgba(241, 241, 241, 0.3);
       line-height: 20px;
       margin-bottom: 0px;
       padding: 20px;
-      color: black;
+      color: black;      
+      &.dark-mode {
+        background-color: rgba(26, 29, 37, 0.2);
+        color: white;
+      }
     }
   }
 }
