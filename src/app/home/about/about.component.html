@@ -65,7 +65,7 @@
           [@flipState]="flip1"
         >
           <div
-            class="flip-card-container-side flip-card-container-side-front"
+            class="flip-card-side flip-card-side-front"
             [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
           >
             <img src="/assets/images/person-avatar1.jpg" class="contact" />
@@ -74,7 +74,7 @@
             <hr />
             <span class="job"><h2>Founder #1</h2></span>
           </div>
-          <div class="flip-card-container-side flip-card-container-side-back">
+          <div class="flip-card-side flip-card-side-back">
             <img src="/assets/images/Brains.png" class="contact" />
             <br />
             <span
@@ -95,7 +95,7 @@
           [@flipState]="flip2"
         >
           <div
-            class="flip-card-container-side flip-card-container-side-front"
+            class="flip-card-side flip-card-side-front"
             [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
           >
             <img src="/assets/images/person-avatar1.jpg" class="contact" />
@@ -104,7 +104,7 @@
             <hr />
             <span class="job"><h2>Founder #2</h2></span>
           </div>
-          <div class="flip-card-container-side flip-card-container-side-back">
+          <div class="flip-card-side flip-card-side-back">
             <img src="/assets/images/cartoon-megaphone.jpg" class="contact" />
             <br />
             <span
@@ -125,7 +125,7 @@
           [@flipState]="flip3"
         >
           <div
-            class="flip-card-container-side flip-card-container-side-front"
+            class="flip-card-side flip-card-side-front"
             [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
           >
             <img src="/assets/images/person-avatar1.jpg" class="contact" />
@@ -134,7 +134,7 @@
             <hr />
             <span class="job"><h2>The Sponsor</h2></span>
           </div>
-          <div class="flip-card-container-side flip-card-container-side-back">
+          <div class="flip-card-side flip-card-side-back">
             <img src="/assets/images/Eye.jpg" class="contact" />
             <br />
             <span
@@ -199,5 +199,5 @@
 </section>
 
 <footer class="footer">
-  <app-social-footer [isDark]="true"></app-social-footer>
+  <app-social-footer></app-social-footer>
 </footer>

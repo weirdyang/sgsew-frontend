@@ -56,7 +56,6 @@
 
 .Shedding-light {
   text-transform: uppercase;
-  text-shadow: 1rem;
 }
 
 .underline {
@@ -205,7 +204,7 @@
     transform: transform 1s;
   }
 
-  .flip-card-container-side {
+  .flip-card-side {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -223,7 +222,7 @@
     user-select: none;
   }
 
-  .flip-card-container-side-front {
+  .flip-card-side-front {
     &.dark-mode {
       transform: rotateY(0deg);
       background: rgba(177, 123, 7, 0.9);
@@ -252,7 +251,7 @@
       margin-bottom: 10px;
     }
   }
-  .flip-card-container-side-back {
+  .flip-card-side-back {
     background: rgba(98, 8, 216, 0.678);
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
