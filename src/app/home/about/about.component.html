@@ -54,6 +54,7 @@
     <h1>Our Team</h1>
     <hr class="underline-middle" />
   </div>
+<<<<<<< HEAD
   <div class="Team-cards"
     id="Team-cards-container">
     <div class="flip-card">
@@ -85,6 +86,37 @@
               arranging his files to fit a certain symmetry.
             </p>
           </span>
+=======
+  <div class="Team-cards">
+      <div class="flip-card">
+        <div
+          class="flip-card-container"
+          (click)="toggleFlip1()"
+          [@flipState]="flip1"
+        >
+          <div
+            class="flip-card-side flip-card-side-front"
+            [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+          >
+            <img src="/assets/images/person-avatar1.jpg" class="contact" />
+            <br />
+            <span class="name"><h2>Wei Yang</h2></span>
+            <hr />
+            <span class="job"><h2>Founder #1</h2></span>
+          </div>
+          <div class="flip-card-side flip-card-side-back">
+            <img src="/assets/images/Brains.png" class="contact" />
+            <br />
+            <span
+              ><h2>The Brains of Collab</h2>
+              <p>
+                With his exceptional ideas and brilliant plans, he keeps the
+                company running smoothly and efficiently. Occasionally seen
+                arranging his files to fit a certain symmetry.
+              </p></span
+            >
+          </div>
+>>>>>>> f194be9ae4b7b01799a31df838e9ae0e5a51374b
         </div>
       </div>
     </div>
@@ -151,7 +183,6 @@
           </span>
         </div>
       </div>
-    </div>
   </div>
 </section>
 
@@ -200,4 +231,9 @@
 
 <footer class="footer">
   <app-social-footer></app-social-footer>
+<<<<<<< HEAD
 </footer>
+=======
+</footer>
+
+>>>>>>> f194be9ae4b7b01799a31df838e9ae0e5a51374b
