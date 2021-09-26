@@ -17,7 +17,7 @@ import {
       state(
         'active',
         style({
-          transform: 'rotateY(179deg)',
+          transform: 'rotateY(-180deg)',
         })
       ),
       state(
@@ -31,10 +31,10 @@ import {
     ]),
   ],
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent {
   isDarkMode$ = this.themingService.darkMode$;
 
-  constructor(private themingService: ThemingService) {}
+  constructor(private themingService: ThemingService) { }
   name = 'Logo';
   darklogo = 'assets/images/Logo-Dark.png'; //default_value
   lightlogo = 'assets/images/Logo-Light.png';
@@ -51,19 +51,18 @@ export class AboutComponent implements OnInit {
     else this.lightlogo = 'assets/images/word-puzzle.png';
   }
 
-  ngOnInit() {}
 
-  flip1: string = 'inactive';
-  flip2: string = 'inactive';
-  flip3: string = 'inactive';
+  // flip1: string = 'inactive';
+  // flip2: string = 'inactive';
+  // flip3: string = 'inactive';
 
-  toggleFlip1() {
-    this.flip1 = this.flip1 == 'inactive' ? 'active' : 'inactive';
-  }
-  toggleFlip2() {
-    this.flip2 = this.flip2 == 'inactive' ? 'active' : 'inactive';
-  }
-  toggleFlip3() {
-    this.flip3 = this.flip3 == 'inactive' ? 'active' : 'inactive';
-  }
+  // toggleFlip1() {
+  //   this.flip1 = this.flip1 == 'inactive' ? 'active' : 'inactive';
+  // }
+  // toggleFlip2() {
+  //   this.flip2 = this.flip2 == 'inactive' ? 'active' : 'inactive';
+  // }
+  // toggleFlip3() {
+  //   this.flip3 = this.flip3 == 'inactive' ? 'active' : 'inactive';
+  // }
 }

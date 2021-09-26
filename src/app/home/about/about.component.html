@@ -57,9 +57,7 @@
   <div class="Team-cards"
     id="Team-cards-container">
     <div class="flip-card">
-      <div class="flip-card-container"
-        (click)="toggleFlip1()"
-        [@flipState]="flip1">
+      <div class="flip-card-container">
         <div class="flip-card-side flip-card-side-front"
           [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
           <img src="/assets/images/person-avatar1.jpg"
@@ -89,9 +87,7 @@
       </div>
     </div>
     <div class="flip-card">
-      <div class="flip-card-container"
-        (click)="toggleFlip2()"
-        [@flipState]="flip2">
+      <div class="flip-card-container">
         <div class="flip-card-side flip-card-side-front"
           [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
           <img src="/assets/images/person-avatar1.jpg"
@@ -121,9 +117,7 @@
       </div>
     </div>
     <div class="flip-card">
-      <div class="flip-card-container"
-        (click)="toggleFlip3()"
-        [@flipState]="flip3">
+      <div class="flip-card-container">
         <div class="flip-card-side flip-card-side-front"
           [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
           <img src="/assets/images/person-avatar1.jpg"
@@ -163,12 +157,10 @@
       </span>
     </div>
     <div class="Logo-Image">
-      <span>
-        <img [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
-          [src]="(isDarkMode$ | async) ? darklogo : lightlogo"
-          title=""
-          (click)="updateLogo()" />
-      </span>
+      <img [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }"
+        [src]="(isDarkMode$ | async) ? darklogo : lightlogo"
+        title=""
+        (click)="updateLogo()" />
       <span class="Logo-description"
         [ngClass]="{ 'dark-mode': (isDarkMode$ | async) }">
         <p>
