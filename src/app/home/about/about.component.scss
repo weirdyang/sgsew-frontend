@@ -1,0 +1,347 @@
+
+@mixin transparent_bg(
+  $bg_image,
+  $overlay_opacity: "",
+  $overlay_color: "",
+  $minHeight
+) {
+  background: -webkit-linear-gradient(
+      left,
+      rgba($overlay_color, $overlay_opacity),
+      rgba($overlay_color, $overlay_opacity)
+    ),
+    url($bg_image) no-repeat;
+  min-height: $minHeight;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  border-bottom: 0.1px solid black;
+  margin: 1;
+  overflow: hidden;
+}
+
+.header {
+  @include transparent_bg(
+    "/assets/images/shadow.jpg",
+    0.25,
+    rgba(241, 241, 241, 0.9),
+    350px
+  ); //  black overlay with 40% opacity
+  background-size: cover; // can use any regular css properties to style background
+  display: grid;
+
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/shadow.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      350px
+    );
+  }
+}
+
+.header-content {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  padding: 1rem 1rem;
+  position: relative;
+}
+
+.Collab {
+  color: cyan;
+  text-transform: uppercase;
+}
+
+.Shedding-light {
+  text-transform: uppercase;
+}
+
+.underline {
+  width: 30%;
+  margin-left: 0px;
+}
+
+.underline-middle {
+  width: 20%;
+  margin-left: 0px;
+}
+
+.background {
+  @include transparent_bg(
+    "/assets/images/Building1.jpg",
+    0.25,
+    rgba(241, 241, 241, 0.8),
+    500px
+  ); //  black overlay with 40% opacity
+  background-size: cover; // can use any regular css properties to style background
+  display: grid;
+
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/Building1.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      500px
+    );
+  }
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.background-container {
+  display: grid;
+  grid-column: 1 / 13;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.background-description {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  .Our-Origins {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    margin: 0 1rem;
+    padding: 2rem 1rem;
+    position: relative;
+    .background-text {
+      &.dark-mode {
+        background-color: rgba(26, 29, 37, 0.15);
+        color: white;
+      }
+      background-color: rgba(241, 241, 241, 0.3);
+      text-align: justify;
+      line-height: 20px;
+      margin-bottom: 0px;
+      padding: 20px;
+      color: black;
+    }
+  }
+}
+
+.Team {
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/office-computer-desks.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      500px
+    );
+  }
+  @include transparent_bg(
+    "/assets/images/office-computer-desks.jpg",
+    0.25,
+    rgba(241, 241, 241, 0.8),
+    500px
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Our-Team {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0 1rem;
+  padding: 1rem 1rem;
+  position: relative;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.Team-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  height: 100%;
+  width:100%;
+  place-items: center;
+}
+
+  .flip-card {
+    margin: 10px;
+    position: relative;
+    -webkit-perspective: 800px;
+    perspective: 800px;
+    min-width: 100%;
+
+  }
+
+  .flip-card-container {
+    position: relative;
+    width: 300px;
+    height: 400px;
+
+  margin: 3rem auto;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: transform 1s;
+  -ms-transform: transform 1s;
+  transform: transform 1s;
+}
+
+  .flip-card-side {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 5px;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .flip-card:hover .flip-card-side-front {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+  }
+  .flip-card:hover .flip-card-side-back {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+  }
+
+@mixin flip-card(){
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 400px;
+	padding: 2rem;
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transition: -webkit-transform 0.3s;
+	transition: transform 0.3s;
+	justify-content: flex-end;
+  
+}
+  .flip-card-side-front {
+    &.dark-mode {
+      background: rgba(177, 123, 7, 0.9);
+    }
+      background: rgba(9, 127, 206, 0.788);
+    @include flip-card();
+    .name {
+      display: inline-block;
+      font-size: 18px;
+    }
+    .contact {
+      height: 40%;
+      border: 5px solid white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  }
+  .flip-card-side-back {
+
+    @include flip-card();
+    background: rgba(98, 8, 216, 0.678);
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    .contact {
+      height: 40%;
+      border: 5px solid white;
+      border-radius: 50%;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  }
+
+.Logo {
+  @include transparent_bg(
+    "/assets/images/Building.jpg",
+    0.4,
+    rgba(241, 241, 241, 0.8),
+    500px
+  );
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 1rem 0 1rem;
+
+  &.dark-mode {
+    @include transparent_bg(
+      "/assets/images/Building.jpg",
+      0.5,
+      rgba(26, 29, 37, 0.8),
+      500px
+    );
+  }
+
+  .Logo-Title {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    margin: 0 1rem;
+    padding: 1rem 1rem;
+    position: relative;
+    grid-column: 1 / 13;
+
+    img {
+      border-radius: 4px;
+      padding: 5px;
+      width: 150px;
+    }
+  }
+
+  .Logo-Image {
+    max-width: 75vw;
+    height: 100%;
+    display: flex;
+    margin: auto;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+    img {
+      &.dark-mode {
+        background-color: rgba(241, 241, 241, 0.5);
+        border: 1px solid black;
+      }
+      display: block;
+      margin-left: auto;
+margin-right: auto;
+      cursor: pointer;
+      background: rgba(241, 241, 241, 0.5);
+      border: 1px solid white;
+      border-radius: 4px;
+      width: 500px;
+
+      @media screen and (max-width: 525px) {
+        width: 75vw;
+      }
+    }
+    .Logo-description {
+      background-color: rgba(241, 241, 241, 0.3);
+      line-height: 20px;
+      margin-bottom: 0px;
+      padding: 20px;
+      color: black;
+      &.dark-mode {
+        background-color: rgba(26, 29, 37, 0.2);
+        color: white;
+      }
+    }
+  }
+}
+
+.footer {
+  margin-top: auto;
+}
