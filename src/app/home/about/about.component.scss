@@ -228,11 +228,13 @@
 	-webkit-transition: -webkit-transform 0.3s;
 	transition: transform 0.3s;
 	justify-content: flex-end;
+  
 }
   .flip-card-side-front {
     &.dark-mode {
       background: rgba(177, 123, 7, 0.9);
     }
+      background: rgba(9, 127, 206, 0.788);
     @include flip-card();
     .name {
       display: inline-block;
