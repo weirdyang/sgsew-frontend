@@ -11,6 +11,17 @@
 }
 :host-context(.light){
   --opacity: 0.2;
+  .hm-section-content {
+    width: 100%;
+    margin: 0;
+    background:linear-gradient(to bottom, rgba(red, 0.5), transparent);
+    background-origin: padding-box;
+
+    .underline {
+      display: none;
+    }
+
+  }
 }
 .main-color {
   color: var(--main-color);
@@ -25,8 +36,7 @@
 #lead {
   right: 0;
   bottom: 0;
-  width: auto;
-  min-width: 100%;
+
   height: 100vh;
   min-height: 100%;
   background: rgba(26, 29, 37,var(--opacity));
@@ -36,15 +46,14 @@
 #services {
   right: 0;
   bottom: 0;
-  width: auto;
-  min-width: 100%;
   height: auto;
   background: hsla(var(--main-sat), 100%, 50%, var(--opacity));
 }
 @mixin image-bg($imageUrl, $minHeight) {
   width: 100%;
   min-height: $minHeight;
-  background: url($imageUrl) center center;
+  background: $imageUrl;
+  background-position: center center;
   background-size: cover;
   opacity: 1;
   width: 100%;
@@ -56,24 +65,24 @@
 }
 
 .hm {
-  &-lead {
+  --bg-image: url('/assets/images/comp-store.jpg');
+  &-lead,
+  &-services {
     @include image-bg(
-      "/assets/images/comp-store.jpg",
+      var(--bg-image),
       450px
     );
     display: grid;
   }
+  &-lead {
+    --bg-image: url(/assets/images/comp-store.jpg);
+  }
   &-services {
-    @include image-bg(
-      "/assets/images/comp-build.jpg",
-      450px
-    );
-    display: grid;
+    --bg-image: url(/assets/images/comp-build.jpg);
     &-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       place-items: center;
-      height: 100%;
       width: 100%;
       border: 1px solid black;
       .services-card {
@@ -120,14 +129,9 @@
   }
   &-section {
     &-content {
-      width: 100%;
-      height: 100%;
       display: grid;
-      margin: 0 1rem;
       padding: 1rem 1rem;
     }
-    width: 100%;
-    //height: 100vh;
     background: var(--main-color);
     display: grid;
     place-items: center;
