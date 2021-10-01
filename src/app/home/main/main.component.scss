@@ -11,6 +11,17 @@
 }
 :host-context(.light){
   --opacity: 0.2;
+  .hm-section-content {
+    width: 100%;
+    margin: 0;
+    background:linear-gradient(to bottom, rgba(red, 0.5), transparent);
+    background-origin: padding-box;
+
+    .underline {
+      display: none;
+    }
+
+  }
 }
 .main-color {
   color: var(--main-color);
@@ -25,8 +36,7 @@
 #lead {
   right: 0;
   bottom: 0;
-  width: auto;
-  min-width: 100%;
+
   height: 100vh;
   min-height: 100%;
   background: rgba(26, 29, 37,var(--opacity));
@@ -36,8 +46,6 @@
 #services {
   right: 0;
   bottom: 0;
-  width: auto;
-  min-width: 100%;
   height: auto;
   background: hsla(var(--main-sat), 100%, 50%, var(--opacity));
 }
@@ -75,7 +83,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       place-items: center;
-      height: 100%;
       width: 100%;
       border: 1px solid black;
       .services-card {
@@ -122,14 +129,9 @@
   }
   &-section {
     &-content {
-      width: 100%;
-      height: 100%;
       display: grid;
-      margin: 0 1rem;
       padding: 1rem 1rem;
     }
-    width: 100%;
-    //height: 100vh;
     background: var(--main-color);
     display: grid;
     place-items: center;
