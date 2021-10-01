@@ -44,7 +44,8 @@
 @mixin image-bg($imageUrl, $minHeight) {
   width: 100%;
   min-height: $minHeight;
-  background: url($imageUrl) center center;
+  background: $imageUrl;
+  background-position: center center;
   background-size: cover;
   opacity: 1;
   width: 100%;
@@ -56,19 +57,20 @@
 }
 
 .hm {
-  &-lead {
+  --bg-image: url('/assets/images/comp-store.jpg');
+  &-lead,
+  &-services {
     @include image-bg(
-      "/assets/images/comp-store.jpg",
+      var(--bg-image),
       450px
     );
     display: grid;
   }
+  &-lead {
+    --bg-image: url(/assets/images/comp-store.jpg);
+  }
   &-services {
-    @include image-bg(
-      "/assets/images/comp-build.jpg",
-      450px
-    );
-    display: grid;
+    --bg-image: url(/assets/images/comp-build.jpg);
     &-cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
