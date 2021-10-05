@@ -1,6 +1,7 @@
 <ng-container>
   <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #drawer
+      [autoFocus]="false"
       class="sidenav"
       fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
@@ -23,18 +24,16 @@
           routerLink="/home/contact">
           Contact Us
         </a>
-      </mat-nav-list>
-      <mat-nav-list *ngIf="isAuthenticated">
-        <a matLine
+        <a *ngIf="isAuthenticated"
+          matLine
           mat-list-item
           routerLink="/products/create">
           Create new product
         </a>
-      </mat-nav-list>
-      <mat-nav-list *ngIf="isAuthenticated && isAdmin">
         <a matLine
           mat-list-item
-          routerLink="/users/list">
+          routerLink="/users/list"
+          *ngIf="isAuthenticated && isAdmin">
           Manage users
         </a>
       </mat-nav-list>
